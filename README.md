@@ -11,6 +11,14 @@ Simple starter for iOS app.
 - commit small, push often
 
 ## Build
+
+## Documentation
+- See `docs/PLAN.md` for the V0.001 plan
+- See `docs/FEATURES.md` for the feature backlog
+- See `docs/SETUP_IOS.md` to build to iPhone
+- See `docs/MULTI_COMPUTER_GIT.md` for working from multiple Macs
+- See `docs/DOCKER_MCP_NOTES.md` for Docker/MCP notes
+
 Open the Xcode project in `ios/` when ready.
 
 
