@@ -8,7 +8,6 @@ build/
 *.ipa
 # CocoaPods
 Pods/
-Podfile.lock
 # SwiftPM
 .swiftpm/
 .build/
