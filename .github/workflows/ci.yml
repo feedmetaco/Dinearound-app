@@ -1,0 +1,10 @@
+name: ci
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Placeholder build step
+        run: echo 'Add xcodebuild steps later'
+

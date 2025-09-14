@@ -1,0 +1,24 @@
+# Xcode/Swift ignores
+DerivedData/
+*.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings
+*.xcuserstate
+*.xcuserdatad
+build/
+*.xcarchive
+*.ipa
+# CocoaPods
+Pods/
+Podfile.lock
+# SwiftPM
+.swiftpm/
+.build/
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+# Other
+.DS_Store
+.env
+APISecret.key
+
