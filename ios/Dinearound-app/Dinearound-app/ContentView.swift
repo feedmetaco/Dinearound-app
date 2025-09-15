@@ -74,8 +74,7 @@ private struct WishlistTab: View {
     var body: some View {
         NavigationStack {
             List {
-                ForEach(wishlist, id: \.
-self) { item in
+                ForEach(wishlist, id: \.self) { item in
                     Text(item)
                 }
                 .onDelete { indices in
