@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DineAround - Your Food Memory Journal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #fafafa;
+            color: #1f2937;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 1rem 1.5rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #10b981;
+            text-decoration: none;
+        }
+
+        .search-bar {
+            flex: 1;
+            max-width: 500px;
+            margin: 0 2rem;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 0.625rem 1rem;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 0.9375rem;
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            border-color: #10b981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #10b981;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* Navigation Tabs */
+        .nav-tabs {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            position: fixed;
+            top: 64px;
+            left: 0;
+            right: 0;
+            z-index: 99;
+            display: flex;
+            justify-content: center;
+            padding: 0 1.5rem;
+        }
+
+        .nav-tabs button {
+            background: none;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: #6b7280;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .nav-tabs button:hover {
+            color: #1f2937;
+        }
+
+        .nav-tabs button.active {
+            color: #10b981;
+            border-bottom-color: #10b981;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 128px; /* Header + Nav height */
+            padding: 1.5rem;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Nearby Tab */
+        .nearby-container {
+            display: grid;
+            grid-template-rows: 400px 1fr;
+            gap: 1.5rem;
+        }
+
+        .map-container {
+            background: #e5e7eb;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6b7280;
+            font-size: 0.9375rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .map-placeholder {
+            text-align: center;
+        }
+
+        .filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            background: white;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-btn:hover {
+            border-color: #10b981;
+            color: #10b981;
+        }
+
+        .restaurant-list {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .restaurant-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.25rem;
+            display: flex;
+            gap: 1rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .restaurant-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transform: translateY(-2px);
+        }
+
+        .restaurant-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            background: #e5e7eb;
+            flex-shrink: 0;
+        }
+
+        .restaurant-info {
+            flex: 1;
+        }
+
+        .restaurant-name {
+            font-weight: 600;
+            font-size: 1.0625rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .restaurant-meta {
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-bottom: 0.5rem;
+        }
+
+        .restaurant-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            padding: 0.25rem 0.625rem;
+            background: #f3f4f6;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            color: #6b7280;
+        }
+
+        /* Log Tab */
+        .log-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.9375rem;
+        }
+
+        .form-input,
+        .form-textarea,
+        .form-select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 0.9375rem;
+            font-family: inherit;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: #10b981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .rating-input {
+            display: flex;
+            gap: 0.5rem;
+            font-size: 2rem;
+        }
+
+        .star {
+            cursor: pointer;
+            color: #d1d5db;
+            transition: color 0.2s;
+        }
+
+        .star:hover,
+        .star.filled {
+            color: #f59e0b;
+        }
+
+        .photo-upload {
+            border: 2px dashed #d1d5db;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .photo-upload:hover {
+            border-color: #10b981;
+            background: #f0fdf4;
+        }
+
+        .photo-upload-icon {
+            font-size: 3rem;
+            color: #9ca3af;
+            margin-bottom: 0.5rem;
+        }
+
+        .btn-primary {
+            background: #10b981;
+            color: white;
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.2s;
+        }
+
+        .btn-primary:hover {
+            background: #059669;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        /* Wishlist Tab */
+        .wishlist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .wishlist-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .wishlist-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transform: translateY(-2px);
+        }
+
+        .wishlist-img {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+
+        .wishlist-content {
+            padding: 1.25rem;
+        }
+
+        .wishlist-name {
+            font-weight: 600;
+            font-size: 1.125rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .wishlist-distance {
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-bottom: 0.75rem;
+        }
+
+        .delete-btn {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            color: #ef4444;
+            opacity: 0;
+            transition: all 0.2s;
+        }
+
+        .wishlist-card:hover .delete-btn {
+            opacity: 1;
+        }
+
+        .add-wishlist-btn {
+            background: white;
+            border: 2px dashed #10b981;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 280px;
+        }
+
+        .add-wishlist-btn:hover {
+            background: #f0fdf4;
+            border-color: #059669;
+        }
+
+        .add-icon {
+            font-size: 3rem;
+            color: #10b981;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Mobile Bottom Nav */
+        .bottom-nav {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 1px solid #e5e7eb;
+            padding: 0.75rem 0;
+            z-index: 100;
+        }
+
+        .bottom-nav-items {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .bottom-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+            background: none;
+            border: none;
+            color: #6b7280;
+            font-size: 0.75rem;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+        }
+
+        .bottom-nav-item.active {
+            color: #10b981;
+        }
+
+        .bottom-nav-icon {
+            font-size: 1.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .search-bar {
+                display: none;
+            }
+
+            .nav-tabs {
+                display: none;
+            }
+
+            .bottom-nav {
+                display: block;
+            }
+
+            .main-content {
+                margin-top: 64px;
+                margin-bottom: 80px;
+                padding: 1rem;
+            }
+
+            .nearby-container {
+                grid-template-rows: 300px 1fr;
+            }
+
+            .wishlist-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .log-form {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 1rem;
+            }
+
+            .logo {
+                font-size: 1.25rem;
+            }
+
+            .nearby-container {
+                grid-template-rows: 250px 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <a href="#" class="logo">DineAround</a>
+        <div class="search-bar">
+            <input type="search" placeholder="Search restaurants, cuisines, or tags..." aria-label="Search">
+        </div>
+        <div class="user-menu">
+            <div class="avatar">JS</div>
+        </div>
+    </header>
+
+    <!-- Desktop Navigation -->
+    <nav class="nav-tabs">
+        <button class="active" onclick="switchTab('nearby')">Nearby</button>
+        <button onclick="switchTab('log')">Log Visit</button>
+        <button onclick="switchTab('wishlist')">Wishlist</button>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Nearby Tab -->
+        <div id="nearby" class="tab-content active">
+            <div class="nearby-container">
+                <div class="map-container">
+                    <div class="map-placeholder">
+                        <div style="font-size: 3rem; margin-bottom: 0.5rem;">📍</div>
+                        <p>Map will display nearby restaurants</p>
+                        <p style="font-size: 0.875rem; color: #9ca3af; margin-top: 0.5rem;">Google Maps integration shows pins, user location, and info windows</p>
+                    </div>
+                </div>
+                <div>
+                    <div class="filters">
+                        <button class="filter-btn">All Cuisines</button>
+                        <button class="filter-btn">Italian</button>
+                        <button class="filter-btn">Asian</button>
+                        <button class="filter-btn">Under 1 mi</button>
+                        <button class="filter-btn">$$</button>
+                    </div>
+                    <div class="restaurant-list">
+                        <div class="restaurant-card">
+                            <div class="restaurant-img" style="background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);"></div>
+                            <div class="restaurant-info">
+                                <div class="restaurant-name">Pasta Paradise</div>
+                                <div class="restaurant-meta">Italian • $$ • 0.4 mi away • ⭐ 4.5</div>
+                                <div class="restaurant-tags">
+                                    <span class="tag">Casual</span>
+                                    <span class="tag">Outdoor seating</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="restaurant-card">
+                            <div class="restaurant-img" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);"></div>
+                            <div class="restaurant-info">
+                                <div class="restaurant-name">Ramen House</div>
+                                <div class="restaurant-meta">Japanese • $ • 0.7 mi away • ⭐ 4.8</div>
+                                <div class="restaurant-tags">
+                                    <span class="tag">Quick service</span>
+                                    <span class="tag">Authentic</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="restaurant-card">
+                            <div class="restaurant-img" style="background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);"></div>
+                            <div class="restaurant-info">
+                                <div class="restaurant-name">The Garden Bistro</div>
+                                <div class="restaurant-meta">French • $$$ • 1.2 mi away • ⭐ 4.6</div>
+                                <div class="restaurant-tags">
+                                    <span class="tag">Romantic</span>
+                                    <span class="tag">Fine dining</span>
+                                    <span class="tag">Reservations</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Log Tab -->
+        <div id="log" class="tab-content">
+            <form class="log-form">
+                <h2 style="margin-bottom: 1.5rem; font-size: 1.5rem;">Log a Visit</h2>
+
+                <div class="form-group">
+                    <label class="form-label" for="restaurant">Restaurant</label>
+                    <input type="text" id="restaurant" class="form-input" placeholder="Search or enter restaurant name..." required>
+                    <p style="font-size: 0.875rem; color: #6b7280; margin-top: 0.5rem;">Autocomplete powered by Google Places API</p>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="visit-date">Visit Date</label>
+                    <input type="date" id="visit-date" class="form-input" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Overall Rating</label>
+                    <div class="rating-input">
+                        <span class="star" onclick="rate(1)">☆</span>
+                        <span class="star" onclick="rate(2)">☆</span>
+                        <span class="star" onclick="rate(3)">☆</span>
+                        <span class="star" onclick="rate(4)">☆</span>
+                        <span class="star" onclick="rate(5)">☆</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="notes">Notes</label>
+                    <textarea id="notes" class="form-textarea" placeholder="What did you order? How was the experience?"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Photos</label>
+                    <div class="photo-upload" onclick="document.getElementById('file-input').click()">
+                        <input type="file" id="file-input" accept="image/*" multiple style="display: none;">
+                        <div class="photo-upload-icon">📸</div>
+                        <p>Click to upload photos or drag and drop</p>
+                        <p style="font-size: 0.875rem; color: #6b7280; margin-top: 0.5rem;">Up to 5 photos (JPG, PNG, WebP)</p>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary">Save Visit</button>
+            </form>
+        </div>
+
+        <!-- Wishlist Tab -->
+        <div id="wishlist" class="tab-content">
+            <h2 style="margin-bottom: 1.5rem; font-size: 1.5rem;">My Wishlist</h2>
+            <div class="wishlist-grid">
+                <div class="wishlist-card">
+                    <button class="delete-btn" aria-label="Remove from wishlist">×</button>
+                    <div class="wishlist-img" style="background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);"></div>
+                    <div class="wishlist-content">
+                        <div class="wishlist-name">Sushi Masters</div>
+                        <div class="wishlist-distance">2.3 mi away</div>
+                        <div class="restaurant-tags">
+                            <span class="tag">Japanese</span>
+                            <span class="tag">Omakase</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="wishlist-card">
+                    <button class="delete-btn" aria-label="Remove from wishlist">×</button>
+                    <div class="wishlist-img" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);"></div>
+                    <div class="wishlist-content">
+                        <div class="wishlist-name">La Pizzeria</div>
+                        <div class="wishlist-distance">1.8 mi away</div>
+                        <div class="restaurant-tags">
+                            <span class="tag">Italian</span>
+                            <span class="tag">Wood-fired</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="wishlist-card">
+                    <button class="delete-btn" aria-label="Remove from wishlist">×</button>
+                    <div class="wishlist-img" style="background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);"></div>
+                    <div class="wishlist-content">
+                        <div class="wishlist-name">Spice Route</div>
+                        <div class="wishlist-distance">3.1 mi away</div>
+                        <div class="restaurant-tags">
+                            <span class="tag">Indian</span>
+                            <span class="tag">Halal</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="add-wishlist-btn">
+                    <div class="add-icon">+</div>
+                    <p style="font-weight: 600; color: #10b981;">Add Restaurant</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Mobile Bottom Navigation -->
+    <nav class="bottom-nav">
+        <div class="bottom-nav-items">
+            <button class="bottom-nav-item active" onclick="switchTab('nearby')">
+                <span class="bottom-nav-icon">📍</span>
+                <span>Nearby</span>
+            </button>
+            <button class="bottom-nav-item" onclick="switchTab('log')">
+                <span class="bottom-nav-icon">📝</span>
+                <span>Log</span>
+            </button>
+            <button class="bottom-nav-item" onclick="switchTab('wishlist')">
+                <span class="bottom-nav-icon">⭐</span>
+                <span>Wishlist</span>
+            </button>
+        </div>
+    </nav>
+
+    <script>
+        function switchTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+
+            // Update desktop nav
+            document.querySelectorAll('.nav-tabs button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`.nav-tabs button[onclick="switchTab('${tabName}')"]`)?.classList.add('active');
+
+            // Update mobile nav
+            document.querySelectorAll('.bottom-nav-item').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`.bottom-nav-item[onclick="switchTab('${tabName}')"]`)?.classList.add('active');
+        }
+
+        function rate(stars) {
+            document.querySelectorAll('.star').forEach((star, index) => {
+                if (index < stars) {
+                    star.textContent = '★';
+                    star.classList.add('filled');
+                } else {
+                    star.textContent = '☆';
+                    star.classList.remove('filled');
+                }
+            });
+        }
+
+        // Prevent form submission (demo only)
+        document.querySelector('.log-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Visit logged! (Demo only)\n\nIn production:\n- Photo uploads to Cloudflare R2\n- Data saves to Supabase PostgreSQL\n- Success toast appears\n- Redirects to visit detail page');
+        });
+
+        // Simulate file upload feedback
+        document.getElementById('file-input').addEventListener('change', (e) => {
+            const files = e.target.files;
+            if (files.length > 0) {
+                alert(`${files.length} photo(s) selected\n\nIn production:\n- Client-side compression to WebP\n- Upload to Cloudflare R2 with progress bar\n- Thumbnail generation`);
+            }
+        });
+    </script>
+</body>
+</html>
