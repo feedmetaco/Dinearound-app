@@ -69,49 +69,49 @@ export function VisitForm({ initialRestaurant = '', onSuccess }: VisitFormProps)
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 rounded-3xl border-2 border-[#FFD23F]/30 bg-white p-6 shadow-xl dark:border-[#FFD23F]/20 dark:bg-[#262626]">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 rounded-3xl border-2 border-[#E8D5BC]/40 bg-[#FAF8F5] p-6 shadow-xl dark:border-[#524D47]/40 dark:bg-[#3D3935]">
       {error && (
-        <div className="rounded-2xl bg-[#EF476F]/10 border-2 border-[#EF476F]/30 p-4 text-sm font-medium text-[#EF476F] dark:bg-[#EF476F]/20">
+        <div className="rounded-2xl bg-[#D69B9B]/15 border-2 border-[#D69B9B]/40 p-4 text-sm font-medium text-[#C08F84] dark:bg-[#D69B9B]/25">
           {error}
         </div>
       )}
 
       <div>
-        <label htmlFor="restaurantName" className="block text-sm font-bold text-[#1A1A1A] dark:text-[#FFF8F0]">
+        <label htmlFor="restaurantName" className="block text-sm font-bold text-[#3D3935] dark:text-[#F2EFE9]">
           Restaurant Name *
         </label>
         <input
           id="restaurantName"
           {...register('restaurantName')}
-          className="mt-2 block w-full rounded-2xl border-2 border-[#E5E5E5] bg-[#FAFAFA] px-4 py-3 text-base font-medium text-[#1A1A1A] shadow-sm transition-all focus:border-[#FFD23F] focus:outline-none focus:ring-4 focus:ring-[#FFD23F]/20 dark:border-[#404040] dark:bg-[#171717] dark:text-white"
+          className="mt-2 block w-full rounded-2xl border-2 border-[#E6E1D8] bg-[#FAF8F5] px-4 py-3 text-base font-medium text-[#3D3935] shadow-sm transition-all focus:border-[#D4A59A] focus:outline-none focus:ring-4 focus:ring-[#D4A59A]/20 dark:border-[#524D47] dark:bg-[#2A2621] dark:text-white"
           placeholder="Enter restaurant name"
         />
         {errors.restaurantName && (
-          <p className="mt-2 text-sm font-medium text-[#EF476F]">
+          <p className="mt-2 text-sm font-medium text-[#D69B9B]">
             {errors.restaurantName.message}
           </p>
         )}
       </div>
 
       <div>
-        <label htmlFor="visitDate" className="block text-sm font-bold text-[#1A1A1A] dark:text-[#FFF8F0]">
+        <label htmlFor="visitDate" className="block text-sm font-bold text-[#3D3935] dark:text-[#F2EFE9]">
           Visit Date *
         </label>
         <input
           id="visitDate"
           type="date"
           {...register('visitDate')}
-          className="mt-2 block w-full rounded-2xl border-2 border-[#E5E5E5] bg-[#FAFAFA] px-4 py-3 text-base font-medium text-[#1A1A1A] shadow-sm transition-all focus:border-[#FFD23F] focus:outline-none focus:ring-4 focus:ring-[#FFD23F]/20 dark:border-[#404040] dark:bg-[#171717] dark:text-white"
+          className="mt-2 block w-full rounded-2xl border-2 border-[#E6E1D8] bg-[#FAF8F5] px-4 py-3 text-base font-medium text-[#3D3935] shadow-sm transition-all focus:border-[#D4A59A] focus:outline-none focus:ring-4 focus:ring-[#D4A59A]/20 dark:border-[#524D47] dark:bg-[#2A2621] dark:text-white"
         />
         {errors.visitDate && (
-          <p className="mt-2 text-sm font-medium text-[#EF476F]">
+          <p className="mt-2 text-sm font-medium text-[#D69B9B]">
             {errors.visitDate.message}
           </p>
         )}
       </div>
 
       <div>
-        <label htmlFor="rating" className="block text-sm font-bold text-[#1A1A1A] dark:text-[#FFF8F0]">
+        <label htmlFor="rating" className="block text-sm font-bold text-[#3D3935] dark:text-[#F2EFE9]">
           Rating (1-5)
         </label>
         <input
@@ -120,24 +120,24 @@ export function VisitForm({ initialRestaurant = '', onSuccess }: VisitFormProps)
           min="1"
           max="5"
           {...register('rating', { valueAsNumber: true })}
-          className="mt-2 block w-full rounded-2xl border-2 border-[#E5E5E5] bg-[#FAFAFA] px-4 py-3 text-base font-medium text-[#1A1A1A] shadow-sm transition-all focus:border-[#FFD23F] focus:outline-none focus:ring-4 focus:ring-[#FFD23F]/20 dark:border-[#404040] dark:bg-[#171717] dark:text-white"
+          className="mt-2 block w-full rounded-2xl border-2 border-[#E6E1D8] bg-[#FAF8F5] px-4 py-3 text-base font-medium text-[#3D3935] shadow-sm transition-all focus:border-[#D4A59A] focus:outline-none focus:ring-4 focus:ring-[#D4A59A]/20 dark:border-[#524D47] dark:bg-[#2A2621] dark:text-white"
         />
         {errors.rating && (
-          <p className="mt-2 text-sm font-medium text-[#EF476F]">
+          <p className="mt-2 text-sm font-medium text-[#D69B9B]">
             {errors.rating.message}
           </p>
         )}
       </div>
 
       <div>
-        <label htmlFor="notes" className="block text-sm font-bold text-[#1A1A1A] dark:text-[#FFF8F0]">
+        <label htmlFor="notes" className="block text-sm font-bold text-[#3D3935] dark:text-[#F2EFE9]">
           Notes
         </label>
         <textarea
           id="notes"
           rows={4}
           {...register('notes')}
-          className="mt-2 block w-full rounded-2xl border-2 border-[#E5E5E5] bg-[#FAFAFA] px-4 py-3 text-base font-medium text-[#1A1A1A] shadow-sm transition-all focus:border-[#FFD23F] focus:outline-none focus:ring-4 focus:ring-[#FFD23F]/20 dark:border-[#404040] dark:bg-[#171717] dark:text-white"
+          className="mt-2 block w-full rounded-2xl border-2 border-[#E6E1D8] bg-[#FAF8F5] px-4 py-3 text-base font-medium text-[#3D3935] shadow-sm transition-all focus:border-[#D4A59A] focus:outline-none focus:ring-4 focus:ring-[#D4A59A]/20 dark:border-[#524D47] dark:bg-[#2A2621] dark:text-white"
           placeholder="What did you think about this restaurant?"
         />
       </div>
@@ -145,7 +145,7 @@ export function VisitForm({ initialRestaurant = '', onSuccess }: VisitFormProps)
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full rounded-2xl bg-gradient-to-r from-[#FFD23F] to-[#FF6B35] px-6 py-4 text-base font-bold text-white shadow-lg transition-all hover:shadow-xl hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full rounded-2xl bg-gradient-to-r from-[#D4A59A] to-[#C08F84] px-6 py-4 text-base font-bold text-white shadow-lg transition-all hover:shadow-xl hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {isSubmitting ? 'Saving...' : 'Save Visit'}
       </button>

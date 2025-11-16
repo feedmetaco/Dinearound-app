@@ -4,16 +4,16 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 const navItems = [
-  { href: '/app/nearby', label: 'Nearby', icon: '📍', gradient: 'from-[#FF6B35] to-[#EF476F]' },
-  { href: '/app/log', label: 'Log', icon: '📝', gradient: 'from-[#FFD23F] to-[#FF6B35]' },
-  { href: '/app/wishlist', label: 'Wishlist', icon: '⭐', gradient: 'from-[#06D6A0] to-[#FFD23F]' },
+  { href: '/app/nearby', label: 'Nearby', icon: '📍', gradient: 'from-[#D4A59A] to-[#C08F84]' },
+  { href: '/app/log', label: 'Log', icon: '📝', gradient: 'from-[#A8C4A5] to-[#D4A59A]' },
+  { href: '/app/wishlist', label: 'Wishlist', icon: '⭐', gradient: 'from-[#C5B8D8] to-[#E0D9EB]' },
 ];
 
 export function BottomNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 border-t-2 border-[#FFD23F]/30 bg-white/90 backdrop-blur-xl shadow-lg dark:border-[#FFD23F]/20 dark:bg-[#1A1A1A]/90 md:hidden">
+    <nav className="fixed bottom-0 left-0 right-0 z-50 border-t-2 border-[#E8D5BC]/40 bg-[#FAF8F5]/90 backdrop-blur-xl shadow-lg dark:border-[#524D47]/40 dark:bg-[#2A2621]/90 md:hidden">
       {/* iOS safe area bottom padding */}
       <div className="flex items-center justify-around px-2 pb-safe">
         {navItems.map((item) => {
@@ -27,15 +27,15 @@ export function BottomNav() {
               }`}
             >
               {isActive && (
-                <div className={`absolute inset-0 mx-2 rounded-2xl bg-gradient-to-r ${item.gradient} opacity-10`}></div>
+                <div className={`absolute inset-0 mx-2 rounded-2xl bg-gradient-to-r ${item.gradient} opacity-15`}></div>
               )}
               <span className={`text-2xl transition-transform ${isActive ? 'scale-110' : ''} active:scale-90`}>
                 {item.icon}
               </span>
               <span className={`text-xs font-bold transition-colors ${
                 isActive
-                  ? 'text-[#FF6B35] dark:text-[#FFD23F]'
-                  : 'text-[#A3A3A3] dark:text-[#737373]'
+                  ? 'text-[#D4A59A] dark:text-[#E5C4BA]'
+                  : 'text-[#A39D93] dark:text-[#6E6962]'
               }`}>
                 {item.label}
               </span>

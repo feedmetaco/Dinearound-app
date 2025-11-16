@@ -65,23 +65,23 @@ function SignupForm() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-[#06D6A0] via-[#FFD23F] to-[#FF6B35] px-4">
-      <div className="w-full max-w-md space-y-6 rounded-3xl bg-white/95 p-8 shadow-2xl backdrop-blur-sm dark:bg-[#262626]/95">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-[#A8C4A5] via-[#D4A59A] to-[#C5B8D8] px-4">
+      <div className="w-full max-w-md space-y-6 rounded-3xl bg-white/95 p-8 shadow-2xl backdrop-blur-sm dark:bg-[#3D3935]/95">
         <div className="text-center">
-          <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-[#06D6A0] to-[#FFD23F] shadow-lg">
+          <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-[#A8C4A5] to-[#8FB08C] shadow-lg">
             <span className="text-4xl">🍽️</span>
           </div>
-          <h1 className="bg-gradient-to-r from-[#06D6A0] to-[#FF6B35] bg-clip-text text-4xl font-black text-transparent">
+          <h1 className="bg-gradient-to-r from-[#A8C4A5] to-[#D4A59A] bg-clip-text text-4xl font-black text-transparent">
             Join DineAround
           </h1>
-          <p className="mt-2 text-sm font-medium text-[#737373] dark:text-[#D4D4D4]">
+          <p className="mt-2 text-sm font-medium text-[#6E6962] dark:text-[#D4CFC4]">
             Start tracking your favorite restaurants
           </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {error && (
-            <div className="rounded-2xl bg-[#EF476F]/10 border-2 border-[#EF476F]/30 p-4 text-sm font-medium text-[#E63861] dark:bg-[#EF476F]/20">
+            <div className="rounded-2xl bg-[#D69B9B]/15 border-2 border-[#D69B9B]/40 p-4 text-sm font-medium text-[#C08F84] dark:bg-[#D69B9B]/25">
               {error}
             </div>
           )}
@@ -89,7 +89,7 @@ function SignupForm() {
           <div>
             <label
               htmlFor="email"
-              className="block text-sm font-bold text-[#1A1A1A] dark:text-[#FFF8F0]"
+              className="block text-sm font-bold text-[#3D3935] dark:text-[#F2EFE9]"
             >
               Email
             </label>
@@ -99,7 +99,7 @@ function SignupForm() {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="mt-2 block w-full rounded-2xl border-2 border-[#E5E5E5] bg-[#FAFAFA] px-4 py-3 text-base font-medium text-[#1A1A1A] shadow-sm transition-all focus:border-[#06D6A0] focus:outline-none focus:ring-4 focus:ring-[#06D6A0]/20 dark:border-[#404040] dark:bg-[#262626] dark:text-white"
+              className="mt-2 block w-full rounded-2xl border-2 border-[#E6E1D8] bg-[#FAF8F5] px-4 py-3 text-base font-medium text-[#3D3935] shadow-sm transition-all focus:border-[#A8C4A5] focus:outline-none focus:ring-4 focus:ring-[#A8C4A5]/20 dark:border-[#524D47] dark:bg-[#2A2621] dark:text-white"
               placeholder="you@example.com"
             />
           </div>
@@ -107,7 +107,7 @@ function SignupForm() {
           <div>
             <label
               htmlFor="password"
-              className="block text-sm font-bold text-[#1A1A1A] dark:text-[#FFF8F0]"
+              className="block text-sm font-bold text-[#3D3935] dark:text-[#F2EFE9]"
             >
               Password
             </label>
@@ -118,7 +118,7 @@ function SignupForm() {
               minLength={6}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="mt-2 block w-full rounded-2xl border-2 border-[#E5E5E5] bg-[#FAFAFA] px-4 py-3 text-base font-medium text-[#1A1A1A] shadow-sm transition-all focus:border-[#06D6A0] focus:outline-none focus:ring-4 focus:ring-[#06D6A0]/20 dark:border-[#404040] dark:bg-[#262626] dark:text-white"
+              className="mt-2 block w-full rounded-2xl border-2 border-[#E6E1D8] bg-[#FAF8F5] px-4 py-3 text-base font-medium text-[#3D3935] shadow-sm transition-all focus:border-[#A8C4A5] focus:outline-none focus:ring-4 focus:ring-[#A8C4A5]/20 dark:border-[#524D47] dark:bg-[#2A2621] dark:text-white"
               placeholder="At least 6 characters"
             />
           </div>
@@ -126,7 +126,7 @@ function SignupForm() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full rounded-2xl bg-gradient-to-r from-[#06D6A0] to-[#FFD23F] px-6 py-4 text-base font-bold text-[#1A1A1A] shadow-lg transition-all hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full rounded-2xl bg-gradient-to-r from-[#A8C4A5] to-[#8FB08C] px-6 py-4 text-base font-bold text-white shadow-lg transition-all hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? 'Creating account...' : 'Sign up'}
           </button>
@@ -134,10 +134,10 @@ function SignupForm() {
 
         <div className="relative">
           <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t-2 border-[#E5E5E5] dark:border-[#404040]" />
+            <div className="w-full border-t-2 border-[#E6E1D8] dark:border-[#524D47]" />
           </div>
           <div className="relative flex justify-center text-sm">
-            <span className="bg-white px-3 font-bold text-[#A3A3A3] dark:bg-[#262626] dark:text-[#737373]">
+            <span className="bg-white px-3 font-bold text-[#A39D93] dark:bg-[#3D3935] dark:text-[#6E6962]">
               Or continue with
             </span>
           </div>
@@ -146,16 +146,16 @@ function SignupForm() {
         <button
           onClick={handleGoogleSignIn}
           disabled={loading}
-          className="w-full rounded-2xl border-2 border-[#E5E5E5] bg-white px-6 py-4 text-base font-bold text-[#1A1A1A] shadow-md transition-all hover:border-[#06D6A0] hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 dark:border-[#404040] dark:bg-[#171717] dark:text-white"
+          className="w-full rounded-2xl border-2 border-[#E6E1D8] bg-white px-6 py-4 text-base font-bold text-[#3D3935] shadow-md transition-all hover:border-[#A8C4A5] hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 dark:border-[#524D47] dark:bg-[#2A2621] dark:text-white"
         >
           Continue with Google
         </button>
 
-        <p className="text-center text-sm font-medium text-[#737373] dark:text-[#A3A3A3]">
+        <p className="text-center text-sm font-medium text-[#6E6962] dark:text-[#A39D93]">
           Already have an account?{' '}
           <Link
             href="/auth/login"
-            className="font-bold text-[#06D6A0] hover:text-[#05C090] hover:underline"
+            className="font-bold text-[#A8C4A5] hover:text-[#8FB08C] hover:underline"
           >
             Sign in
           </Link>

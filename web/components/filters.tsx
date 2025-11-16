@@ -23,7 +23,7 @@ export function Filters() {
       <select
         value={cuisine || ''}
         onChange={(e) => setCuisine(e.target.value || null)}
-        className="rounded-2xl border-2 border-[#FFD23F]/40 bg-white px-4 py-2.5 text-sm font-bold text-[#1A1A1A] shadow-md transition-all focus:border-[#FF6B35] focus:outline-none focus:ring-4 focus:ring-[#FF6B35]/20 hover:border-[#FF6B35] dark:border-[#FFD23F]/30 dark:bg-[#262626] dark:text-[#FFF8F0] dark:focus:border-[#FFD23F]"
+        className="rounded-2xl border-2 border-[#E8D5BC]/50 bg-[#FAF8F5] px-4 py-2.5 text-sm font-bold text-[#3D3935] shadow-md transition-all focus:border-[#D4A59A] focus:outline-none focus:ring-4 focus:ring-[#D4A59A]/20 hover:border-[#D4A59A] dark:border-[#524D47]/50 dark:bg-[#3D3935] dark:text-[#F2EFE9] dark:focus:border-[#D4A59A]"
       >
         <option value="">🍴 All Cuisines</option>
         {cuisines.map((c) => (
@@ -36,7 +36,7 @@ export function Filters() {
       <select
         value={priceLevel || ''}
         onChange={(e) => setPriceLevel(e.target.value ? Number(e.target.value) : null)}
-        className="rounded-2xl border-2 border-[#FFD23F]/40 bg-white px-4 py-2.5 text-sm font-bold text-[#1A1A1A] shadow-md transition-all focus:border-[#FF6B35] focus:outline-none focus:ring-4 focus:ring-[#FF6B35]/20 hover:border-[#FF6B35] dark:border-[#FFD23F]/30 dark:bg-[#262626] dark:text-[#FFF8F0] dark:focus:border-[#FFD23F]"
+        className="rounded-2xl border-2 border-[#E8D5BC]/50 bg-[#FAF8F5] px-4 py-2.5 text-sm font-bold text-[#3D3935] shadow-md transition-all focus:border-[#D4A59A] focus:outline-none focus:ring-4 focus:ring-[#D4A59A]/20 hover:border-[#D4A59A] dark:border-[#524D47]/50 dark:bg-[#3D3935] dark:text-[#F2EFE9] dark:focus:border-[#D4A59A]"
       >
         <option value="">💰 All Prices</option>
         <option value="1">$ - Budget</option>
@@ -48,7 +48,7 @@ export function Filters() {
       {(cuisine || priceLevel) && (
         <button
           onClick={reset}
-          className="rounded-2xl border-2 border-[#EF476F]/40 bg-white px-4 py-2.5 text-sm font-bold text-[#EF476F] shadow-md transition-all hover:bg-[#EF476F] hover:text-white hover:scale-105 active:scale-95 dark:border-[#EF476F]/30 dark:bg-[#262626] dark:hover:bg-[#EF476F]"
+          className="rounded-2xl border-2 border-[#D69B9B]/50 bg-[#FAF8F5] px-4 py-2.5 text-sm font-bold text-[#C08F84] shadow-md transition-all hover:bg-[#D69B9B] hover:text-white hover:scale-105 active:scale-95 dark:border-[#D69B9B]/40 dark:bg-[#3D3935] dark:hover:bg-[#D69B9B]"
         >
           ✕ Clear
         </button>
