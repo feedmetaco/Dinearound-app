@@ -45,35 +45,39 @@ export default function WishlistPage() {
   return (
     <div className="mx-auto max-w-7xl px-4 py-6 md:px-6">
       <div className="mb-6 flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-foreground">Wishlist</h2>
+        <h2 className="bg-gradient-to-r from-[#06D6A0] to-[#FFD23F] bg-clip-text text-3xl font-black text-transparent">Wishlist</h2>
         <button
           onClick={() => setShowAddForm(!showAddForm)}
-          className="rounded-md bg-foreground px-4 py-2 text-sm font-medium text-background transition-colors hover:bg-zinc-800 dark:hover:bg-zinc-200"
+          className="rounded-2xl bg-gradient-to-r from-[#06D6A0] to-[#FFD23F] px-5 py-2.5 text-sm font-bold text-white shadow-lg transition-all hover:shadow-xl hover:scale-105 active:scale-95"
         >
           {showAddForm ? 'Cancel' : '+ Add Restaurant'}
         </button>
       </div>
 
       {showAddForm && (
-        <div className="mb-6 rounded-lg border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
-          <p className="text-zinc-600 dark:text-zinc-400">
+        <div className="mb-6 rounded-3xl border-2 border-[#06D6A0]/30 bg-white p-6 shadow-lg dark:border-[#06D6A0]/20 dark:bg-[#262626]">
+          <p className="font-medium text-[#737373] dark:text-[#A3A3A3]">
             TODO: Add restaurant search form here
           </p>
         </div>
       )}
 
       {isLoading && (
-        <div className="text-center text-zinc-600 dark:text-zinc-400">Loading wishlist...</div>
+        <div className="flex flex-col items-center justify-center py-12">
+          <div className="mb-4 h-12 w-12 animate-spin rounded-full border-4 border-[#06D6A0]/30 border-t-[#06D6A0]"></div>
+          <p className="text-base font-bold text-[#06D6A0] dark:text-[#06D6A0]">Loading wishlist...</p>
+        </div>
       )}
 
       {wishlist && wishlist.length === 0 && (
-        <div className="rounded-lg border border-zinc-200 bg-zinc-50 p-8 text-center dark:border-zinc-800 dark:bg-zinc-900">
-          <p className="mb-4 text-zinc-600 dark:text-zinc-400">
+        <div className="rounded-3xl border-2 border-[#06D6A0]/30 bg-white p-10 text-center shadow-lg dark:border-[#06D6A0]/20 dark:bg-[#262626]">
+          <span className="mb-4 inline-block text-6xl">⭐</span>
+          <p className="mb-4 text-lg font-bold text-[#1A1A1A] dark:text-[#FFF8F0]">
             Your wishlist is empty. Add restaurants you want to visit!
           </p>
           <button
             onClick={() => setShowAddForm(true)}
-            className="rounded-md bg-foreground px-4 py-2 text-sm font-medium text-background transition-colors hover:bg-zinc-800 dark:hover:bg-zinc-200"
+            className="rounded-2xl bg-gradient-to-r from-[#06D6A0] to-[#FFD23F] px-6 py-3 text-base font-bold text-white shadow-lg transition-all hover:shadow-xl hover:scale-105 active:scale-95"
           >
             Add Your First Restaurant
           </button>
@@ -81,13 +85,13 @@ export default function WishlistPage() {
       )}
 
       {wishlist && wishlist.length > 0 && (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {wishlist.map((item) => (
             <div key={item.id} className="relative">
               <RestaurantCard restaurant={item.restaurant || { name: 'Unknown' }} />
               <button
                 onClick={() => removeMutation.mutate(item.id)}
-                className="absolute right-2 top-2 rounded-full bg-red-500 p-2 text-white transition-colors hover:bg-red-600"
+                className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-[#EF476F] text-xl font-bold text-white shadow-lg transition-all hover:bg-[#E63861] hover:scale-110 active:scale-90"
                 aria-label="Remove from wishlist"
               >
                 ×

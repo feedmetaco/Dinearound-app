@@ -23,9 +23,9 @@ export function Filters() {
       <select
         value={cuisine || ''}
         onChange={(e) => setCuisine(e.target.value || null)}
-        className="rounded-xl border-2 border-[#6a994e]/30 bg-white/70 px-4 py-2 text-sm font-medium text-[#386641] backdrop-blur-md transition-all focus:border-[#6a994e] focus:outline-none focus:ring-4 focus:ring-[#a7c957]/30 dark:border-[#6a994e]/40 dark:bg-[#386641]/20 dark:text-[#f2e8cf] dark:focus:border-[#a7c957]"
+        className="rounded-2xl border-2 border-[#FFD23F]/40 bg-white px-4 py-2.5 text-sm font-bold text-[#1A1A1A] shadow-md transition-all focus:border-[#FF6B35] focus:outline-none focus:ring-4 focus:ring-[#FF6B35]/20 hover:border-[#FF6B35] dark:border-[#FFD23F]/30 dark:bg-[#262626] dark:text-[#FFF8F0] dark:focus:border-[#FFD23F]"
       >
-        <option value="">All Cuisines</option>
+        <option value="">🍴 All Cuisines</option>
         {cuisines.map((c) => (
           <option key={c} value={c}>
             {c}
@@ -36,9 +36,9 @@ export function Filters() {
       <select
         value={priceLevel || ''}
         onChange={(e) => setPriceLevel(e.target.value ? Number(e.target.value) : null)}
-        className="rounded-xl border-2 border-[#6a994e]/30 bg-white/70 px-4 py-2 text-sm font-medium text-[#386641] backdrop-blur-md transition-all focus:border-[#6a994e] focus:outline-none focus:ring-4 focus:ring-[#a7c957]/30 dark:border-[#6a994e]/40 dark:bg-[#386641]/20 dark:text-[#f2e8cf] dark:focus:border-[#a7c957]"
+        className="rounded-2xl border-2 border-[#FFD23F]/40 bg-white px-4 py-2.5 text-sm font-bold text-[#1A1A1A] shadow-md transition-all focus:border-[#FF6B35] focus:outline-none focus:ring-4 focus:ring-[#FF6B35]/20 hover:border-[#FF6B35] dark:border-[#FFD23F]/30 dark:bg-[#262626] dark:text-[#FFF8F0] dark:focus:border-[#FFD23F]"
       >
-        <option value="">All Prices</option>
+        <option value="">💰 All Prices</option>
         <option value="1">$ - Budget</option>
         <option value="2">$$ - Moderate</option>
         <option value="3">$$$ - Pricey</option>
@@ -48,7 +48,7 @@ export function Filters() {
       {(cuisine || priceLevel) && (
         <button
           onClick={reset}
-          className="rounded-xl border-2 border-[#bc4749]/40 bg-white/70 px-4 py-2 text-sm font-medium text-[#bc4749] backdrop-blur-md transition-all hover:border-[#bc4749] hover:bg-[#bc4749]/10 dark:border-[#bc4749]/40 dark:bg-[#bc4749]/10 dark:text-[#bc4749] dark:hover:bg-[#bc4749]/20"
+          className="rounded-2xl border-2 border-[#EF476F]/40 bg-white px-4 py-2.5 text-sm font-bold text-[#EF476F] shadow-md transition-all hover:bg-[#EF476F] hover:text-white hover:scale-105 active:scale-95 dark:border-[#EF476F]/30 dark:bg-[#262626] dark:hover:bg-[#EF476F]"
         >
           ✕ Clear
         </button>

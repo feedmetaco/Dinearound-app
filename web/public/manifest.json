@@ -1,0 +1,63 @@
+{
+  "name": "DineAround - Restaurant Tracker",
+  "short_name": "DineAround",
+  "description": "Track and discover amazing restaurants near you",
+  "start_url": "/app/nearby",
+  "display": "standalone",
+  "background_color": "#FFF8F0",
+  "theme_color": "#FF6B35",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["food", "lifestyle"],
+  "shortcuts": [
+    {
+      "name": "Discover Nearby",
+      "short_name": "Nearby",
+      "description": "Find restaurants near you",
+      "url": "/app/nearby",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Log Visit",
+      "short_name": "Log",
+      "description": "Log a restaurant visit",
+      "url": "/app/log",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Wishlist",
+      "short_name": "Wishlist",
+      "description": "View your restaurant wishlist",
+      "url": "/app/wishlist",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
+}

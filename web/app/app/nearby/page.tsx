@@ -56,10 +56,10 @@ export default function NearbyPage() {
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 md:px-6">
       <div className="mb-8">
-        <h2 className="mb-2 bg-gradient-to-r from-[#386641] to-[#6a994e] bg-clip-text text-3xl font-black tracking-tight text-transparent">
+        <h2 className="mb-2 bg-gradient-to-r from-[#FF6B35] via-[#FFD23F] to-[#06D6A0] bg-clip-text text-4xl font-black tracking-tight text-transparent">
           Discover Restaurants
         </h2>
-        <p className="mb-6 text-[#6a994e] dark:text-[#a7c957]">
+        <p className="mb-6 text-base font-medium text-[#737373] dark:text-[#A3A3A3]">
           Find and explore amazing dining experiences near you
         </p>
         <RestaurantSearch
@@ -83,24 +83,24 @@ export default function NearbyPage() {
 
       {isLoading && (
         <div className="flex flex-col items-center justify-center py-16">
-          <div className="mb-4 h-12 w-12 animate-spin rounded-full border-4 border-[#a7c957]/30 border-t-[#386641] dark:border-[#6a994e]/30 dark:border-t-[#a7c957]"></div>
-          <p className="text-[#6a994e] dark:text-[#a7c957]">Finding restaurants...</p>
+          <div className="mb-4 h-16 w-16 animate-spin rounded-full border-4 border-[#FFD23F]/30 border-t-[#FF6B35]"></div>
+          <p className="text-base font-bold text-[#FF6B35] dark:text-[#FFD23F]">Finding restaurants...</p>
         </div>
       )}
 
       {error && (
-        <div className="rounded-2xl border-2 border-[#bc4749]/40 bg-[#bc4749]/10 p-6 backdrop-blur-md dark:border-[#bc4749]/30 dark:bg-[#bc4749]/20">
-          <p className="font-medium text-[#bc4749] dark:text-[#bc4749]">
+        <div className="rounded-3xl border-2 border-[#EF476F]/40 bg-[#EF476F]/10 p-6 shadow-lg dark:border-[#EF476F]/30 dark:bg-[#EF476F]/20">
+          <p className="font-bold text-[#EF476F] dark:text-[#EF476F]">
             ⚠️ Failed to load restaurants. Please try again.
           </p>
         </div>
       )}
 
       {restaurants && restaurants.length === 0 && !isLoading && (
-        <div className="flex flex-col items-center justify-center py-16 text-center">
+        <div className="flex flex-col items-center justify-center rounded-3xl border-2 border-[#FFD23F]/30 bg-white/50 py-16 text-center shadow-lg dark:border-[#FFD23F]/20 dark:bg-[#262626]/50">
           <span className="mb-4 text-6xl">🔍</span>
-          <p className="text-lg font-medium text-[#386641] dark:text-[#f2e8cf]">No restaurants found</p>
-          <p className="mt-2 text-sm text-[#6a994e] dark:text-[#a7c957]">Try a different search or location</p>
+          <p className="text-xl font-black text-[#1A1A1A] dark:text-[#FFF8F0]">No restaurants found</p>
+          <p className="mt-2 text-base font-medium text-[#737373] dark:text-[#A3A3A3]">Try a different search or location</p>
         </div>
       )}
 

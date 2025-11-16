@@ -35,12 +35,12 @@ export function RestaurantSearch({ value, onChange, onLocationRequest }: Restaur
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           placeholder="Search for restaurants..."
-          className="w-full rounded-2xl border-2 border-[#6a994e]/30 bg-white/70 px-4 py-3 pl-11 text-base shadow-md backdrop-blur-md transition-all focus:border-[#6a994e] focus:outline-none focus:ring-4 focus:ring-[#a7c957]/30 dark:border-[#6a994e]/40 dark:bg-[#386641]/20 dark:text-[#f2e8cf] dark:focus:border-[#a7c957] dark:focus:ring-[#a7c957]/20"
+          className="w-full rounded-2xl border-2 border-[#FFD23F]/40 bg-white px-4 py-4 pl-12 text-base font-medium text-[#1A1A1A] shadow-lg transition-all focus:border-[#FF6B35] focus:outline-none focus:ring-4 focus:ring-[#FF6B35]/20 dark:border-[#FFD23F]/30 dark:bg-[#262626] dark:text-[#FFF8F0] dark:focus:border-[#FFD23F]"
         />
-        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-lg">🔍</span>
+        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-xl">🔍</span>
         {!isFocused && (
           <div className="absolute right-4 top-1/2 -translate-y-1/2">
-            <kbd className="hidden rounded-lg border border-[#6a994e]/30 bg-[#f2e8cf]/80 px-2 py-1 text-xs font-semibold text-[#386641] shadow-sm backdrop-blur-sm dark:border-[#6a994e]/40 dark:bg-[#386641]/40 dark:text-[#a7c957] md:inline">
+            <kbd className="hidden rounded-lg border-2 border-[#FFD23F]/40 bg-gradient-to-r from-[#FFD23F]/20 to-[#FF6B35]/20 px-2.5 py-1 text-xs font-bold text-[#FF6B35] shadow-sm dark:border-[#FFD23F]/30 dark:from-[#FFD23F]/10 dark:to-[#FF6B35]/10 dark:text-[#FFD23F] md:inline">
               ⌘K
             </kbd>
           </div>
@@ -48,7 +48,7 @@ export function RestaurantSearch({ value, onChange, onLocationRequest }: Restaur
       </div>
       <button
         onClick={onLocationRequest}
-        className="mt-3 w-full rounded-2xl border-2 border-[#a7c957]/40 bg-gradient-to-r from-[#a7c957]/20 to-[#6a994e]/20 px-4 py-2.5 text-sm font-semibold text-[#386641] backdrop-blur-md transition-all hover:border-[#a7c957] hover:from-[#a7c957]/30 hover:to-[#6a994e]/30 dark:border-[#a7c957]/30 dark:from-[#a7c957]/10 dark:to-[#6a994e]/10 dark:text-[#a7c957] dark:hover:border-[#a7c957]/50"
+        className="mt-3 w-full rounded-2xl border-2 border-[#06D6A0]/40 bg-gradient-to-r from-[#06D6A0]/20 to-[#FFD23F]/20 px-4 py-3 text-sm font-bold text-[#06D6A0] shadow-md transition-all hover:border-[#06D6A0] hover:from-[#06D6A0]/30 hover:to-[#FFD23F]/30 hover:scale-105 active:scale-95 dark:border-[#06D6A0]/30 dark:from-[#06D6A0]/10 dark:to-[#FFD23F]/10 dark:text-[#06D6A0] dark:hover:border-[#06D6A0]/50"
       >
         📍 Use my location
       </button>

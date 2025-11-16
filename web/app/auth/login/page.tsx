@@ -57,23 +57,28 @@ function LoginForm() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 px-4 dark:bg-black">
-      <div className="w-full max-w-md space-y-8 rounded-lg bg-white p-8 shadow-sm dark:bg-zinc-900">
-        <div>
-          <h1 className="text-3xl font-bold text-foreground">Welcome back</h1>
-          <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-            Sign in to your DineAround account
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-[#FFD23F] via-[#FF6B35] to-[#EF476F] px-4">
+      <div className="w-full max-w-md space-y-6 rounded-3xl bg-white/95 p-8 shadow-2xl backdrop-blur-sm dark:bg-[#262626]/95">
+        <div className="text-center">
+          <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-[#FF6B35] to-[#EF476F] shadow-lg">
+            <span className="text-4xl">🍽️</span>
+          </div>
+          <h1 className="bg-gradient-to-r from-[#FF6B35] to-[#EF476F] bg-clip-text text-4xl font-black text-transparent">
+            Welcome back!
+          </h1>
+          <p className="mt-2 text-sm font-medium text-[#737373] dark:text-[#D4D4D4]">
+            Sign in to continue your food journey
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-4">
           {successMessage && (
-            <div className="rounded-md bg-green-50 p-3 text-sm text-green-800 dark:bg-green-900/20 dark:text-green-200">
+            <div className="rounded-2xl bg-[#06D6A0]/10 border-2 border-[#06D6A0]/30 p-4 text-sm font-medium text-[#05C090] dark:bg-[#06D6A0]/20">
               {successMessage}
             </div>
           )}
           {error && (
-            <div className="rounded-md bg-red-50 p-3 text-sm text-red-800 dark:bg-red-900/20 dark:text-red-200">
+            <div className="rounded-2xl bg-[#EF476F]/10 border-2 border-[#EF476F]/30 p-4 text-sm font-medium text-[#E63861] dark:bg-[#EF476F]/20">
               {error}
             </div>
           )}
@@ -81,7 +86,7 @@ function LoginForm() {
           <div>
             <label
               htmlFor="email"
-              className="block text-sm font-medium text-foreground"
+              className="block text-sm font-bold text-[#1A1A1A] dark:text-[#FFF8F0]"
             >
               Email
             </label>
@@ -91,7 +96,7 @@ function LoginForm() {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="mt-1 block w-full rounded-md border border-zinc-300 px-3 py-2 shadow-sm focus:border-zinc-500 focus:outline-none focus:ring-zinc-500 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white"
+              className="mt-2 block w-full rounded-2xl border-2 border-[#E5E5E5] bg-[#FAFAFA] px-4 py-3 text-base font-medium text-[#1A1A1A] shadow-sm transition-all focus:border-[#FF6B35] focus:outline-none focus:ring-4 focus:ring-[#FF6B35]/20 dark:border-[#404040] dark:bg-[#262626] dark:text-white"
               placeholder="you@example.com"
             />
           </div>
@@ -99,7 +104,7 @@ function LoginForm() {
           <div>
             <label
               htmlFor="password"
-              className="block text-sm font-medium text-foreground"
+              className="block text-sm font-bold text-[#1A1A1A] dark:text-[#FFF8F0]"
             >
               Password
             </label>
@@ -109,14 +114,14 @@ function LoginForm() {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 block w-full rounded-md border border-zinc-300 px-3 py-2 shadow-sm focus:border-zinc-500 focus:outline-none focus:ring-zinc-500 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white"
+              className="mt-2 block w-full rounded-2xl border-2 border-[#E5E5E5] bg-[#FAFAFA] px-4 py-3 text-base font-medium text-[#1A1A1A] shadow-sm transition-all focus:border-[#FF6B35] focus:outline-none focus:ring-4 focus:ring-[#FF6B35]/20 dark:border-[#404040] dark:bg-[#262626] dark:text-white"
             />
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full rounded-md bg-foreground px-4 py-2 text-sm font-medium text-background transition-colors hover:bg-zinc-800 disabled:opacity-50 dark:hover:bg-zinc-200"
+            className="w-full rounded-2xl bg-gradient-to-r from-[#FF6B35] to-[#EF476F] px-6 py-4 text-base font-bold text-white shadow-lg transition-all hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? 'Signing in...' : 'Sign in'}
           </button>
@@ -124,10 +129,10 @@ function LoginForm() {
 
         <div className="relative">
           <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-zinc-300 dark:border-zinc-700" />
+            <div className="w-full border-t-2 border-[#E5E5E5] dark:border-[#404040]" />
           </div>
           <div className="relative flex justify-center text-sm">
-            <span className="bg-white px-2 text-zinc-500 dark:bg-zinc-900 dark:text-zinc-400">
+            <span className="bg-white px-3 font-bold text-[#A3A3A3] dark:bg-[#262626] dark:text-[#737373]">
               Or continue with
             </span>
           </div>
@@ -136,16 +141,16 @@ function LoginForm() {
         <button
           onClick={handleGoogleSignIn}
           disabled={loading}
-          className="w-full rounded-md border border-zinc-300 px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-zinc-50 disabled:opacity-50 dark:border-zinc-700 dark:hover:bg-zinc-800"
+          className="w-full rounded-2xl border-2 border-[#E5E5E5] bg-white px-6 py-4 text-base font-bold text-[#1A1A1A] shadow-md transition-all hover:border-[#FF6B35] hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 dark:border-[#404040] dark:bg-[#171717] dark:text-white"
         >
-          Google
+          Continue with Google
         </button>
 
-        <p className="text-center text-sm text-zinc-600 dark:text-zinc-400">
+        <p className="text-center text-sm font-medium text-[#737373] dark:text-[#A3A3A3]">
           Don't have an account?{' '}
           <Link
             href="/auth/signup"
-            className="font-medium text-foreground hover:underline"
+            className="font-bold text-[#FF6B35] hover:text-[#E85A2B] hover:underline"
           >
             Sign up
           </Link>
