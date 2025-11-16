@@ -20,9 +20,9 @@ export function Header({ user }: HeaderProps) {
 
   if (!user) {
     return (
-      <header className="sticky top-0 z-50 border-b border-zinc-200/60 bg-white/90 backdrop-blur-md dark:border-zinc-800/60 dark:bg-zinc-900/90">
+      <header className="sticky top-0 z-50 border-b border-[#6a994e]/20 bg-[#f2e8cf]/70 backdrop-blur-xl dark:border-[#6a994e]/30 dark:bg-[#1a2e1a]/70">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 md:px-6">
-          <h1 className="bg-gradient-to-r from-violet-600 to-pink-600 bg-clip-text text-2xl font-black tracking-tight text-transparent">
+          <h1 className="bg-gradient-to-r from-[#386641] to-[#6a994e] bg-clip-text text-2xl font-black tracking-tight text-transparent">
             DineAround
           </h1>
         </div>
@@ -31,18 +31,18 @@ export function Header({ user }: HeaderProps) {
   }
 
   return (
-    <header className="sticky top-0 z-50 border-b border-zinc-200/60 bg-white/90 backdrop-blur-md dark:border-zinc-800/60 dark:bg-zinc-900/90">
+    <header className="sticky top-0 z-50 border-b border-[#6a994e]/20 bg-[#f2e8cf]/70 backdrop-blur-xl dark:border-[#6a994e]/30 dark:bg-[#1a2e1a]/70">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 md:px-6">
-        <h1 className="bg-gradient-to-r from-violet-600 to-pink-600 bg-clip-text text-2xl font-black tracking-tight text-transparent">
+        <h1 className="bg-gradient-to-r from-[#386641] to-[#6a994e] bg-clip-text text-2xl font-black tracking-tight text-transparent">
           DineAround
         </h1>
         <div className="flex items-center gap-3">
-          <span className="hidden text-sm font-medium text-zinc-700 dark:text-zinc-300 md:block">
+          <span className="hidden text-sm font-medium text-[#386641] dark:text-[#f2e8cf] md:block">
             {user.email}
           </span>
           <button
             onClick={handleLogout}
-            className="rounded-lg px-4 py-2 text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-800"
+            className="rounded-lg bg-[#f2e8cf]/50 px-4 py-2 text-sm font-medium text-[#386641] backdrop-blur-sm transition-all hover:bg-[#f2e8cf] dark:bg-[#386641]/30 dark:text-[#f2e8cf] dark:hover:bg-[#386641]/50"
           >
             Sign out
           </button>

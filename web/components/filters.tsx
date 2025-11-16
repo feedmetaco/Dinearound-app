@@ -23,7 +23,7 @@ export function Filters() {
       <select
         value={cuisine || ''}
         onChange={(e) => setCuisine(e.target.value || null)}
-        className="rounded-lg border-2 border-zinc-200 bg-white px-4 py-2 text-sm font-medium text-foreground transition-all focus:border-violet-400 focus:outline-none focus:ring-4 focus:ring-violet-100 dark:border-zinc-800 dark:bg-zinc-900 dark:focus:border-violet-600 dark:focus:ring-violet-950"
+        className="rounded-xl border-2 border-[#6a994e]/30 bg-white/70 px-4 py-2 text-sm font-medium text-[#386641] backdrop-blur-md transition-all focus:border-[#6a994e] focus:outline-none focus:ring-4 focus:ring-[#a7c957]/30 dark:border-[#6a994e]/40 dark:bg-[#386641]/20 dark:text-[#f2e8cf] dark:focus:border-[#a7c957]"
       >
         <option value="">All Cuisines</option>
         {cuisines.map((c) => (
@@ -36,7 +36,7 @@ export function Filters() {
       <select
         value={priceLevel || ''}
         onChange={(e) => setPriceLevel(e.target.value ? Number(e.target.value) : null)}
-        className="rounded-lg border-2 border-zinc-200 bg-white px-4 py-2 text-sm font-medium text-foreground transition-all focus:border-violet-400 focus:outline-none focus:ring-4 focus:ring-violet-100 dark:border-zinc-800 dark:bg-zinc-900 dark:focus:border-violet-600 dark:focus:ring-violet-950"
+        className="rounded-xl border-2 border-[#6a994e]/30 bg-white/70 px-4 py-2 text-sm font-medium text-[#386641] backdrop-blur-md transition-all focus:border-[#6a994e] focus:outline-none focus:ring-4 focus:ring-[#a7c957]/30 dark:border-[#6a994e]/40 dark:bg-[#386641]/20 dark:text-[#f2e8cf] dark:focus:border-[#a7c957]"
       >
         <option value="">All Prices</option>
         <option value="1">$ - Budget</option>
@@ -48,7 +48,7 @@ export function Filters() {
       {(cuisine || priceLevel) && (
         <button
           onClick={reset}
-          className="rounded-lg border-2 border-zinc-200 bg-white px-4 py-2 text-sm font-medium text-zinc-700 transition-all hover:border-zinc-300 hover:bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300 dark:hover:border-zinc-700 dark:hover:bg-zinc-800"
+          className="rounded-xl border-2 border-[#bc4749]/40 bg-white/70 px-4 py-2 text-sm font-medium text-[#bc4749] backdrop-blur-md transition-all hover:border-[#bc4749] hover:bg-[#bc4749]/10 dark:border-[#bc4749]/40 dark:bg-[#bc4749]/10 dark:text-[#bc4749] dark:hover:bg-[#bc4749]/20"
         >
           ✕ Clear
         </button>

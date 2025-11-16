@@ -56,10 +56,10 @@ export default function NearbyPage() {
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 md:px-6">
       <div className="mb-8">
-        <h2 className="mb-2 bg-gradient-to-r from-violet-600 to-pink-600 bg-clip-text text-3xl font-black tracking-tight text-transparent">
+        <h2 className="mb-2 bg-gradient-to-r from-[#386641] to-[#6a994e] bg-clip-text text-3xl font-black tracking-tight text-transparent">
           Discover Restaurants
         </h2>
-        <p className="mb-6 text-zinc-600 dark:text-zinc-400">
+        <p className="mb-6 text-[#6a994e] dark:text-[#a7c957]">
           Find and explore amazing dining experiences near you
         </p>
         <RestaurantSearch
@@ -83,14 +83,14 @@ export default function NearbyPage() {
 
       {isLoading && (
         <div className="flex flex-col items-center justify-center py-16">
-          <div className="mb-4 h-12 w-12 animate-spin rounded-full border-4 border-violet-200 border-t-violet-600 dark:border-violet-900 dark:border-t-violet-400"></div>
-          <p className="text-zinc-600 dark:text-zinc-400">Finding restaurants...</p>
+          <div className="mb-4 h-12 w-12 animate-spin rounded-full border-4 border-[#a7c957]/30 border-t-[#386641] dark:border-[#6a994e]/30 dark:border-t-[#a7c957]"></div>
+          <p className="text-[#6a994e] dark:text-[#a7c957]">Finding restaurants...</p>
         </div>
       )}
 
       {error && (
-        <div className="rounded-xl border-2 border-red-200 bg-red-50 p-6 dark:border-red-900 dark:bg-red-950/20">
-          <p className="font-medium text-red-800 dark:text-red-200">
+        <div className="rounded-2xl border-2 border-[#bc4749]/40 bg-[#bc4749]/10 p-6 backdrop-blur-md dark:border-[#bc4749]/30 dark:bg-[#bc4749]/20">
+          <p className="font-medium text-[#bc4749] dark:text-[#bc4749]">
             ⚠️ Failed to load restaurants. Please try again.
           </p>
         </div>
@@ -99,8 +99,8 @@ export default function NearbyPage() {
       {restaurants && restaurants.length === 0 && !isLoading && (
         <div className="flex flex-col items-center justify-center py-16 text-center">
           <span className="mb-4 text-6xl">🔍</span>
-          <p className="text-lg font-medium text-zinc-700 dark:text-zinc-300">No restaurants found</p>
-          <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">Try a different search or location</p>
+          <p className="text-lg font-medium text-[#386641] dark:text-[#f2e8cf]">No restaurants found</p>
+          <p className="mt-2 text-sm text-[#6a994e] dark:text-[#a7c957]">Try a different search or location</p>
         </div>
       )}
 
