@@ -16,8 +16,36 @@ fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots
 fastlane/test_output
+
+# Next.js / Web ignores
+web/node_modules/
+web/.next/
+web/out/
+web/dist/
+web/.env*.local
+web/.vercel
+
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Testing
+coverage/
+*.lcov
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+APISecret.key
+
 # Other
 .DS_Store
-.env
-APISecret.key
+*.pem
+.vercel
 

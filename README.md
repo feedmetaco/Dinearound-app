@@ -1,25 +1,92 @@
-# Dinearound App
+# DineAround App
 
-Simple starter for iOS app.
+Restaurant tracking and discovery app with web-first strategy.
 
-## Setup
+## 🌐 Web Application (Next.js 14)
+
+**Status:** Production-ready web app
+**Tech Stack:** Next.js 14 + Supabase + Vercel + Tailwind CSS
+**Live URL:** https://dinearound-feedmetaco.vercel.app
+
+### Cloud Development (Recommended)
+
+Work from any device using GitHub Codespaces:
+
+```bash
+# 1. Open in Codespaces
+# Go to: https://github.com/feedmetaco/Dinearound-app
+# Click: Code → Codespaces → Create codespace on main
+
+# 2. Start development server (auto-runs on Codespace creation)
+cd web
+npm run dev
+
+# 3. Preview: Click "Open in Browser" notification (port 3000)
+
+# 4. Make changes, commit, push
+git add .
+git commit -m "your changes"
+git push
+
+# 5. Vercel auto-deploys to production
+```
+
+**Free Tier:** 60 hours/month GitHub Codespaces + unlimited Vercel deployments
+
+### Local Development (Optional)
+
+```bash
+# Clone and setup
+git clone git@github.com:feedmetaco/Dinearound-app.git
+cd Dinearound-app/web
+
+# Install dependencies
+npm install
+
+# Run dev server
+npm run dev
+
+# Open http://localhost:3000
+```
+
+### Web Commands
+
+```bash
+npm run dev          # Start dev server (http://localhost:3000)
+npm run build        # Build for production
+npm run start        # Start production server
+npm run lint         # Run ESLint
+npm run type-check   # Run TypeScript compiler
+```
+
+## 📱 iOS Application (SwiftUI)
+
+**Status:** Basic skeleton (3 tabs)
+**Location:** `ios/Dinearound-app/`
+
+### Setup
 - Xcode on macOS
-- Git (SSH recommended)
+- Apple ID signed into Xcode
+
+### Build to iPhone
+See `docs/SETUP_IOS.md` for detailed instructions
+
+Open the Xcode project in `ios/` when ready.
+
+## 📚 Documentation
+- **`CLAUDE.md`** - Instructions for Claude Code (AI assistant)
+- **`docs/WEB_STRATEGY.md`** - Web-first strategy, monetization, GTM plan
+- **`docs/WEB_TECH_STACK.md`** - Detailed tech stack decisions
+- **`docs/WEB_DEPLOYMENT_PLAN.md`** - Infrastructure, database schema, costs
+- **`docs/PLAN.md`** - V0.001 iOS plan
+- **`docs/FEATURES.md`** - Feature backlog
+- **`docs/SETUP_IOS.md`** - iOS build instructions
+- **`docs/MULTI_COMPUTER_GIT.md`** - Multi-Mac git workflow
 
 ## Workflow
 - git pull --rebase before starting
 - commit small, push often
-
-## Build
-
-## Documentation
-- See `docs/PLAN.md` for the V0.001 plan
-- See `docs/FEATURES.md` for the feature backlog
-- See `docs/SETUP_IOS.md` to build to iPhone
-- See `docs/MULTI_COMPUTER_GIT.md` for working from multiple Macs
-- See `docs/DOCKER_MCP_NOTES.md` for Docker/MCP notes
-
-Open the Xcode project in `ios/` when ready.
+- Vercel auto-deploys on push to main
 
 
 ## Work from multiple computers (Mac mini, MacBook)
