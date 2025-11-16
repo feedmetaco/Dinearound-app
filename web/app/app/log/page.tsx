@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { VisitForm } from '@/components/visit-form';
 import { useQuery } from '@tanstack/react-query';
@@ -21,7 +21,7 @@ async function fetchVisits(): Promise<Visit[]> {
   return [];
 }
 
-export default function LogPage() {
+function LogContent() {
   const searchParams = useSearchParams();
   const [showForm, setShowForm] = useState(false);
   const initialRestaurant = searchParams.get('restaurant') || '';
@@ -108,6 +108,14 @@ export default function LogPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function LogPage() {
+  return (
+    <Suspense fallback={<div className="mx-auto max-w-4xl px-4 py-6 text-center">Loading...</div>}>
+      <LogContent />
+    </Suspense>
   );
 }
 
