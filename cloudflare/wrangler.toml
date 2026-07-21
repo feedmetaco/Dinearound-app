@@ -12,7 +12,7 @@ workers_dev = true
 binding = "DB"
 database_name = "dinearound"
 # Create with: npx wrangler d1 create dinearound — then paste database_id here
-database_id = "00000000-0000-0000-0000-000000000000"
+database_id = "1dcbdb8e-7fa9-4646-8552-63b544b63251"
 
 [[r2_buckets]]
 binding = "MEDIA"

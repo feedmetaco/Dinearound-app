@@ -16,8 +16,8 @@ Plan before 3+ step tasks. Verify before marking done.
 - [x] Menu photo → PDF (client-side jsPDF)
 - [x] Worker API client + sync (`web/lib/api-client.ts`, `sync-service.ts`)
 - [x] Auth via Worker JWT (Supabase bypassed for sync)
-- [ ] **Deploy Cloudflare Worker** — blocked: run `wrangler login` or set `CLOUDFLARE_API_TOKEN` (see handoff)
-- [x] Set `web/.env.local` → `NEXT_PUBLIC_API_URL` (`https://api.dinearound.salehinlabs.com`; update to workers.dev if no custom route yet)
+- [x] **Deploy Cloudflare Worker** — `https://dinearound-api.samisalehin.workers.dev`
+- [x] Set `web/.env.local` → `NEXT_PUBLIC_API_URL` (`https://dinearound-api.samisalehin.workers.dev`)
 - [ ] Remove dead Supabase deps when confirmed unused
 - [ ] Google Places on web (existing) — keep; iOS still on seed data
 
@@ -41,15 +41,15 @@ Plan before 3+ step tasks. Verify before marking done.
 - [x] R2 binding (`dinearound-media`)
 - [x] REST API — auth, visits, wishlist, restaurants, menu-items, media
 - [x] `docs/API.md`, `docs/ARCHITECTURE.md`
-- [ ] `wrangler d1 create` → paste `database_id` in `wrangler.toml`
-- [ ] `wrangler secret put AUTH_SECRET` + deploy
+- [x] `wrangler d1 create` → paste `database_id` in `wrangler.toml` (`1dcbdb8e-7fa9-4646-8552-63b544b63251`)
+- [x] `wrangler secret put AUTH_SECRET` + deploy
 - [ ] Route `api.dinearound.salehinlabs.com`
 
 ## Consolidation & Git
 
 - [x] Canonical repo at `~/Documents/claude-projects/dinearound-app/`
 - [x] **Commit** Midnight Gourmet + Cloudflare backend (`2610ba9`)
-- [ ] Push + Vercel redeploy after Worker deploy succeeds
+- [x] Push + Vercel redeploy after Worker deploy succeeds
 
 ## Deprecated
 
