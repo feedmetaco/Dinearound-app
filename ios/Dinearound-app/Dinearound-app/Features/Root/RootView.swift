@@ -13,7 +13,7 @@ struct RootView: View {
             }
         }
         .environment(\.daPalette, appState.palette)
-        .preferredColorScheme(appState.prefersDarkMode)
+        .preferredColorScheme(appState.prefersDarkMode.map { $0 ? .dark : .light })
         .onAppear {
             appState.systemColorScheme = colorScheme
         }
