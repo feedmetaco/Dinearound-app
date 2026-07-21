@@ -23,15 +23,18 @@ Plan before 3+ step tasks. Verify before marking done.
 - [x] Consolidate design handoff into `design-handoff/`
 - [x] Archive legacy V0.001 plans in `docs/archive/`
 - [x] Cherry-pick AppIcon from Desktop clone (`Icon-1024.png`)
-- [ ] Implement design tokens from handoff in SwiftUI theme
-- [ ] Auth screens (login / signup / guest) per handoff screenshots
-- [ ] Nearby tab — filters, restaurant cards, map integration
-- [ ] Restaurant detail screen
-- [ ] Log tab — empty state, visit form, photo attach
-- [ ] Wishlist tab
-- [ ] Menu capture + OCR + PDF export (Day 3 stretch)
-- [ ] Dark mode per handoff token set
-- [ ] Seed data from `design-handoff/dinearound-data.js` for dev/testing
+- [x] Implement design tokens from handoff in SwiftUI theme
+- [x] Auth screens (login / signup / guest) per handoff screenshots
+- [x] Nearby tab — filters, restaurant cards, location sort
+- [x] Restaurant detail screen
+- [x] Log tab — empty state, visit form, share sheet
+- [x] Wishlist tab
+- [x] Menu capture + seed OCR + PDF export (Vision OCR → future)
+- [x] Dark mode per handoff token set
+- [x] Seed data from `design-handoff/dinearound-data.js` for dev/testing
+- [ ] **Build in Xcode** — requires full Xcode.app (Gate 0); open `ios/Dinearound-app/Dinearound-app.xcodeproj`
+- [ ] Simulator/device test pass
+- [ ] Menu Vision OCR (replace seed digitize stub)
 
 ## Consolidation (Done)
 
