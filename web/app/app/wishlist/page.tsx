@@ -17,12 +17,15 @@ export default function WishlistPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-6 md:px-6">
       <div className="mb-5 flex items-center justify-between">
-        <h2 className="font-display text-3xl font-bold" style={{ color: 'var(--foreground)' }}>
-          Wish<span style={{ color: 'var(--accent-gold)' }}>list</span>
-        </h2>
+        <div>
+          <h2 className="font-display text-3xl font-extrabold" style={{ color: 'var(--foreground)' }}>
+            Wishlist
+          </h2>
+          <p className="mt-1 text-sm font-medium text-[var(--text-secondary)]">Places you want to try next</p>
+        </div>
         <button onClick={() => setShowAddForm((v) => !v)} className="btn-gold flex items-center gap-1.5 px-4 py-2.5 text-sm text-white">
           {showAddForm ? <X size={13} strokeWidth={2.8} /> : <Plus size={13} strokeWidth={2.8} />}
-          {showAddForm ? 'Cancel' : 'Add Restaurant'}
+          {showAddForm ? 'Cancel' : 'Add'}
         </button>
       </div>
 
@@ -33,8 +36,8 @@ export default function WishlistPage() {
           ) : (
             candidates.map((r) => (
               <div key={r.id} className="flex items-center justify-between gap-3">
-                <span className="truncate text-sm font-semibold" style={{ color: 'var(--foreground)' }}>
-                  {r.emoji} {r.name}
+                <span className="flex items-center gap-2 truncate text-sm font-bold" style={{ color: 'var(--foreground)' }}>
+                  <span className="text-lg">{r.emoji}</span> {r.name}
                 </span>
                 <button
                   onClick={() => toggleWishlist(r.id)}
@@ -50,9 +53,14 @@ export default function WishlistPage() {
 
       {wishlisted.length === 0 ? (
         <div className="flex flex-col items-center gap-2 py-16 text-center">
-          <Star size={40} strokeWidth={1.6} style={{ color: 'var(--accent-gold)' }} />
+          <div className="flex h-16 w-16 items-center justify-center rounded-full" style={{ background: 'color-mix(in srgb, var(--accent-gold) 14%, transparent)' }}>
+            <Star size={28} strokeWidth={1.8} style={{ color: 'var(--accent-gold)' }} />
+          </div>
+          <p className="mt-1 text-base font-extrabold" style={{ color: 'var(--foreground)' }}>
+            Your wishlist is empty
+          </p>
           <p className="max-w-xs text-sm font-semibold text-[var(--text-secondary)]">
-            Your wishlist is empty. Add restaurants you want to visit!
+            Add restaurants you want to visit and they&apos;ll show up here.
           </p>
         </div>
       ) : (

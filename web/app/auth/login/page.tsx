@@ -47,19 +47,16 @@ function LoginForm() {
   };
 
   return (
-    <div
-      className="flex min-h-screen items-center justify-center px-4"
-      style={{ background: 'linear-gradient(135deg, var(--background), var(--accent-coral-dark) 140%)' }}
-    >
-      <div className="w-full max-w-md space-y-6 rounded-[28px] p-8 shadow-2xl" style={{ background: 'var(--card)' }}>
+    <div className="flex min-h-screen items-center justify-center px-4" style={{ background: 'var(--background)' }}>
+      <div className="w-full max-w-md space-y-6 rounded-[24px] p-8" style={{ background: 'var(--card)', boxShadow: 'var(--shadow-card-hover)' }}>
         <div className="text-center">
           <div
-            className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full shadow-lg"
-            style={{ background: 'linear-gradient(135deg, var(--accent-coral), var(--brand-green))' }}
+            className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl"
+            style={{ background: 'var(--accent-coral)' }}
           >
             <UtensilsCrossed size={26} className="text-white" strokeWidth={2.5} />
           </div>
-          <h1 className="font-display text-3xl font-bold" style={{ color: 'var(--foreground)' }}>
+          <h1 className="font-display text-3xl font-extrabold" style={{ color: 'var(--foreground)' }}>
             Welcome back
           </h1>
           <p className="mt-2 text-sm font-medium text-[var(--text-secondary)]">

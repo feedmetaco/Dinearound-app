@@ -103,26 +103,27 @@ export default function RestaurantDetailPage() {
       </button>
 
       <div
-        className="mb-4 flex h-48 items-center justify-center rounded-[26px] text-7xl shadow-lg"
-        style={{ background: 'linear-gradient(135deg, var(--accent-coral), var(--brand-green))' }}
+        className="mb-4 flex h-52 items-center justify-center rounded-[24px] text-7xl"
+        style={{ background: 'var(--accent-coral-tint)' }}
       >
         {restaurant.emoji}
       </div>
 
-      <h1 className="font-display text-2xl font-bold" style={{ color: 'var(--foreground)' }}>
+      <p className="label-caps">{restaurant.cuisine}</p>
+      <h1 className="font-display mt-0.5 text-2xl font-extrabold" style={{ color: 'var(--foreground)' }}>
         {restaurant.name}
       </h1>
       <p className="mt-1.5 flex items-center gap-1.5 text-sm font-semibold text-[var(--text-secondary)]">
         <MapPin size={13} strokeWidth={2.4} />
-        {restaurant.address} · {restaurant.cuisine}
+        {restaurant.address}
       </p>
 
       <div className="mt-3 flex gap-2">
         <span
-          className="flex items-center gap-1 rounded-full px-3 py-1.5 text-xs font-bold text-white"
-          style={{ background: 'linear-gradient(90deg, var(--accent-gold), var(--accent-gold-dark))' }}
+          className="flex items-center gap-1 rounded-full px-3 py-1.5 text-xs font-bold"
+          style={{ background: 'color-mix(in srgb, var(--accent-gold) 16%, transparent)', color: 'var(--accent-gold-dark)' }}
         >
-          <Star size={11} strokeWidth={2.8} fill="white" />
+          <Star size={11} strokeWidth={2.8} fill="currentColor" />
           {restaurant.rating.toFixed(1)}
         </span>
         <span
@@ -131,9 +132,13 @@ export default function RestaurantDetailPage() {
         >
           {priceSymbols(restaurant.priceLevel)}
         </span>
+        <span className="rounded-full px-3 py-1.5 text-xs font-bold" style={{ background: 'var(--chip-fill)', color: 'var(--text-secondary)' }}>
+          {restaurant.distanceKm.toFixed(1)} km away
+        </span>
       </div>
 
-      <div className="mt-4 flex gap-2.5">
+      {/* Sticky footer CTA on mobile keeps primary actions reachable while scrolling menu/photos */}
+      <div className="sticky top-[64px] z-30 mt-4 flex gap-2.5 rounded-2xl bg-[var(--background)]/95 py-1 backdrop-blur">
         <button
           onClick={() => router.push(`/app/log?restaurant=${encodeURIComponent(restaurant.name)}&id=${restaurant.id}`)}
           className="btn-primary flex flex-1 items-center justify-center gap-2 py-3.5 text-sm"
@@ -143,8 +148,12 @@ export default function RestaurantDetailPage() {
         </button>
         <button
           onClick={() => toggleWishlist(restaurant.id)}
-          className="flex flex-1 items-center justify-center gap-2 rounded-[18px] border-2 py-3.5 text-sm font-bold"
-          style={{ borderColor: 'var(--accent-gold)', color: 'var(--accent-gold-dark)' }}
+          className="flex flex-1 items-center justify-center gap-2 rounded-2xl border-2 py-3.5 text-sm font-bold"
+          style={{
+            borderColor: 'var(--accent-gold)',
+            color: 'var(--accent-gold-dark)',
+            background: isWishlisted ? 'color-mix(in srgb, var(--accent-gold) 12%, transparent)' : 'transparent',
+          }}
         >
           <Star size={14} strokeWidth={2.6} fill={isWishlisted ? 'var(--accent-gold-dark)' : 'none'} />
           {isWishlisted ? 'In Wishlist' : 'Add to Wishlist'}

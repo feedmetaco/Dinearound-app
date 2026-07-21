@@ -5,8 +5,8 @@ import { useCallback, useState } from 'react';
 const STORAGE_KEY = 'dinearound-theme';
 
 function getInitialIsLight() {
-  if (typeof document === 'undefined') return false;
-  return document.documentElement.classList.contains('light');
+  if (typeof document === 'undefined') return true;
+  return !document.documentElement.classList.contains('dark');
 }
 
 export function useTheme() {

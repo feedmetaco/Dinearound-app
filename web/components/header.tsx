@@ -1,21 +1,13 @@
 'use client';
 
-import { UtensilsCrossed } from 'lucide-react';
-import { useRouter } from 'next/navigation';
-import { apiLogout } from '@/lib/api-client';
+import Link from 'next/link';
+import { UtensilsCrossed, User } from 'lucide-react';
 import { useDineAroundStore } from '@/lib/local-store';
-import { ThemeToggle } from '@/components/theme-toggle';
 
 export function Header() {
-  const router = useRouter();
   const userEmail = useDineAroundStore((s) => s.userEmail);
-  const signOutLocal = useDineAroundStore((s) => s.signOut);
-
-  const handleLogout = async () => {
-    await apiLogout().catch(() => {});
-    signOutLocal();
-    router.push('/auth/login');
-  };
+  const isGuest = useDineAroundStore((s) => s.isGuest);
+  const initial = (userEmail?.[0] || 'G').toUpperCase();
 
   return (
     <header
@@ -23,26 +15,26 @@ export function Header() {
       style={{ borderColor: 'var(--border-soft)', background: 'var(--header-bg)', backdropFilter: 'blur(20px)' }}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 md:px-6">
-        <div className="flex items-center gap-3">
+        <Link href="/app/nearby" className="flex items-center gap-2.5">
           <div
-            className="flex h-9 w-9 items-center justify-center rounded-full"
-            style={{ background: 'linear-gradient(135deg, var(--accent-coral), var(--brand-green))' }}
+            className="flex h-9 w-9 items-center justify-center rounded-2xl"
+            style={{ background: 'var(--accent-coral)' }}
           >
-            <UtensilsCrossed size={16} className="text-white" strokeWidth={2.5} />
+            <UtensilsCrossed size={17} className="text-white" strokeWidth={2.5} />
           </div>
-          <h1 className="font-display text-xl font-bold tracking-tight" style={{ color: 'var(--foreground)' }}>
+          <h1 className="font-display text-xl font-extrabold tracking-tight" style={{ color: 'var(--foreground)' }}>
             DineAround
           </h1>
-        </div>
-        <div className="flex items-center gap-3">
-          {userEmail && (
-            <span className="hidden text-sm font-semibold text-[var(--text-secondary)] md:block">{userEmail}</span>
-          )}
-          <ThemeToggle />
-          <button onClick={handleLogout} className="btn-primary px-4 py-2 text-sm">
-            Sign out
-          </button>
-        </div>
+        </Link>
+
+        <Link
+          href="/app/account"
+          aria-label="Account"
+          className="flex h-10 w-10 items-center justify-center rounded-full text-sm font-bold transition-transform hover:scale-105"
+          style={{ background: 'var(--chip-fill)', color: 'var(--foreground)' }}
+        >
+          {isGuest ? <User size={17} strokeWidth={2.2} /> : initial}
+        </Link>
       </div>
     </header>
   );

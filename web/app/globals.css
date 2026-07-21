@@ -1,75 +1,85 @@
 @import "tailwindcss";
 
 /*
- * "Midnight Gourmet" design system — see design-system/dinearound/MASTER.md
- * Dark mode (default) = charcoal shell + coral food accent.
- * Light mode = warm peach shell (same coral accent), toggled via .light class on <html>.
+ * "Marketplace Light" design system (DONESKI-inspired) — see
+ * design-system/dinearound/pages/web-light.md for the full rationale.
+ * Light mode (default) = off-white shell + vibrant coral-red accent.
+ * Dark mode (opt-in, toggle in Account) = same accent, near-black shell.
+ * NOTE: this file is web-only. iOS keeps "Midnight Gourmet" — see MASTER.md.
  */
 :root,
-.dark {
-  --background: #14110e;
-  --foreground: #f7eee7;
-
-  --card: #1f1a16;
-  --surface-raised: #28211b;
-  --chip-fill: #241e19;
-  --border-soft: rgba(255, 214, 186, 0.1);
-  --input-border: #3a2f27;
-
-  --accent-coral: #ff7a50;
-  --accent-coral-dark: #e4572e;
-  --accent-coral-glow: rgba(255, 122, 80, 0.35);
-
-  --brand-green: #2f9e52;
-  --brand-green-dark: #1f7a3d;
-  --green-tint: #274233;
-
-  --accent-gold: #f0b429;
-  --accent-gold-dark: #c9860f;
-
-  --destructive: #ff5d5d;
-
-  --text-secondary: #9c8f84;
-  --header-bg: rgba(20, 17, 14, 0.94);
-  --toast-bg: #241e19;
-  --nav-shell: rgba(13, 11, 9, 0.92);
-  --nav-active: #ff7a50;
-
-  --shadow-card: 0 12px 28px rgba(0, 0, 0, 0.55);
-  --shadow-glow: 0 0 24px rgba(255, 122, 80, 0.35);
-}
-
 .light {
-  --background: #fdf5f0;
-  --foreground: #241a14;
+  --background: #fafaf8;
+  --foreground: #171412;
 
   --card: #ffffff;
   --surface-raised: #ffffff;
-  --chip-fill: #fbe9df;
-  --border-soft: rgba(255, 122, 80, 0.14);
-  --input-border: #f0dccf;
+  --chip-fill: #f4f3f1;
+  --border-soft: #eceae7;
+  --input-border: #e4e2de;
 
-  --accent-coral: #ff6b3d;
-  --accent-coral-dark: #d6491e;
-  --accent-coral-glow: rgba(0, 0, 0, 0);
+  --accent-coral: #ff4b5c;
+  --accent-coral-dark: #e8384a;
+  --accent-coral-glow: rgba(255, 75, 92, 0);
+  --accent-coral-tint: #ffe9ec;
 
   --brand-green: #2f9e52;
   --brand-green-dark: #1f7a3d;
-  --green-tint: #dcf2e3;
+  --green-tint: #e6f6ea;
 
-  --accent-gold: #e8a33d;
+  --accent-gold: #f5a623;
   --accent-gold-dark: #c97f0f;
 
   --destructive: #e1584a;
 
-  --text-secondary: #8a776b;
-  --header-bg: rgba(253, 245, 240, 0.96);
-  --toast-bg: #241a14;
-  --nav-shell: rgba(36, 26, 20, 0.92);
-  --nav-active: #ff6b3d;
+  --text-secondary: #78716a;
+  --header-bg: rgba(250, 250, 248, 0.92);
+  --toast-bg: #171412;
+  --nav-shell: #ffffff;
+  --nav-active: #ff4b5c;
+  --fab-bg: #ff4b5c;
 
-  --shadow-card: 0 10px 24px rgba(210, 150, 120, 0.18);
+  --shadow-card: 0 8px 20px rgba(23, 20, 18, 0.06);
+  --shadow-card-hover: 0 14px 28px rgba(23, 20, 18, 0.1);
   --shadow-glow: 0 0 0 rgba(0, 0, 0, 0);
+  --shadow-nav: 0 12px 32px rgba(23, 20, 18, 0.12);
+}
+
+.dark {
+  --background: #15130f;
+  --foreground: #f5f1ec;
+
+  --card: #1f1c18;
+  --surface-raised: #262220;
+  --chip-fill: #262220;
+  --border-soft: rgba(255, 255, 255, 0.08);
+  --input-border: #332e29;
+
+  --accent-coral: #ff5c6c;
+  --accent-coral-dark: #e8384a;
+  --accent-coral-glow: rgba(255, 92, 108, 0.3);
+  --accent-coral-tint: rgba(255, 92, 108, 0.14);
+
+  --brand-green: #3fae68;
+  --brand-green-dark: #1f7a3d;
+  --green-tint: #1e3326;
+
+  --accent-gold: #f5a623;
+  --accent-gold-dark: #c97f0f;
+
+  --destructive: #ff6b5d;
+
+  --text-secondary: #9c948c;
+  --header-bg: rgba(21, 19, 15, 0.92);
+  --toast-bg: #262220;
+  --nav-shell: #1f1c18;
+  --nav-active: #ff5c6c;
+  --fab-bg: #ff5c6c;
+
+  --shadow-card: 0 10px 24px rgba(0, 0, 0, 0.4);
+  --shadow-card-hover: 0 16px 32px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 20px rgba(255, 92, 108, 0.25);
+  --shadow-nav: 0 12px 32px rgba(0, 0, 0, 0.5);
 }
 
 @theme inline {
@@ -89,50 +99,61 @@
   --color-accent-gold-dark: var(--accent-gold-dark);
   --color-destructive: var(--destructive);
   --color-text-secondary: var(--text-secondary);
-  --font-sans: var(--font-inter);
-  --font-display: var(--font-sora);
+  --font-sans: var(--font-dm-sans);
+  --font-display: var(--font-jakarta);
 }
 
 html {
-  color-scheme: dark;
-}
-html.light {
   color-scheme: light;
+}
+html.dark {
+  color-scheme: dark;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: var(--font-dm-sans), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: background-color 200ms ease, color 200ms ease;
 }
 
 .font-display {
-  font-family: var(--font-sora), var(--font-inter), sans-serif;
+  font-family: var(--font-jakarta), var(--font-dm-sans), sans-serif;
 }
 
-/* Reusable component-level classes (see MASTER.md §7) */
+/* Small-caps category label — "RESTAURANT", "ITALIAN", etc. (DONESKI micro-label pattern) */
+.label-caps {
+  font-family: var(--font-dm-sans), sans-serif;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+/* Reusable component-level classes (see design-system/dinearound/pages/web-light.md §3) */
 .card-surface {
   background: var(--card);
-  border: 1.5px solid var(--border-soft);
-  border-radius: 26px;
+  border: 1px solid var(--border-soft);
+  border-radius: 20px;
   box-shadow: var(--shadow-card);
+  transition: box-shadow 200ms ease, transform 200ms ease;
 }
 
 .btn-primary {
-  background: linear-gradient(90deg, var(--accent-coral), var(--accent-coral-dark));
+  background: var(--accent-coral);
   color: white;
-  border-radius: 18px;
+  border-radius: 16px;
   font-weight: 700;
-  transition: transform 200ms ease, box-shadow 200ms ease, opacity 200ms ease;
+  transition: transform 200ms ease, box-shadow 200ms ease, opacity 200ms ease, background 200ms ease;
   box-shadow: var(--shadow-glow);
   cursor: pointer;
 }
 .btn-primary:hover {
+  background: var(--accent-coral-dark);
   transform: translateY(-1px);
-  opacity: 0.95;
 }
 .btn-primary:active {
   transform: scale(0.98);
@@ -144,62 +165,103 @@ body {
 }
 
 .btn-green {
-  background: linear-gradient(90deg, #3fae68, var(--brand-green-dark));
+  background: var(--brand-green);
   color: white;
-  border-radius: 18px;
+  border-radius: 16px;
   font-weight: 700;
-  transition: transform 200ms ease, opacity 200ms ease;
+  transition: transform 200ms ease, opacity 200ms ease, background 200ms ease;
   cursor: pointer;
 }
 .btn-green:hover {
+  background: var(--brand-green-dark);
   transform: translateY(-1px);
-  opacity: 0.95;
 }
 
 .btn-gold {
-  background: linear-gradient(90deg, var(--accent-gold), var(--accent-gold-dark));
+  background: var(--accent-gold);
   color: white;
-  border-radius: 18px;
+  border-radius: 16px;
   font-weight: 700;
-  transition: transform 200ms ease, opacity 200ms ease;
+  transition: transform 200ms ease, opacity 200ms ease, background 200ms ease;
   cursor: pointer;
 }
 .btn-gold:hover {
+  background: var(--accent-gold-dark);
   transform: translateY(-1px);
-  opacity: 0.95;
 }
 
 .btn-outline {
   background: var(--chip-fill);
   color: var(--accent-coral);
-  border: 2px solid color-mix(in srgb, var(--accent-coral) 40%, transparent);
-  border-radius: 18px;
+  border: 2px solid color-mix(in srgb, var(--accent-coral) 35%, transparent);
+  border-radius: 16px;
   font-weight: 700;
-  transition: transform 200ms ease, opacity 200ms ease;
+  transition: transform 200ms ease, opacity 200ms ease, background 200ms ease;
   cursor: pointer;
 }
 .btn-outline:hover {
+  background: var(--accent-coral-tint);
   transform: translateY(-1px);
 }
 
 .input-field {
   border: 2px solid var(--input-border);
-  background: var(--chip-fill);
-  border-radius: 16px;
+  background: var(--card);
+  border-radius: 14px;
   color: var(--foreground);
   transition: border-color 200ms ease, box-shadow 200ms ease;
 }
 .input-field:focus {
   outline: none;
   border-color: var(--accent-coral);
-  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent-coral) 18%, transparent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent-coral) 14%, transparent);
 }
 
+/* Horizontal pill filter chip (DONESKI: "All / Cuisine / Cuisine" row) */
+.filter-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  border-radius: 999px;
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: 700;
+  border: 1.5px solid var(--border-soft);
+  background: var(--card);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 180ms ease;
+}
+.filter-pill:hover {
+  border-color: color-mix(in srgb, var(--accent-coral) 40%, var(--border-soft));
+}
+.filter-pill[data-active='true'] {
+  background: var(--accent-coral);
+  border-color: var(--accent-coral);
+  color: white;
+}
+
+/* Bottom / top nav shell — white pill bar with red active state (DONESKI) */
 .pill-nav {
   background: var(--nav-shell);
-  backdrop-filter: blur(20px);
+  border: 1px solid var(--border-soft);
   border-radius: 28px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+  box-shadow: var(--shadow-nav);
+}
+
+.fab-button {
+  background: var(--fab-bg);
+  color: white;
+  border-radius: 999px;
+  box-shadow: 0 10px 24px color-mix(in srgb, var(--fab-bg) 45%, transparent);
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+.fab-button:hover {
+  transform: translateY(-2px) scale(1.03);
+}
+.fab-button:active {
+  transform: scale(0.96);
 }
 
 @media (prefers-reduced-motion: reduce) {

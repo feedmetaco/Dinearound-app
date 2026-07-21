@@ -2,37 +2,51 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { MapPin, BookOpen, Star } from 'lucide-react';
+import { MapPin, BookOpen, Star, Plus, User } from 'lucide-react';
 
 const navItems = [
   { href: '/app/nearby', label: 'Nearby', icon: MapPin },
-  { href: '/app/log', label: 'Log', icon: BookOpen },
   { href: '/app/wishlist', label: 'Wishlist', icon: Star },
 ];
 
-/** Floating pill bottom nav — dark capsule shell in both color modes (see MASTER.md §4). */
+const navItemsRight = [
+  { href: '/app/log', label: 'Log', icon: BookOpen },
+  { href: '/app/account', label: 'Account', icon: User },
+];
+
+/** Floating white pill bottom nav, 5 items max, red active state + center FAB (see web-light.md §4). */
 export function BottomNav() {
   const pathname = usePathname();
 
+  const item = (href: string, label: string, Icon: typeof MapPin) => {
+    const isActive = pathname === href;
+    return (
+      <Link
+        key={href}
+        href={href}
+        className="flex flex-1 flex-col items-center justify-center gap-1 rounded-2xl py-1.5 transition-colors"
+        style={{ color: isActive ? 'var(--accent-coral)' : 'var(--text-secondary)' }}
+      >
+        <Icon size={20} strokeWidth={isActive ? 2.6 : 2.1} fill={isActive && label === 'Wishlist' ? 'currentColor' : 'none'} />
+        <span className="text-[10px] font-bold">{label}</span>
+      </Link>
+    );
+  };
+
   return (
     <nav className="fixed inset-x-0 bottom-0 z-50 flex justify-center px-4 pb-[calc(env(safe-area-inset-bottom)+16px)] md:hidden">
-      <div className="pill-nav flex items-center gap-1 p-1.5">
-        {navItems.map((item) => {
-          const isActive = pathname === item.href;
-          const Icon = item.icon;
-          return (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`flex items-center gap-2 rounded-full px-4 py-3 text-sm font-bold transition-all duration-200 ${
-                isActive ? 'bg-[var(--nav-active)] text-white' : 'text-white/55 hover:text-white/80'
-              }`}
-            >
-              <Icon size={18} strokeWidth={2.4} />
-              {isActive && <span>{item.label}</span>}
-            </Link>
-          );
-        })}
+      <div className="pill-nav relative flex w-full max-w-sm items-center gap-1 px-2 py-2">
+        {navItems.map(({ href, label, icon }) => item(href, label, icon))}
+
+        <Link
+          href="/app/log?new=1"
+          aria-label="Log a visit"
+          className="fab-button -mt-8 flex h-14 w-14 shrink-0 items-center justify-center"
+        >
+          <Plus size={26} strokeWidth={2.8} />
+        </Link>
+
+        {navItemsRight.map(({ href, label, icon }) => item(href, label, icon))}
       </div>
     </nav>
   );

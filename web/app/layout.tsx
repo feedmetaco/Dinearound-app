@@ -1,17 +1,17 @@
 import type { Metadata, Viewport } from 'next';
-import { Sora, Inter } from 'next/font/google';
+import { Plus_Jakarta_Sans, DM_Sans } from 'next/font/google';
 import Script from 'next/script';
 import './globals.css';
 import { Providers } from '@/lib/providers';
 
-const sora = Sora({
-  variable: '--font-sora',
+const jakarta = Plus_Jakarta_Sans({
+  variable: '--font-jakarta',
   subsets: ['latin'],
   weight: ['600', '700', '800'],
 });
 
-const inter = Inter({
-  variable: '--font-inter',
+const dmSans = DM_Sans({
+  variable: '--font-dm-sans',
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
 });
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   manifest: '/manifest.json',
   appleWebApp: {
     capable: true,
-    statusBarStyle: 'black-translucent',
+    statusBarStyle: 'default',
     title: 'DineAround',
   },
 };
@@ -33,7 +33,7 @@ export const viewport: Viewport = {
   maximumScale: 1,
   userScalable: false,
   viewportFit: 'cover',
-  themeColor: '#14110E',
+  themeColor: '#FAFAF8',
 };
 
 export default function RootLayout({
@@ -46,11 +46,11 @@ export default function RootLayout({
       <head>
         <link rel="apple-touch-icon" href="/icon-192.png" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        {/* Avoids a light-mode flash before hydration — see public/theme-init.js */}
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        {/* Avoids a flash of the wrong theme before hydration — see public/theme-init.js */}
         <Script src="/theme-init.js" strategy="beforeInteractive" />
       </head>
-      <body className={`${sora.variable} ${inter.variable} antialiased`}>
+      <body className={`${jakarta.variable} ${dmSans.variable} antialiased`}>
         <Providers>{children}</Providers>
       </body>
     </html>

@@ -11,35 +11,37 @@ interface RestaurantCardProps {
   showDistance?: boolean;
 }
 
+/** DONESKI-style card: square thumbnail left, small-caps category label, bold title, price/rating row. */
 export function RestaurantCard({ restaurant, showDistance }: RestaurantCardProps) {
   const isWishlisted = useDineAroundStore((s) => s.wishlistIds.includes(restaurant.id));
   const toggleWishlist = useDineAroundStore((s) => s.toggleWishlist);
 
   return (
-    <div className="card-surface flex items-center gap-3 p-3 transition-transform hover:-translate-y-0.5">
+    <div className="card-surface flex items-center gap-3 p-3 hover:shadow-[var(--shadow-card-hover)]">
       <Link
         href={`/app/restaurant/${restaurant.id}`}
-        className="flex h-[76px] w-[76px] shrink-0 items-center justify-center rounded-[18px] text-3xl"
-        style={{ background: 'linear-gradient(135deg, var(--accent-coral), var(--brand-green))' }}
+        className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl text-3xl"
+        style={{ background: 'var(--accent-coral-tint)' }}
       >
         {restaurant.emoji}
       </Link>
 
       <div className="min-w-0 flex-1">
+        <p className="label-caps">{restaurant.cuisine}</p>
         <Link href={`/app/restaurant/${restaurant.id}`}>
-          <h3 className="truncate text-[15px] font-extrabold" style={{ color: 'var(--foreground)' }}>
+          <h3 className="truncate text-[15px] font-extrabold leading-tight" style={{ color: 'var(--foreground)' }}>
             {restaurant.name}
           </h3>
         </Link>
-        <p className="truncate text-[11px] font-semibold text-[var(--text-secondary)]">
-          {restaurant.cuisine} · {priceSymbols(restaurant.priceLevel)}
+        <p className="mt-0.5 truncate text-[12px] font-semibold text-[var(--text-secondary)]">
+          {priceSymbols(restaurant.priceLevel)}
           {showDistance && ` · ${restaurant.distanceKm.toFixed(1)} km away`}
         </p>
 
-        <div className="mt-1.5 flex items-center gap-2">
+        <div className="mt-2 flex items-center gap-2">
           <span
             className="flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-bold"
-            style={{ background: 'color-mix(in srgb, var(--accent-gold) 18%, transparent)', color: 'var(--accent-gold-dark)' }}
+            style={{ background: 'color-mix(in srgb, var(--accent-gold) 16%, transparent)', color: 'var(--accent-gold-dark)' }}
           >
             <Star size={10} strokeWidth={2.6} fill="currentColor" />
             {restaurant.rating.toFixed(1)}
@@ -66,14 +68,13 @@ export function RestaurantCard({ restaurant, showDistance }: RestaurantCardProps
               }
             }}
             aria-label="Toggle wishlist"
-            className="flex h-8 w-8 items-center justify-center rounded-xl transition-transform hover:scale-105"
+            className="flex h-9 w-9 items-center justify-center rounded-xl transition-transform hover:scale-105"
             style={{
               background: isWishlisted ? 'var(--accent-gold)' : 'var(--chip-fill)',
               color: isWishlisted ? 'white' : 'var(--accent-gold)',
-              border: isWishlisted ? 'none' : '2px solid var(--accent-gold)',
             }}
           >
-            <Star size={14} strokeWidth={2.4} fill={isWishlisted ? 'currentColor' : 'none'} />
+            <Star size={15} strokeWidth={2.4} fill={isWishlisted ? 'currentColor' : 'none'} />
           </button>
         </div>
       </div>
