@@ -14,7 +14,7 @@ Shared REST API in `cloudflare/` — **D1** for relational data, **R2** (`dinear
 | `docs/ARCHITECTURE.md` | System diagram + deploy steps |
 | `cloudflare/DEPLOY.md` | Wrangler quick start |
 
-**Deprecated:** Supabase PostgreSQL, Supabase Auth, Vercel serverless API routes. Web still hosts on Vercel; data layer is Cloudflare.
+**Deprecated:** Supabase PostgreSQL, Supabase Auth, Vercel serverless API routes. Web hosted on **Cloudflare Workers** (OpenNext); data layer is Cloudflare D1 + R2.
 
 ### Deploy API
 
@@ -33,7 +33,7 @@ npm run deploy
 **Live API:** `https://dinearound-api.samisalehin.workers.dev`
 
 ```bash
-# web/.env.local (and Vercel project env for production)
+# web/.env.local (and Cloudflare Worker build env for production)
 NEXT_PUBLIC_API_URL=https://dinearound-api.samisalehin.workers.dev
 
 # iOS — INFOPLIST_KEY_API_BASE_URL in Xcode (Debug/Release)
@@ -50,11 +50,12 @@ green retained as the secondary/trust accent. This **supersedes** the older gree
 in `design-handoff/README.md`. iOS tokens live in `DATheme` (`ios/.../Design/Theme.swift`); web tokens live
 in CSS variables (`web/app/globals.css`).
 
-## 🌐 Web Application (Next.js 14)
+## 🌐 Web Application (Next.js 16)
 
-**Status:** Production UI — **Cloudflare D1+R2** backend (Supabase deprecated)
-**Tech Stack:** Next.js 14 + Cloudflare Worker API + Vercel + Tailwind CSS
-**Live URL:** https://dinearound-app.vercel.app
+**Status:** Production UI on **Cloudflare Workers** (OpenNext) — **Cloudflare D1+R2** backend (Supabase deprecated)
+**Tech Stack:** Next.js 16 + Cloudflare Worker API + OpenNext + Tailwind CSS
+**Live URL:** https://dinearound-web.samisalehin.workers.dev
+**Deploy guide:** `docs/PAGES_DEPLOY.md`
 
 ### Cloud Development (Recommended)
 
@@ -76,10 +77,10 @@ git add .
 git commit -m "your changes"
 git push
 
-# 5. Vercel auto-deploys to production
+# 5. Cloudflare auto-deploys on push to main (or: cd web && npm run pages:deploy)
 ```
 
-**Free Tier:** 60 hours/month GitHub Codespaces + unlimited Vercel deployments
+**Free Tier:** 60 hours/month GitHub Codespaces + Cloudflare Workers free tier
 
 ### Local Development (Optional)
 
@@ -101,10 +102,11 @@ npm run dev
 
 ```bash
 npm run dev          # Start dev server (http://localhost:3000)
-npm run build        # Build for production
-npm run start        # Start production server
+npm run build        # Next.js production build
+npm run pages:build  # OpenNext bundle for Cloudflare
+npm run pages:deploy # Deploy to Cloudflare Workers
+npm run pages:preview # Preview in Workers runtime locally
 npm run lint         # Run ESLint
-npm run type-check   # Run TypeScript compiler
 ```
 
 ## 📱 iOS Application (SwiftUI)
@@ -136,7 +138,7 @@ See `docs/SETUP_IOS.md` for detailed instructions. Open `ios/Dinearound-app/Dine
 ## Workflow
 - git pull --rebase before starting
 - commit small, push often
-- Vercel auto-deploys on push to main
+- Cloudflare deploy: `cd web && npm run pages:deploy` (or connect Git in Workers & Pages dashboard)
 
 
 ## Work from multiple computers (Mac mini, MacBook)

@@ -42,7 +42,7 @@ npx wrangler secret put AUTH_SECRET
 
 # Optional — CORS for web (comma-separated)
 npx wrangler secret put ALLOWED_ORIGINS
-# Example: https://dinearound-app.vercel.app,http://localhost:3000
+# Example: https://dinearound-web.samisalehin.workers.dev,https://dinearound.salehinlabs.com,http://localhost:3000
 ```
 
 ## 4. Deploy

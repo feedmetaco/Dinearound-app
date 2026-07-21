@@ -1,7 +1,7 @@
 # DineAround — Task Checklist
 
 **Canonical repo:** `~/Documents/claude-projects/dinearound-app/`  
-**Tracks:** Web (Next.js on Vercel) + iOS SwiftUI — **shared Cloudflare D1 + R2 backend**  
+**Tracks:** Web (Next.js on Cloudflare Workers) + iOS SwiftUI — **shared Cloudflare D1 + R2 backend**  
 **Design:** Midnight Gourmet — `design-system/dinearound/MASTER.md`
 
 Plan before 3+ step tasks. Verify before marking done.
@@ -10,13 +10,14 @@ Plan before 3+ step tasks. Verify before marking done.
 
 ## Track A — Web
 
-- [x] Next.js 14 app in `web/` (Vercel host)
+- [x] Next.js 16 app in `web/` (Cloudflare Workers via OpenNext)
 - [x] Midnight Gourmet UI (dark default + warm peach light mode)
 - [x] Log + Wishlist + restaurant detail + media attachments (IndexedDB offline)
 - [x] Menu photo → PDF (client-side jsPDF)
 - [x] Worker API client + sync (`web/lib/api-client.ts`, `sync-service.ts`)
 - [x] Auth via Worker JWT (Supabase bypassed for sync)
 - [x] **Deploy Cloudflare Worker** — `https://dinearound-api.samisalehin.workers.dev`
+- [x] **Deploy web to Cloudflare** — `https://dinearound-web.samisalehin.workers.dev` (`docs/PAGES_DEPLOY.md`)
 - [x] Set `web/.env.local` → `NEXT_PUBLIC_API_URL` (`https://dinearound-api.samisalehin.workers.dev`)
 - [ ] Remove dead Supabase deps when confirmed unused
 - [ ] Google Places on web (existing) — keep; iOS still on seed data
@@ -44,17 +45,20 @@ Plan before 3+ step tasks. Verify before marking done.
 - [x] `wrangler d1 create` → paste `database_id` in `wrangler.toml` (`1dcbdb8e-7fa9-4646-8552-63b544b63251`)
 - [x] `wrangler secret put AUTH_SECRET` + deploy
 - [ ] Route `api.dinearound.salehinlabs.com`
+- [ ] Route `dinearound.salehinlabs.com` (web custom domain)
 
 ## Consolidation & Git
 
 - [x] Canonical repo at `~/Documents/claude-projects/dinearound-app/`
 - [x] **Commit** Midnight Gourmet + Cloudflare backend (`2610ba9`)
-- [x] Push + Vercel redeploy after Worker deploy succeeds
+- [x] Push + Cloudflare web deploy after Worker deploy succeeds
+- [ ] Retire Vercel project (`dinearound-app.vercel.app`)
 
 ## Deprecated
 
 | Item | Status |
 |------|--------|
 | Supabase auth/DB for sync | Replaced by Cloudflare D1 |
+| Vercel hosting | Replaced by Cloudflare Workers (OpenNext) |
 | Vercel serverless API | Replaced by Worker |
 | iCloud/Desktop stale clones | Do not use — see README |
