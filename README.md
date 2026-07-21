@@ -6,9 +6,9 @@ Restaurant tracking and discovery app with **parallel tracks**: live web (Vercel
 
 ## 🌐 Web Application (Next.js 14)
 
-**Status:** Production — live at https://dinearound-feedmetaco.vercel.app
+**Status:** Production — live at https://dinearound-app.vercel.app
 **Tech Stack:** Next.js 14 + Supabase + Vercel + Tailwind CSS
-**Live URL:** https://dinearound-feedmetaco.vercel.app
+**Live URL:** https://dinearound-app.vercel.app
 
 ### Cloud Development (Recommended)
 

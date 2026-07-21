@@ -6,7 +6,7 @@
 
 | Track | Spec Location | Status |
 |-------|---------------|--------|
-| **Web** | `web/` + `docs/WEB_*.md` | Production @ [dinearound-feedmetaco.vercel.app](https://dinearound-feedmetaco.vercel.app) |
+| **Web** | `web/` + `docs/WEB_*.md` | Production @ [dinearound-app.vercel.app](https://dinearound-app.vercel.app) |
 | **iOS** | `design-handoff/README.md` | Native SwiftUI rebuild from handoff |
 
 ## iOS Design Handoff (Jul 2026)

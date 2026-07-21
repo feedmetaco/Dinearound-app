@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 DineAround is a restaurant tracking and discovery app with **parallel tracks**:
 
-1. **Web (production)** — Next.js 14 + Supabase + Vercel, live at https://dinearound-feedmetaco.vercel.app
+1. **Web (production)** — Next.js 14 + Supabase + Vercel, live at https://dinearound-app.vercel.app
 2. **iOS (in progress)** — Native SwiftUI rebuild from Jul 2026 design handoff in `design-handoff/`
 
 **Canonical local path:** `~/Documents/claude-projects/dinearound-app/`
