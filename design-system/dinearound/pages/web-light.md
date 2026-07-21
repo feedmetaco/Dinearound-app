@@ -1,117 +1,107 @@
-# DineAround Web — "Marketplace Light" (DONESKI-inspired override)
+# DineAround Web — "Marketplace Light" v2 (true DONESKI fidelity)
 
 > **Scope:** `web/` app ONLY. Overrides `../MASTER.md` ("Midnight Gourmet") for the web target.
 > The iOS app keeps Midnight Gourmet untouched — this file governs `web/app/globals.css` CSS
-> variables and web components only. Generated via `ui-ux-pro-max` design-system search
-> (`restaurant discovery map marketplace clean white red accent mobile`) blended with the
-> user-supplied DONESKI reference brief (2026-07-21).
+> variables and web components only.
+>
+> **v2 (2026-07-21):** v1 shipped a light-first design but kept an opt-in dark toggle. Stale
+> `localStorage` from the pre-v1 "Midnight Gourmet" era caused returning users to load dark mode
+> by default, stacked with v1's dark-mode coral glow — producing exactly the "dark, pink-overload"
+> screenshot the user flagged as "even uglier." v2 **removes dark mode entirely** (no toggle) and
+> strips remaining anti-patterns: emoji map pins, green-tinted map, two-row filters, a boxed demo
+> banner, a 5-item floating pill nav, and the marketing hero on the Nearby page. Regenerated via
+> `ui-ux-pro-max` search (`restaurant discovery app clean minimal white light marketplace` +
+> `restaurant food` color domain) blended with the user's DONESKI reference brief.
 
 ---
 
 ## 0. Design Brief
 
-User explicitly rejected the dark "Midnight Gourmet" look for web and requested a **DONESKI-style
-light marketplace aesthetic**: white/off-white canvas, one vibrant red/coral CTA color, bold
-sans-serif type hierarchy, big-radius cards with soft shadows, a map-first Nearby screen with a
-floating restaurant preview card, horizontal pill filters, and a 5-item bottom nav with a center
-FAB. Dark mode becomes optional/secondary, not the default.
+Light-only, no exceptions. White/off-white canvas, exactly one accent (`#FF4B5C`) reserved for
+CTAs + active nav + ratings-adjacent badges, neutral warm-grey chips/thumbnails (not accent-tinted),
+a flat light-grey map (no green tint, no emoji pins — Lucide `MapPin` only), one row of filters,
+a plain-text demo-data notice instead of an alert box, and a standard 4-item nav (mobile: flat
+bottom tab bar; desktop: plain top text links) with no center FAB and no floating pill chrome.
 
-## 1. Color Tokens (Light — default)
+## 1. Color Tokens (Light — the only mode)
 
 | Role | Token | Hex | Notes |
 |---|---|---|---|
-| App background | `background` | `#FAFAF8` | Off-white, not stark #FFF |
-| Elevated surface / card | `card` | `#FFFFFF` | Pure white card on off-white canvas |
-| Raised surface (modals, inputs) | `surface-raised` | `#FFFFFF` | |
-| Chip / pill fill | `chip-fill` | `#F4F3F1` | Neutral warm-grey chip, not tinted red |
-| Hairline border | `border-soft` | `#ECEAE7` | Neutral, visible but quiet |
+| App background | `background` | `#FFFFFF` | Pure white |
+| Subtle background (unused by default) | `background-subtle` | `#F8F8F6` | Reserve for future section banding |
+| Elevated surface / card | `card` | `#FFFFFF` | |
+| Chip / pill / thumbnail fill | `chip-fill` | `#F4F3F1` | Neutral warm-grey — used for ALL decorative tiles/thumbnails, never accent-tinted |
+| Hairline border | `border-soft` | `#E8E8E4` | |
 | Input border | `input-border` | `#E4E2DE` | |
-| **Primary accent (DONESKI red)** | `accent-coral` | `#FF4B5C` | CTAs, active nav, badges, price/rating pop |
-| Primary accent dark | `accent-coral-dark` | `#E8384A` | Gradient end, pressed state |
-| Accent glow (light mode = none) | `accent-coral-glow` | transparent | No glow in light mode (flat, not glossy) |
+| **Primary accent (DONESKI red)** | `accent-coral` | `#FF4B5C` | CTAs + active nav/filter state ONLY |
+| Primary accent dark | `accent-coral-dark` | `#E8384A` | Hover/pressed state |
 | Secondary brand (DineAround green) | `brand-green` | `#2F9E52` | "Use my location" / distance / success only |
-| Secondary brand dark | `brand-green-dark` | `#1F7A3D` | |
-| Green tint | `green-tint` | `#E6F6EA` | |
 | Rating gold | `accent-gold` | `#F5A623` | Star ratings, wishlist star ONLY |
-| Rating gold dark | `accent-gold-dark` | `#C97F0F` | |
 | Destructive | `destructive` | `#E1584A` | |
-| Text primary | `foreground` | `#171412` | Near-black, warm undertone |
-| Text secondary | `text-secondary` | `#78716A` | Warm grey, meets 4.5:1 on white |
-| Header surface | `header-bg` | `#FAFAF8` @ 92% | Blur backdrop |
-| Nav pill shell | `nav-shell` | `#FFFFFF` | White pill bar (not dark capsule — DONESKI is light-on-light with red active state) |
-| Nav active highlight | `nav-active` | `#FF4B5C` | Solid red fill/icon behind active tab |
-| FAB background | `fab-bg` | `#FF4B5C` | Center bottom-nav FAB, always red |
+| Text primary | `foreground` | `#1A1A1A` | |
+| Text secondary | `text-secondary` | `#6B6B6B` | Meets 4.5:1 on white |
+| Map surface | `map-bg` | `#F0F0EC` | Flat light grey — never green |
+| Map pin (unselected) | `map-pin` | `#9C9A95` | Lucide `MapPin` outline only, no emoji |
+| Nav shell | `nav-shell` | `#FFFFFF` | Flat bar, not a floating pill |
 
-### Dark mode (optional, secondary — kept for users who toggle it)
-
-Dark mode is preserved as an opt-in alternate (button in Account page), recolored to the same
-red accent so brand stays consistent, but is **no longer the default**:
-
-| Role | Token | Hex |
-|---|---|---|
-| Background | `background` | `#15130F` |
-| Card | `card` | `#1F1C18` |
-| Chip fill | `chip-fill` | `#262220` |
-| Border | `border-soft` | `rgba(255,255,255,0.08)` |
-| Accent | `accent-coral` | `#FF5C6C` |
-| Text primary | `foreground` | `#F5F1EC` |
-| Text secondary | `text-secondary` | `#9C948C` |
-| Nav shell | `nav-shell` | `#1F1C18` |
+**Dark mode: removed.** `html { color-scheme: light only }` is unconditional. No toggle, no
+`.dark` class, no `localStorage` theme key — this eliminates the stale-preference bug that caused
+the regression.
 
 ## 2. Typography
 
-Distinctive bold-sans pairing (not Inter-only), per DONESKI's "large bold titles, medium body,
-small-caps labels" hierarchy:
-
-- **Display/Headings:** Plus Jakarta Sans, weights 700/800 — `next/font/google` var `--font-display`
-- **Body/UI:** DM Sans, weights 400/500/700 — `next/font/google` var `--font-sans`
-- Small-caps category labels (e.g. "RESTAURANT", "ITALIAN"): DM Sans 600, `uppercase`,
-  `letter-spacing: 0.06em`, 11px, `text-secondary`.
-- Scale: hero/display 30–34px, section h2 22–24px, card title 15–16px, body 14–15px, caption 11–12px.
+- **Display/Headings:** Plus Jakarta Sans, weight 700 (not 800) — page titles are `text-2xl
+  font-bold`, not `text-3xl font-extrabold`. No hero/marketing headlines on app screens.
+- **Body/UI:** DM Sans, weights 400/500/700.
+- Small-caps category labels: DM Sans 600, uppercase, `letter-spacing: 0.06em`, 11px, `text-secondary`.
+- Scale: page title 22–24px (was 30–34px), card title 15–16px, body 14–15px, caption 11–12px.
 
 ## 3. Shape & Elevation
 
 | Token | Value | Usage |
 |---|---|---|
 | `radius-card` | 20px | Restaurant cards, form cards |
-| `radius-hero` | 24px | Detail hero image, map card |
-| `radius-button` | 16px | Buttons |
-| `radius-pill` | 999px | Filter pills, nav bar, chips, FAB |
-| `radius-thumb` | 16px | Square thumbnails |
+| `radius-button` | 14px | Buttons |
+| `radius-pill` | 999px | Filter pills, price dropdown |
+| `radius-thumb` | 12–16px | Square thumbnails |
 
-**Shadows (light, DONESKI-flat-with-lift):** `0 8px 20px rgba(23,20,18,0.06)` resting,
-`0 12px 28px rgba(23,20,18,0.10)` hover/press. No colored glow — depth comes from soft neutral
-shadow + white-on-off-white contrast, not gradients.
+Shadows are flat and minimal: `0 1px 2px rgba(23,20,18,.04), 0 8px 20px rgba(23,20,18,.05)`
+resting. No colored glow, no gradients, ever.
 
 ## 4. Navigation
 
-Bottom nav = **white pill bar**, 5 items max, red active state, center **FAB** (raised red circle,
-Camera/Plus icon) for "Log Visit": `Nearby · Wishlist · [FAB: Log Visit] · Log (history) · Account`.
-Desktop mirrors as a top pill nav (same component family, no FAB duplication — FAB collapses to a
-regular nav item on desktop since there's no thumb-reach constraint).
+- **Mobile:** flat bottom tab bar, 4 items (`Nearby · Log · Wishlist · Account`), no center FAB,
+  no floating pill container. Standard full-width bar with a 1px top border.
+- **Desktop:** plain top text links (same 4 items), 2px bottom-border active indicator, no pill
+  background, no 5th "Log Visit" action item.
+- "Log Visit" is reached via the Log tab or a button on the restaurant detail page — not a nav
+  shortcut.
 
 ## 5. Iconography
 
-`lucide-react` exclusively, 1.5–2px stroke, no emoji as structural icons (emoji-tile restaurant
-placeholders from Midnight Gourmet are replaced with solid-color initial/icon tiles to match
-DONESKI's clean photographic-square-thumbnail language until real restaurant photos exist).
+`lucide-react` exclusively for structural/functional icons (map pins, nav, buttons). Emoji are
+permitted ONLY as small decorative thumbnails inside list rows / cards (e.g. a 🍝 square tile next
+to a restaurant name) — never as map markers, never as functional icons.
 
 ## 6. Nearby — Map-First Layout
 
-Full-width map area (stylized pin field — deterministic pin placement from restaurant id since the
-current seed dataset has no lat/lng; swap for live Google Maps `AdvancedMarkerElement` once
-lat/lng + API key are wired) with a floating bottom preview card (thumbnail, name, rating, price,
-"View" CTA) for the selected pin, search bar overlaid top, horizontal pill filter row below the map,
-then the existing list as a scrollable sheet beneath.
+- Compact top row: small-caps "Nearby" label + inline search. No hero headline, no marketing copy.
+- Map: `~38vh` (max 288px, min 200px) flat `map-bg` surface. All pins are Lucide `MapPin`
+  (grey outline unselected, solid coral + larger when selected) with a small floating white
+  preview card for the selected restaurant. No green tint, no SVG "road" decorations, no emoji pins.
+- Filters: ONE row — scrollable cuisine pills + a compact price `<select>` styled as a pill,
+  replacing the old two-row cuisine+price layout.
+- Demo-data notice: a single line of muted caption text below the filters, no colored/bordered box.
 
 ## 7. Pre-Delivery Checklist
 
-- [x] Light-first: off-white canvas + white cards is default; dark is opt-in via Account page
-- [x] Single accent `#FF4B5C` drives all CTAs/active states/badges; green + gold kept for their
-      narrow semantic roles only (location/success, ratings)
-- [x] Bold sans display/body pairing (Plus Jakarta Sans + DM Sans), no Inter-only
-- [x] Card radius ≥20px, soft neutral shadow, no purple gradients
-- [x] No emoji as structural icons; lucide-react only
-- [x] Bottom nav ≤5 items, center FAB, ≥44px touch targets
-- [x] Horizontal pill filters replace `<select>` dropdowns on Nearby
+- [x] Light-only, no dark mode/toggle, no stale-theme regression risk
+- [x] Single accent `#FF4B5C` drives CTAs + active nav/filter state only; thumbnails/chips use
+      neutral `chip-fill`, not accent-tinted backgrounds
+- [x] Map is flat light grey, Lucide `MapPin` pins only, no emoji, no green tint
+- [x] ONE filter row (cuisine pills + price dropdown), not two pill rows
+- [x] Demo banner is inline text, not a colored alert box
+- [x] No hero/marketing headline on Nearby (or other app) pages
+- [x] Bottom nav = flat 4-item tab bar, no FAB; desktop = plain top links, no pill
+- [x] Card radius ≥20px, soft neutral shadow, no purple gradients, no glow
 - [x] Responsive 375/768/1024px; iOS Midnight Gourmet untouched (web-only CSS variable change)

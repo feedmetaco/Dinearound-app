@@ -42,7 +42,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     <div className="flex min-h-screen flex-col" style={{ background: 'var(--background)' }}>
       <Header />
       <NavTabs />
-      <main className="flex-1 pb-36 md:pb-8">{children}</main>
+      <main className="flex-1 pb-20 md:pb-8">{children}</main>
       <BottomNav />
     </div>
   );

@@ -56,7 +56,7 @@ function LoginForm() {
           >
             <UtensilsCrossed size={26} className="text-white" strokeWidth={2.5} />
           </div>
-          <h1 className="font-display text-3xl font-extrabold" style={{ color: 'var(--foreground)' }}>
+          <h1 className="font-display text-2xl font-bold" style={{ color: 'var(--foreground)' }}>
             Welcome back
           </h1>
           <p className="mt-2 text-sm font-medium text-[var(--text-secondary)]">

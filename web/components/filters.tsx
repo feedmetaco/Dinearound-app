@@ -1,6 +1,6 @@
 'use client';
 
-import { X } from 'lucide-react';
+import { ChevronDown, X } from 'lucide-react';
 import { cuisines } from '@/lib/seed-data';
 
 interface FiltersProps {
@@ -18,13 +18,13 @@ const priceOptions = [
   { level: 4, label: '$$$$' },
 ];
 
-/** Horizontal pill filter rows (DONESKI "All / Cuisine" chip pattern) replacing native <select>s. */
+/** Single-row filter bar: scrollable cuisine pills + a price dropdown (no second heavy pill row). */
 export function Filters({ cuisine, priceLevel, onCuisineChange, onPriceChange, onReset }: FiltersProps) {
   const isFiltered = cuisine !== 'All Cuisines' || priceLevel !== null;
 
   return (
-    <div className="space-y-2.5">
-      <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none]">
+    <div className="flex items-center gap-2">
+      <div className="-mx-4 flex flex-1 gap-2 overflow-x-auto px-4 py-1 [scrollbar-width:none]">
         <button
           onClick={() => onCuisineChange('All Cuisines')}
           data-active={cuisine === 'All Cuisines'}
@@ -39,32 +39,39 @@ export function Filters({ cuisine, priceLevel, onCuisineChange, onPriceChange, o
         ))}
       </div>
 
-      <div className="flex items-center gap-2 overflow-x-auto pb-1 [scrollbar-width:none]">
-        <button onClick={() => onPriceChange(null)} data-active={priceLevel === null} className="filter-pill">
-          Any price
-        </button>
-        {priceOptions.map((p) => (
-          <button
-            key={p.level}
-            onClick={() => onPriceChange(p.level)}
-            data-active={priceLevel === p.level}
-            className="filter-pill"
-          >
-            {p.label}
-          </button>
-        ))}
-
-        {isFiltered && (
-          <button
-            onClick={onReset}
-            className="flex items-center gap-1 rounded-full px-3 py-2 text-xs font-bold"
-            style={{ color: 'var(--accent-coral)' }}
-          >
-            <X size={12} strokeWidth={2.6} />
-            Clear
-          </button>
-        )}
+      <div className="relative shrink-0">
+        <select
+          value={priceLevel ?? ''}
+          onChange={(e) => onPriceChange(e.target.value ? Number(e.target.value) : null)}
+          className="filter-pill appearance-none pr-7"
+          data-active={priceLevel !== null}
+          aria-label="Filter by price"
+        >
+          <option value="">Any price</option>
+          {priceOptions.map((p) => (
+            <option key={p.level} value={p.level}>
+              {p.label}
+            </option>
+          ))}
+        </select>
+        <ChevronDown
+          size={13}
+          strokeWidth={2.4}
+          className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2"
+          style={{ color: priceLevel !== null ? 'white' : 'var(--text-secondary)' }}
+        />
       </div>
+
+      {isFiltered && (
+        <button
+          onClick={onReset}
+          aria-label="Clear filters"
+          className="flex shrink-0 items-center gap-1 rounded-full px-2.5 py-2 text-xs font-bold"
+          style={{ color: 'var(--accent-coral)' }}
+        >
+          <X size={12} strokeWidth={2.6} />
+        </button>
+      )}
     </div>
   );
 }

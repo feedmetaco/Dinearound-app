@@ -104,7 +104,7 @@ export default function RestaurantDetailPage() {
 
       <div
         className="mb-4 flex h-52 items-center justify-center rounded-[24px] text-7xl"
-        style={{ background: 'var(--accent-coral-tint)' }}
+        style={{ background: 'var(--chip-fill)' }}
       >
         {restaurant.emoji}
       </div>

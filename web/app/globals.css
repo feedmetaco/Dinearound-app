@@ -1,27 +1,28 @@
 @import "tailwindcss";
 
 /*
- * "Marketplace Light" design system (DONESKI-inspired) — see
+ * "Marketplace Light" design system v2 (true DONESKI fidelity) — see
  * design-system/dinearound/pages/web-light.md for the full rationale.
- * Light mode (default) = off-white shell + vibrant coral-red accent.
- * Dark mode (opt-in, toggle in Account) = same accent, near-black shell.
+ * LIGHT ONLY. No dark mode — a previous version shipped dark as an opt-in
+ * toggle, but stale localStorage from an earlier "Midnight Gourmet" build
+ * caused returning users to load a broken dark+coral-glow mix. Light is now
+ * the only mode, forced unconditionally, to eliminate that failure class.
  * NOTE: this file is web-only. iOS keeps "Midnight Gourmet" — see MASTER.md.
  */
-:root,
-.light {
-  --background: #fafaf8;
-  --foreground: #171412;
+:root {
+  --background: #ffffff;
+  --background-subtle: #f8f8f6;
+  --foreground: #1a1a1a;
 
   --card: #ffffff;
   --surface-raised: #ffffff;
   --chip-fill: #f4f3f1;
-  --border-soft: #eceae7;
+  --border-soft: #e8e8e4;
   --input-border: #e4e2de;
 
   --accent-coral: #ff4b5c;
   --accent-coral-dark: #e8384a;
-  --accent-coral-glow: rgba(255, 75, 92, 0);
-  --accent-coral-tint: #ffe9ec;
+  --accent-coral-tint: #fff0f1;
 
   --brand-green: #2f9e52;
   --brand-green-dark: #1f7a3d;
@@ -32,54 +33,19 @@
 
   --destructive: #e1584a;
 
-  --text-secondary: #78716a;
-  --header-bg: rgba(250, 250, 248, 0.92);
-  --toast-bg: #171412;
+  --text-secondary: #6b6b6b;
+  --header-bg: rgba(255, 255, 255, 0.92);
+  --toast-bg: #1a1a1a;
   --nav-shell: #ffffff;
   --nav-active: #ff4b5c;
-  --fab-bg: #ff4b5c;
 
-  --shadow-card: 0 8px 20px rgba(23, 20, 18, 0.06);
-  --shadow-card-hover: 0 14px 28px rgba(23, 20, 18, 0.1);
-  --shadow-glow: 0 0 0 rgba(0, 0, 0, 0);
-  --shadow-nav: 0 12px 32px rgba(23, 20, 18, 0.12);
-}
+  /* Map surface — flat light grey, never a fake "green map" tint */
+  --map-bg: #f0f0ec;
+  --map-pin: #9c9a95;
 
-.dark {
-  --background: #15130f;
-  --foreground: #f5f1ec;
-
-  --card: #1f1c18;
-  --surface-raised: #262220;
-  --chip-fill: #262220;
-  --border-soft: rgba(255, 255, 255, 0.08);
-  --input-border: #332e29;
-
-  --accent-coral: #ff5c6c;
-  --accent-coral-dark: #e8384a;
-  --accent-coral-glow: rgba(255, 92, 108, 0.3);
-  --accent-coral-tint: rgba(255, 92, 108, 0.14);
-
-  --brand-green: #3fae68;
-  --brand-green-dark: #1f7a3d;
-  --green-tint: #1e3326;
-
-  --accent-gold: #f5a623;
-  --accent-gold-dark: #c97f0f;
-
-  --destructive: #ff6b5d;
-
-  --text-secondary: #9c948c;
-  --header-bg: rgba(21, 19, 15, 0.92);
-  --toast-bg: #262220;
-  --nav-shell: #1f1c18;
-  --nav-active: #ff5c6c;
-  --fab-bg: #ff5c6c;
-
-  --shadow-card: 0 10px 24px rgba(0, 0, 0, 0.4);
-  --shadow-card-hover: 0 16px 32px rgba(0, 0, 0, 0.5);
-  --shadow-glow: 0 0 20px rgba(255, 92, 108, 0.25);
-  --shadow-nav: 0 12px 32px rgba(0, 0, 0, 0.5);
+  --shadow-card: 0 1px 2px rgba(23, 20, 18, 0.04), 0 8px 20px rgba(23, 20, 18, 0.05);
+  --shadow-card-hover: 0 2px 4px rgba(23, 20, 18, 0.05), 0 14px 28px rgba(23, 20, 18, 0.08);
+  --shadow-nav: 0 -1px 0 rgba(23, 20, 18, 0.06);
 }
 
 @theme inline {
@@ -104,10 +70,7 @@
 }
 
 html {
-  color-scheme: light;
-}
-html.dark {
-  color-scheme: dark;
+  color-scheme: light only;
 }
 
 body {
@@ -116,7 +79,6 @@ body {
   font-family: var(--font-dm-sans), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transition: background-color 200ms ease, color 200ms ease;
 }
 
 .font-display {
@@ -145,15 +107,13 @@ body {
 .btn-primary {
   background: var(--accent-coral);
   color: white;
-  border-radius: 16px;
+  border-radius: 14px;
   font-weight: 700;
-  transition: transform 200ms ease, box-shadow 200ms ease, opacity 200ms ease, background 200ms ease;
-  box-shadow: var(--shadow-glow);
+  transition: transform 150ms ease, box-shadow 150ms ease, opacity 150ms ease, background 150ms ease;
   cursor: pointer;
 }
 .btn-primary:hover {
   background: var(--accent-coral-dark);
-  transform: translateY(-1px);
 }
 .btn-primary:active {
   transform: scale(0.98);
@@ -167,71 +127,69 @@ body {
 .btn-green {
   background: var(--brand-green);
   color: white;
-  border-radius: 16px;
+  border-radius: 14px;
   font-weight: 700;
-  transition: transform 200ms ease, opacity 200ms ease, background 200ms ease;
+  transition: opacity 150ms ease, background 150ms ease;
   cursor: pointer;
 }
 .btn-green:hover {
   background: var(--brand-green-dark);
-  transform: translateY(-1px);
 }
 
 .btn-gold {
   background: var(--accent-gold);
   color: white;
-  border-radius: 16px;
+  border-radius: 14px;
   font-weight: 700;
-  transition: transform 200ms ease, opacity 200ms ease, background 200ms ease;
+  transition: opacity 150ms ease, background 150ms ease;
   cursor: pointer;
 }
 .btn-gold:hover {
   background: var(--accent-gold-dark);
-  transform: translateY(-1px);
 }
 
 .btn-outline {
-  background: var(--chip-fill);
-  color: var(--accent-coral);
-  border: 2px solid color-mix(in srgb, var(--accent-coral) 35%, transparent);
-  border-radius: 16px;
+  background: transparent;
+  color: var(--foreground);
+  border: 1.5px solid var(--border-soft);
+  border-radius: 14px;
   font-weight: 700;
-  transition: transform 200ms ease, opacity 200ms ease, background 200ms ease;
+  transition: border-color 150ms ease, background 150ms ease;
   cursor: pointer;
 }
 .btn-outline:hover {
-  background: var(--accent-coral-tint);
-  transform: translateY(-1px);
+  background: var(--chip-fill);
+  border-color: var(--input-border);
 }
 
 .input-field {
-  border: 2px solid var(--input-border);
+  border: 1.5px solid var(--input-border);
   background: var(--card);
-  border-radius: 14px;
+  border-radius: 12px;
   color: var(--foreground);
-  transition: border-color 200ms ease, box-shadow 200ms ease;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
 }
 .input-field:focus {
   outline: none;
   border-color: var(--accent-coral);
-  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent-coral) 14%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-coral) 12%, transparent);
 }
 
-/* Horizontal pill filter chip (DONESKI: "All / Cuisine / Cuisine" row) */
+/* Horizontal pill filter chip — single-row cuisine scroller (DONESKI pattern) */
 .filter-pill {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   white-space: nowrap;
   border-radius: 999px;
-  padding: 10px 16px;
+  padding: 8px 14px;
   font-size: 13px;
-  font-weight: 700;
-  border: 1.5px solid var(--border-soft);
+  font-weight: 600;
+  border: 1px solid var(--border-soft);
   background: var(--card);
   color: var(--text-secondary);
   cursor: pointer;
-  transition: all 180ms ease;
+  transition: all 150ms ease;
 }
 .filter-pill:hover {
   border-color: color-mix(in srgb, var(--accent-coral) 40%, var(--border-soft));
@@ -242,26 +200,10 @@ body {
   color: white;
 }
 
-/* Bottom / top nav shell — white pill bar with red active state (DONESKI) */
-.pill-nav {
+/* Flat bottom tab bar — standard 4-item mobile nav, no floating pill, no FAB */
+.bottom-tab-bar {
   background: var(--nav-shell);
-  border: 1px solid var(--border-soft);
-  border-radius: 28px;
-  box-shadow: var(--shadow-nav);
-}
-
-.fab-button {
-  background: var(--fab-bg);
-  color: white;
-  border-radius: 999px;
-  box-shadow: 0 10px 24px color-mix(in srgb, var(--fab-bg) 45%, transparent);
-  transition: transform 200ms ease, box-shadow 200ms ease;
-}
-.fab-button:hover {
-  transform: translateY(-2px) scale(1.03);
-}
-.fab-button:active {
-  transform: scale(0.96);
+  border-top: 1px solid var(--border-soft);
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -18,10 +18,10 @@ export default function WishlistPage() {
     <div className="mx-auto max-w-3xl px-4 py-6 md:px-6">
       <div className="mb-5 flex items-center justify-between">
         <div>
-          <h2 className="font-display text-3xl font-extrabold" style={{ color: 'var(--foreground)' }}>
+          <h2 className="font-display text-2xl font-bold" style={{ color: 'var(--foreground)' }}>
             Wishlist
           </h2>
-          <p className="mt-1 text-sm font-medium text-[var(--text-secondary)]">Places you want to try next</p>
+          <p className="mt-0.5 text-sm text-[var(--text-secondary)]">Places you want to try next</p>
         </div>
         <button onClick={() => setShowAddForm((v) => !v)} className="btn-gold flex items-center gap-1.5 px-4 py-2.5 text-sm text-white">
           {showAddForm ? <X size={13} strokeWidth={2.8} /> : <Plus size={13} strokeWidth={2.8} />}

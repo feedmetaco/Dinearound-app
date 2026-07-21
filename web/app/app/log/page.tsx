@@ -183,10 +183,10 @@ function LogContent() {
     <div className="mx-auto max-w-3xl px-4 py-6 md:px-6">
       <div className="mb-5 flex items-center justify-between">
         <div>
-          <h2 className="font-display text-3xl font-extrabold" style={{ color: 'var(--foreground)' }}>
+          <h2 className="font-display text-2xl font-bold" style={{ color: 'var(--foreground)' }}>
             Visit Log
           </h2>
-          <p className="mt-1 text-sm font-medium text-[var(--text-secondary)]">Your dining history, one visit at a time</p>
+          <p className="mt-0.5 text-sm text-[var(--text-secondary)]">Your dining history, one visit at a time</p>
         </div>
         <button
           onClick={() => (showForm ? resetForm() : (setDraft(emptyDraft()), setShowForm(true)))}
@@ -283,7 +283,7 @@ function LogContent() {
 
       {visits.length === 0 && !showForm ? (
         <div className="flex flex-col items-center gap-2 py-16 text-center">
-          <div className="flex h-16 w-16 items-center justify-center rounded-full" style={{ background: 'var(--accent-coral-tint)' }}>
+          <div className="flex h-16 w-16 items-center justify-center rounded-full" style={{ background: 'var(--chip-fill)' }}>
             <BookOpen size={28} strokeWidth={1.8} style={{ color: 'var(--accent-coral)' }} />
           </div>
           <p className="mt-1 text-base font-extrabold" style={{ color: 'var(--foreground)' }}>

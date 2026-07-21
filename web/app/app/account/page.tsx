@@ -1,10 +1,9 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { User, LogOut, Moon, Sun, Star, BookOpen, ChevronRight } from 'lucide-react';
+import { User, LogOut, Star, BookOpen, ChevronRight } from 'lucide-react';
 import { useDineAroundStore } from '@/lib/local-store';
 import { apiLogout } from '@/lib/api-client';
-import { useTheme } from '@/lib/use-theme';
 
 export default function AccountPage() {
   const router = useRouter();
@@ -13,7 +12,6 @@ export default function AccountPage() {
   const visits = useDineAroundStore((s) => s.visits);
   const wishlistIds = useDineAroundStore((s) => s.wishlistIds);
   const signOutLocal = useDineAroundStore((s) => s.signOut);
-  const { isLight, toggle } = useTheme();
 
   const handleLogout = async () => {
     await apiLogout().catch(() => {});
@@ -23,7 +21,7 @@ export default function AccountPage() {
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-6 md:px-6">
-      <h2 className="font-display mb-5 text-3xl font-extrabold" style={{ color: 'var(--foreground)' }}>
+      <h2 className="font-display mb-5 text-2xl font-bold" style={{ color: 'var(--foreground)' }}>
         Account
       </h2>
 
@@ -59,28 +57,6 @@ export default function AccountPage() {
           </p>
           <p className="label-caps">On wishlist</p>
         </div>
-      </div>
-
-      <div className="card-surface mb-5 divide-y" style={{ borderColor: 'var(--border-soft)' }}>
-        <button
-          onClick={toggle}
-          className="flex w-full items-center justify-between gap-3 p-4 text-left"
-          style={{ borderColor: 'var(--border-soft)' }}
-        >
-          <span className="flex items-center gap-3 text-sm font-bold" style={{ color: 'var(--foreground)' }}>
-            {isLight ? <Moon size={17} strokeWidth={2.2} /> : <Sun size={17} strokeWidth={2.2} />}
-            Dark mode
-          </span>
-          <span
-            className="relative h-6 w-11 rounded-full transition-colors"
-            style={{ background: isLight ? 'var(--input-border)' : 'var(--accent-coral)' }}
-          >
-            <span
-              className="absolute top-0.5 h-5 w-5 rounded-full bg-white shadow transition-transform"
-              style={{ transform: isLight ? 'translateX(2px)' : 'translateX(22px)' }}
-            />
-          </span>
-        </button>
       </div>
 
       <button

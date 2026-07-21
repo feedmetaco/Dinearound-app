@@ -21,7 +21,7 @@ export function RestaurantCard({ restaurant, showDistance }: RestaurantCardProps
       <Link
         href={`/app/restaurant/${restaurant.id}`}
         className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl text-3xl"
-        style={{ background: 'var(--accent-coral-tint)' }}
+        style={{ background: 'var(--chip-fill)' }}
       >
         {restaurant.emoji}
       </Link>
