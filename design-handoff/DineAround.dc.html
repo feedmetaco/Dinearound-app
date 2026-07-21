@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+  body{margin:0;-webkit-font-smoothing:antialiased}
+  a{color:#2F9E52;text-decoration:none}
+  a:hover{color:#1F7A3D}
+  input,textarea,select,button{font-family:inherit}
+  ::placeholder{color:#5C7268}
+  .dinearound-print-sheet{display:none}
+  @media print {
+    .dinearound-app-shell{display:none !important}
+    .dinearound-print-sheet{display:block !important;padding:56px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+  }
+</style>
+<script src="./dinearound-data.js"></script>
+</helmet>
+<div class="dinearound-app-shell" style="min-height:100%;width:100%;display:flex;align-items:center;justify-content:center;background:#EAF3EC;padding:40px 20px;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,Cantarell,'Fira Sans','Droid Sans','Helvetica Neue',sans-serif">
+<x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" hint-size="393,852">
+
+<div style="display:flex;flex-direction:column;height:100%;min-height:806px;width:100%;background:{{ bg }};padding-top:62px;box-sizing:border-box">
+
+<sc-if value="{{ !user }}" hint-placeholder-val="{{ true }}">
+<div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:32px 28px 44px;box-sizing:border-box;background:linear-gradient(to bottom right,#DCF2E3,#3FAE68,#1F7A3D);overflow:auto">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:36px">
+    <div style="width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,0.35);display:flex;align-items:center;justify-content:center;font-size:22px">🍽️</div>
+    <h1 style="margin:0;font-size:26px;font-weight:900;color:{{ textPrimary }};letter-spacing:-0.02em">DineAround</h1>
+  </div>
+  <div style="display:flex;gap:6px;margin-bottom:20px;background:rgba(255,255,255,0.35);padding:4px;border-radius:16px">
+    <button onClick="{{ setAuthModeLogin }}" style="{{ loginTabStyle }}">Log in</button>
+    <button onClick="{{ setAuthModeSignup }}" style="{{ signupTabStyle }}">Sign up</button>
+  </div>
+  <form onSubmit="{{ login }}" style="display:flex;flex-direction:column;gap:14px;background:{{ cardBg }};padding:24px;border-radius:24px;box-shadow:0 10px 30px rgba(61,57,53,0.15)">
+    <div>
+      <label style="display:block;font-size:13px;font-weight:700;color:{{ textPrimary }};margin-bottom:6px">Email</label>
+      <input type="email" value="{{ authEmail }}" onChange="{{ setAuthEmail }}" placeholder="you@example.com" style="width:100%;box-sizing:border-box;padding:12px 14px;border-radius:14px;border:2px solid {{ inputBorder }};background:{{ inputBg }};font-size:15px;font-weight:500;color:{{ textPrimary }};outline:none"/>
+    </div>
+    <div>
+      <label style="display:block;font-size:13px;font-weight:700;color:{{ textPrimary }};margin-bottom:6px">Password</label>
+      <input type="password" placeholder="••••••••" style="width:100%;box-sizing:border-box;padding:12px 14px;border-radius:14px;border:2px solid {{ inputBorder }};background:{{ inputBg }};font-size:15px;font-weight:500;color:{{ textPrimary }};outline:none"/>
+    </div>
+    <button type="submit" style="margin-top:6px;width:100%;padding:14px;border:none;border-radius:16px;background:linear-gradient(to right,#2F9E52,#1F7A3D);color:#fff;font-size:15px;font-weight:800;box-shadow:0 6px 16px rgba(212,165,154,0.4)" style-hover="transform:scale(1.02)">{{ authSubmitLabel }}</button>
+  </form>
+  <button onClick="{{ continueGuest }}" style="margin-top:18px;background:none;border:none;color:{{ textPrimary }};font-size:14px;font-weight:700;text-decoration:underline;cursor:pointer;align-self:center">Continue as guest</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ user }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:2px solid {{ borderSoft }};background:{{ headerBg }}">
+  <div style="display:flex;align-items:center;gap:8px">
+    <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(to bottom right,#2F9E52,#1F7A3D);display:flex;align-items:center;justify-content:center;font-size:16px">🍽️</div>
+    <h1 style="margin:0;font-size:18px;font-weight:900;white-space:nowrap;color:#2F9E52">DineAround</h1>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;flex-shrink:0">
+    <button onClick="{{ toggleDarkMode }}" style="border:none;background:none;font-size:18px;cursor:pointer;padding:4px">{{ darkModeIcon }}</button>
+    <button onClick="{{ logout }}" style="white-space:nowrap;border:none;border-radius:14px;background:linear-gradient(to right,#2F9E52,#1F7A3D);color:#fff;font-size:12px;font-weight:800;padding:8px 12px;cursor:pointer">Sign out</button>
+  </div>
+</div>
+
+<sc-if value="{{ showSubScreen }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;overflow:auto;box-sizing:border-box">
+
+  <sc-if value="{{ showDetail }}" hint-placeholder-val="{{ false }}">
+  <div>
+    <div style="padding:14px 18px"><button onClick="{{ back }}" style="border:none;background:none;color:#1F7A3D;font-size:14px;font-weight:800;cursor:pointer">← Back</button></div>
+    <div style="height:200px;width:100%;background:linear-gradient(135deg,#DCF2E3,#2F9E52);display:flex;align-items:center;justify-content:center">
+      <span style="font-size:72px">{{ detail.emoji }}</span>
+    </div>
+    <div style="padding:20px 20px 40px">
+      <h2 style="margin:0 0 6px;font-size:24px;font-weight:900;color:{{ textPrimary }}">{{ detail.name }}</h2>
+      <p style="margin:0 0 14px;font-size:14px;font-weight:600;color:{{ textSecondary }}">📍 {{ detail.address }} · {{ detail.cuisine }}</p>
+      <div style="display:flex;gap:8px;margin-bottom:20px">
+        <span style="display:inline-flex;align-items:center;gap:4px;background:linear-gradient(to right,#2F9E52,#1F7A3D);color:#fff;padding:6px 12px;border-radius:20px;font-size:13px;font-weight:800">⭐ {{ detail.rating }}</span>
+        <span style="background:rgba(47,158,82,0.14);color:#2E8A4F;padding:6px 12px;border-radius:20px;font-size:13px;font-weight:800">{{ detail.priceStr }}</span>
+      </div>
+      <div style="display:flex;gap:10px;margin-bottom:24px">
+        <button onClick="{{ detail.logVisitFn }}" style="flex:1;border:none;border-radius:16px;background:linear-gradient(to right,#2F9E52,#1F7A3D);color:#fff;font-size:14px;font-weight:800;padding:14px;cursor:pointer">Log Visit</button>
+        <button onClick="{{ detail.toggleWishlistFn }}" style="{{ detail.wishlistBtnStyle }}">{{ detail.wishlistLabel }}</button>
+      </div>
+
+      <div style="margin-bottom:24px">
+        <h3 style="margin:0 0 10px;font-size:16px;font-weight:900;color:{{ textPrimary }}">Food Photos</h3>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+          <sc-for list="{{ foodPhotoSlots }}" as="slot" hint-placeholder-count="3">
+            <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="{{ slot.id }}" shape="rounded" radius="14" placeholder="Add a photo" style="width:100%;aspect-ratio:1;display:block" hint-size="100%,100"></x-import>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="border-top:2px solid {{ borderSoft }};padding-top:20px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+          <h3 style="margin:0;font-size:16px;font-weight:900;color:{{ textPrimary }}">Menu</h3>
+          <button onClick="{{ detail.openMenuFn }}" style="border:2px solid #E8A33D;background:{{ cardBg }};color:#C97F0F;font-size:12px;font-weight:800;padding:7px 12px;border-radius:14px;cursor:pointer">{{ detail.menuBtnLabel }}</button>
+        </div>
+        <sc-if value="{{ detail.hasMenu }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <sc-for list="{{ detailMenuItems }}" as="item" hint-placeholder-count="3">
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:{{ chipBg }};border-radius:14px">
+              <div>
+                <div style="font-size:10px;font-weight:800;color:#5C7268;text-transform:uppercase;letter-spacing:0.04em">{{ item.category }}</div>
+                <div style="font-size:14px;font-weight:700;color:{{ textPrimary }}">{{ item.name }}</div>
+              </div>
+              <div style="font-size:14px;font-weight:800;color:#1F7A3D">${{ item.price }}</div>
+            </div>
+          </sc-for>
+        </div>
+        </sc-if>
+        <sc-if value="{{ detail.noMenu }}" hint-placeholder-val="{{ true }}">
+          <p style="font-size:13px;font-weight:600;color:#5C7268;margin:0">No menu captured yet.</p>
+        </sc-if>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ showMenuCapture }}" hint-placeholder-val="{{ false }}">
+  <div style="padding:14px 18px 40px;box-sizing:border-box">
+    <button onClick="{{ back }}" style="border:none;background:none;color:#1F7A3D;font-size:14px;font-weight:800;cursor:pointer;margin-bottom:6px">← Back</button>
+    <h2 style="margin:0 0 4px;font-size:20px;font-weight:900;color:{{ textPrimary }}">Capture Menu</h2>
+    <p style="margin:0 0 16px;font-size:13px;font-weight:600;color:{{ textSecondary }}">{{ detail.name }}</p>
+
+    <div style="margin-bottom:16px">
+      <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="{{ menuPhotoId }}" shape="rounded" radius="20" placeholder="Drop a photo of the menu" style="width:100%;height:150px;display:block" hint-size="100%,150px"></x-import>
+    </div>
+
+    <button onClick="{{ scanMenuFn }}" style="width:100%;border:none;border-radius:16px;background:linear-gradient(to right,#3FAE68,#2E8A4F);color:#fff;font-size:14px;font-weight:800;padding:14px;cursor:pointer;margin-bottom:20px">✨ Digitize Menu</button>
+
+    <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px">
+      <sc-for list="{{ detailMenuItems }}" as="item" hint-placeholder-count="3">
+        <div style="display:flex;gap:6px;align-items:center;background:{{ chipBg }};padding:10px;border-radius:14px">
+          <input value="{{ item.category }}" onChange="{{ item.updateCategory }}" placeholder="Category" style="width:70px;box-sizing:border-box;padding:8px 8px;border-radius:10px;border:2px solid {{ inputBorder }};background:{{ inputBg }};font-size:11px;font-weight:700;color:{{ textPrimary }};outline:none"/>
+          <input value="{{ item.name }}" onChange="{{ item.updateName }}" placeholder="Dish name" style="flex:1;box-sizing:border-box;padding:8px 8px;border-radius:10px;border:2px solid {{ inputBorder }};background:{{ inputBg }};font-size:12px;font-weight:600;color:{{ textPrimary }};outline:none"/>
+          <input value="{{ item.price }}" onChange="{{ item.updatePrice }}" placeholder="$" style="width:44px;box-sizing:border-box;padding:8px 6px;border-radius:10px;border:2px solid {{ inputBorder }};background:{{ inputBg }};font-size:12px;font-weight:700;color:{{ textPrimary }};outline:none"/>
+          <button onClick="{{ item.removeItem }}" style="border:none;background:none;color:#E1584A;font-size:18px;font-weight:800;cursor:pointer;padding:0 4px">×</button>
+        </div>
+      </sc-for>
+    </div>
+    <button onClick="{{ addItemFn }}" style="width:100%;border:2px dashed #BFE0CC;background:none;color:{{ textSecondary }};font-size:13px;font-weight:700;padding:12px;border-radius:14px;cursor:pointer">+ Add dish</button>
+
+    <sc-if value="{{ detail.hasMenu }}" hint-placeholder-val="{{ false }}">
+      <button onClick="{{ exportMenuPdf }}" style="width:100%;white-space:nowrap;border:2px solid #2F9E52;background:{{ cardBg }};color:#1F7A3D;font-size:13px;font-weight:800;padding:12px;border-radius:14px;cursor:pointer;margin-top:12px">🖨️ Export Menu as PDF</button>
+    </sc-if>
+  </div>
+  </sc-if>
+
+</div>
+</sc-if>
+
+<sc-if value="{{ showTabs }}" hint-placeholder-val="{{ true }}">
+<div style="flex:1;overflow:auto;box-sizing:border-box">
+
+  <sc-if value="{{ isNearby }}" hint-placeholder-val="{{ true }}">
+  <div style="padding:20px 18px 32px;box-sizing:border-box">
+    <h2 style="margin:0 0 4px;font-size:24px;font-weight:900;letter-spacing:-0.02em;color:{{ textPrimary }}">Discover <span style="color:#2F9E52">Restaurants</span></h2>
+    <p style="margin:0 0 16px;font-size:13px;font-weight:600;color:{{ textSecondary }}">Find and explore amazing dining experiences near you</p>
+
+    <div style="position:relative;margin-bottom:10px">
+      <input value="{{ searchQuery }}" onChange="{{ setSearch }}" placeholder="Search for restaurants..." style="width:100%;box-sizing:border-box;padding:14px 14px 14px 40px;border-radius:16px;border:2px solid {{ borderSoft2 }};font-size:14px;font-weight:500;color:{{ textPrimary }};background:{{ cardBg }};outline:none;box-shadow:0 2px 10px rgba(61,57,53,0.06)"/>
+      <span style="position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:16px">🔍</span>
+    </div>
+
+    <button onClick="{{ requestLocation }}" style="{{ locationBtnStyle }}">{{ locationBtnLabel }}</button>
+
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px">
+      <select value="{{ cuisine }}" onChange="{{ setCuisine }}" style="border-radius:14px;border:2px solid {{ borderSoft2 }};padding:8px 10px;font-size:12px;font-weight:700;color:{{ textPrimary }};background:{{ cardBg }}">
+        <option value="">🍴 All Cuisines</option>
+        <sc-for list="{{ cuisines }}" as="c" hint-placeholder-count="5">
+          <option value="{{ c }}">{{ c }}</option>
+        </sc-for>
+      </select>
+      <select value="{{ price }}" onChange="{{ setPrice }}" style="border-radius:14px;border:2px solid {{ borderSoft2 }};padding:8px 10px;font-size:12px;font-weight:700;color:{{ textPrimary }};background:{{ cardBg }}">
+        <option value="">💰 All Prices</option>
+        <option value="1">$ Budget</option>
+        <option value="2">$$ Moderate</option>
+        <option value="3">$$$ Pricey</option>
+        <option value="4">$$$$ Luxury</option>
+      </select>
+      <sc-if value="{{ hasFilters }}" hint-placeholder-val="{{ false }}">
+        <button onClick="{{ resetFilters }}" style="border-radius:14px;border:2px solid rgba(214,155,155,0.5);padding:8px 12px;font-size:12px;font-weight:700;color:#1F7A3D;background:{{ cardBg }};cursor:pointer">✕ Clear</button>
+      </sc-if>
+    </div>
+
+    <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
+      <div style="text-align:center;padding:40px 20px;border-radius:24px;border:2px solid {{ borderSoft }}">
+        <span style="font-size:44px">🔍</span>
+        <p style="font-size:16px;font-weight:900;color:{{ textPrimary }};margin:10px 0 2px">No restaurants found</p>
+        <p style="font-size:13px;font-weight:600;color:{{ textSecondary }};margin:0">Try a different search or filter</p>
+      </div>
+    </sc-if>
+
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <sc-for list="{{ restaurants }}" as="r" hint-placeholder-count="4">
+        <div style="display:flex;gap:12px;border-radius:20px;border:1px solid {{ borderSoft }};background:{{ cardBg }};box-shadow:0 2px 10px rgba(21,36,27,0.05);padding:12px">
+          <div onClick="{{ r.openDetailFn }}" style="flex-shrink:0;width:76px;height:76px;border-radius:16px;background:linear-gradient(135deg,#DCF2E3,#3FAE68);display:flex;align-items:center;justify-content:center;cursor:pointer">
+            <span style="font-size:32px">{{ r.emoji }}</span>
+          </div>
+          <div style="flex:1;min-width:0;display:flex;flex-direction:column;justify-content:space-between">
+            <div onClick="{{ r.openDetailFn }}" style="cursor:pointer">
+              <h3 style="margin:0 0 3px;font-size:15px;font-weight:800;color:{{ textPrimary }};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.name }}</h3>
+              <p style="margin:0;font-size:11px;font-weight:600;color:{{ textSecondary }};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.cuisine }} · {{ r.priceStr }}<sc-if value="{{ useLocation }}" hint-placeholder-val="{{ false }}"> · {{ r.distanceLabel }}</sc-if></p>
+              <span style="display:inline-block;margin-top:4px;font-size:11px;font-weight:800;color:#E8A33D">⭐ {{ r.rating }}</span>
+            </div>
+            <div style="display:flex;gap:6px;margin-top:6px">
+              <button onClick="{{ r.logVisitFn }}" style="flex:1;border:none;border-radius:12px;background:#2F9E52;color:#fff;font-size:12px;font-weight:800;padding:8px;cursor:pointer">Log Visit</button>
+              <button onClick="{{ r.toggleWishlistFn }}" style="{{ r.wishlistBtnStyle }}">⭐</button>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ isLog }}" hint-placeholder-val="{{ false }}">
+  <div style="padding:20px 18px 32px;box-sizing:border-box">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+      <h2 style="margin:0;font-size:22px;font-weight:900;white-space:nowrap;color:{{ textPrimary }}">Visit <span style="color:#2F9E52">Log</span></h2>
+      <button onClick="{{ toggleLogFormFn }}" style="white-space:nowrap;border:none;border-radius:14px;background:linear-gradient(to right,#3FAE68,#2E8A4F);color:#fff;font-size:12px;font-weight:800;padding:9px 14px;cursor:pointer">{{ logFormToggleLabel }}</button>
+    </div>
+
+    <sc-if value="{{ showLogForm }}" hint-placeholder-val="{{ false }}">
+    <form onSubmit="{{ submitVisit }}" style="display:flex;flex-direction:column;gap:12px;border-radius:22px;border:2px solid {{ borderSoft }};background:{{ cardBg }};box-shadow:0 6px 20px rgba(61,57,53,0.08);padding:18px;margin-bottom:20px">
+      <div>
+        <label style="display:block;font-size:12px;font-weight:800;color:{{ textPrimary }};margin-bottom:5px">Restaurant Name *</label>
+        <input value="{{ logFormRestaurant }}" onChange="{{ setLogRestaurant }}" placeholder="Enter restaurant name" style="width:100%;box-sizing:border-box;padding:11px 12px;border-radius:14px;border:2px solid {{ inputBorder }};background:{{ inputBg }};font-size:14px;font-weight:600;color:{{ textPrimary }};outline:none"/>
+      </div>
+      <div>
+        <label style="display:block;font-size:12px;font-weight:800;color:{{ textPrimary }};margin-bottom:5px">Visit Date *</label>
+        <input type="date" value="{{ logDate }}" onChange="{{ setLogDate }}" style="width:100%;box-sizing:border-box;padding:11px 12px;border-radius:14px;border:2px solid {{ inputBorder }};background:{{ inputBg }};font-size:14px;font-weight:600;color:{{ textPrimary }};outline:none"/>
+      </div>
+      <div>
+        <label style="display:block;font-size:12px;font-weight:800;color:{{ textPrimary }};margin-bottom:5px">Rating</label>
+        <div style="display:flex;gap:6px">
+          <sc-for list="{{ ratingStars }}" as="star" hint-placeholder-count="5">
+            <button type="button" onClick="{{ star.select }}" style="border:none;background:none;font-size:26px;cursor:pointer;color:{{ star.color }}">★</button>
+          </sc-for>
+        </div>
+      </div>
+      <div>
+        <label style="display:block;font-size:12px;font-weight:800;color:{{ textPrimary }};margin-bottom:5px">Notes</label>
+        <textarea rows="3" value="{{ logNotes }}" onChange="{{ setLogNotes }}" placeholder="What did you think?" style="width:100%;box-sizing:border-box;padding:11px 12px;border-radius:14px;border:2px solid {{ inputBorder }};background:{{ inputBg }};font-size:14px;font-weight:500;color:{{ textPrimary }};outline:none;resize:none"></textarea>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button type="submit" style="flex:1;border:none;border-radius:14px;background:linear-gradient(to right,#2F9E52,#1F7A3D);color:#fff;font-size:14px;font-weight:800;padding:13px;cursor:pointer">{{ submitLabel }}</button>
+        <button type="button" onClick="{{ cancelLogForm }}" style="border:2px solid {{ inputBorder }};background:{{ inputBg }};background:none;border-radius:14px;color:{{ textSecondary }};font-size:14px;font-weight:700;padding:13px 16px;cursor:pointer">Cancel</button>
+      </div>
+    </form>
+    </sc-if>
+
+    <sc-if value="{{ noVisits }}" hint-placeholder-val="{{ false }}">
+      <div style="text-align:center;padding:40px 20px;border-radius:24px;border:2px solid {{ borderSoft }}">
+        <span style="font-size:44px">📝</span>
+        <p style="font-size:15px;font-weight:800;color:{{ textPrimary }};margin:10px 0">You haven't logged any visits yet.</p>
+      </div>
+    </sc-if>
+
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <sc-for list="{{ visits }}" as="v" hint-placeholder-count="2">
+        <div style="border-radius:22px;border:2px solid {{ borderSoft }};background:{{ cardBg }};box-shadow:0 4px 14px rgba(61,57,53,0.06);padding:16px">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start">
+            <div style="flex:1">
+              <h3 style="margin:0 0 3px;font-size:16px;font-weight:900;color:{{ textPrimary }}">{{ v.restaurantName }}</h3>
+              <p style="margin:0 0 6px;font-size:12px;font-weight:600;color:{{ textSecondary }}">{{ v.dateDisplay }}</p>
+              <sc-if value="{{ v.hasRating }}" hint-placeholder-val="{{ false }}">
+                <div style="display:inline-block;background:linear-gradient(to right,#2F9E52,#1F7A3D);color:#fff;padding:4px 10px;border-radius:20px;font-size:12px;font-weight:800;margin-bottom:6px">{{ v.starsDisplay }}</div>
+              </sc-if>
+              <p style="margin:6px 0 0;font-size:13px;font-weight:500;color:#3A4A3E">{{ v.notes }}</p>
+            </div>
+            <div style="display:flex;gap:4px;flex-shrink:0">
+              <button onClick="{{ v.shareFn }}" style="border:none;background:none;font-size:15px;cursor:pointer">📤</button>
+              <button onClick="{{ v.editFn }}" style="border:none;background:none;font-size:15px;cursor:pointer">✏️</button>
+              <button onClick="{{ v.deleteFn }}" style="border:none;background:none;font-size:15px;cursor:pointer">🗑️</button>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ isWishlist }}" hint-placeholder-val="{{ false }}">
+  <div style="padding:20px 18px 32px;box-sizing:border-box">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+      <h2 style="margin:0;font-size:22px;font-weight:900;white-space:nowrap;color:{{ textPrimary }}">Wish<span style="color:#E8A33D">list</span></h2>
+      <button onClick="{{ toggleWishlistAdd }}" style="white-space:nowrap;border:none;border-radius:14px;background:linear-gradient(to right,#E8A33D,#C97F0F);color:#fff;font-size:12px;font-weight:800;padding:9px 14px;cursor:pointer">{{ wishlistAddToggleLabel }}</button>
+    </div>
+
+    <sc-if value="{{ showWishlistAdd }}" hint-placeholder-val="{{ false }}">
+    <div style="border-radius:22px;border:2px solid rgba(197,184,216,0.4);background:{{ cardBg }};box-shadow:0 6px 20px rgba(61,57,53,0.08);padding:14px;margin-bottom:20px;display:flex;flex-direction:column;gap:8px">
+      <sc-for list="{{ wishlistCandidates }}" as="r" hint-placeholder-count="3">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:{{ chipBg }};border-radius:14px">
+          <div style="display:flex;align-items:center;gap:10px">
+            <span style="font-size:20px;flex-shrink:0">{{ r.emoji }}</span>
+            <div style="flex:1;min-width:0">
+              <div style="font-size:13px;font-weight:800;color:{{ textPrimary }};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.name }}</div>
+              <div style="font-size:11px;font-weight:600;color:#5C7268;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.cuisine }}</div>
+            </div>
+          </div>
+          <button onClick="{{ r.addFn }}" style="border:none;border-radius:12px;background:linear-gradient(to right,#E8A33D,#C97F0F);color:#fff;font-size:16px;font-weight:800;width:30px;height:30px;cursor:pointer">+</button>
+        </div>
+      </sc-for>
+      <sc-if value="{{ noCandidates }}" hint-placeholder-val="{{ false }}">
+        <p style="text-align:center;font-size:12px;font-weight:600;color:#5C7268;margin:8px 0">All restaurants are already on your wishlist.</p>
+      </sc-if>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ noWishlist }}" hint-placeholder-val="{{ true }}">
+      <div style="text-align:center;padding:40px 20px;border-radius:24px;border:2px solid rgba(197,184,216,0.4)">
+        <span style="font-size:44px">⭐</span>
+        <p style="font-size:15px;font-weight:800;color:{{ textPrimary }};margin:10px 0">Your wishlist is empty. Add restaurants you want to visit!</p>
+      </div>
+    </sc-if>
+
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <sc-for list="{{ wishlistRestaurants }}" as="r" hint-placeholder-count="3">
+        <div style="position:relative;display:flex;gap:12px;border-radius:20px;border:1px solid {{ borderSoft }};background:{{ cardBg }};box-shadow:0 2px 10px rgba(21,36,27,0.05);padding:12px">
+          <div onClick="{{ r.openDetailFn }}" style="flex-shrink:0;width:76px;height:76px;border-radius:16px;background:linear-gradient(135deg,#DCF2E3,#3FAE68);display:flex;align-items:center;justify-content:center;cursor:pointer">
+            <span style="font-size:32px">{{ r.emoji }}</span>
+          </div>
+          <div onClick="{{ r.openDetailFn }}" style="flex:1;min-width:0;cursor:pointer">
+            <h3 style="margin:0 0 3px;font-size:15px;font-weight:800;color:{{ textPrimary }};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.name }}</h3>
+            <p style="margin:0;font-size:11px;font-weight:600;color:{{ textSecondary }}">{{ r.cuisine }} · {{ r.priceStr }}</p>
+          </div>
+          <button onClick="{{ r.removeFn }}" style="flex-shrink:0;align-self:center;width:30px;height:30px;border:none;border-radius:50%;background:#E1584A;color:#fff;font-size:15px;font-weight:800;cursor:pointer">×</button>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+  </sc-if>
+
+</div>
+
+<div style="display:flex;border-top:2px solid {{ borderSoft }};background:{{ bottomNavBg }};flex-shrink:0;padding-bottom:22px">
+  <button onClick="{{ goNearby }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px 14px;border:none;background:none;cursor:pointer">
+    <span style="font-size:20px">📍</span>
+    <span style="font-size:11px;font-weight:800;color:{{ nearbyTabColor }}">Nearby</span>
+  </button>
+  <button onClick="{{ goLog }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px 14px;border:none;background:none;cursor:pointer">
+    <span style="font-size:20px">📝</span>
+    <span style="font-size:11px;font-weight:800;color:{{ logTabColor }}">Log</span>
+  </button>
+  <button onClick="{{ goWishlist }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px 14px;border:none;background:none;cursor:pointer">
+    <span style="font-size:20px">⭐</span>
+    <span style="font-size:11px;font-weight:800;color:{{ wishlistTabColor }}">Wishlist</span>
+  </button>
+</div>
+</sc-if>
+
+</sc-if>
+
+</div>
+</x-import>
+</div>
+
+<sc-if value="{{ hasToast }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:#15241B;color:#fff;padding:10px 18px;border-radius:20px;font-size:13px;font-weight:700;z-index:999;box-shadow:0 8px 24px rgba(0,0,0,0.25)">{{ toast }}</div>
+</sc-if>
+
+<div class="dinearound-print-sheet">
+  <h1 style="font-size:28px;font-weight:900;color:{{ textPrimary }};margin:0 0 4px">{{ printRestaurantName }}</h1>
+  <p style="font-size:13px;font-weight:600;color:{{ textSecondary }};margin:0 0 28px">Menu</p>
+  <sc-for list="{{ printMenuItems }}" as="item" hint-placeholder-count="4">
+    <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #DCE8DF">
+      <div>
+        <div style="font-size:11px;font-weight:800;color:#5C7268;text-transform:uppercase;letter-spacing:0.04em">{{ item.category }}</div>
+        <div style="font-size:16px;font-weight:700;color:{{ textPrimary }}">{{ item.name }}</div>
+      </div>
+      <div style="font-size:16px;font-weight:800;color:#1F7A3D">${{ item.price }}</div>
+    </div>
+  </sc-for>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = {
+    user: null,
+    authMode: 'login',
+    authEmail: '',
+    tab: 'nearby',
+    stack: [],
+    searchQuery: '',
+    cuisine: '',
+    price: '',
+    wishlist: [],
+    visits: [],
+    menus: {},
+    showLogForm: false,
+    logFormRestaurant: '',
+    logDate: new Date().toISOString().slice(0, 10),
+    logRating: 0,
+    logNotes: '',
+    editingVisitId: null,
+    showWishlistAdd: false,
+    useLocation: false,
+    locatingNow: false,
+    darkMode: false,
+    toast: '',
+  };
+
+  showToast = (msg) => {
+    this.setState({ toast: msg });
+    clearTimeout(this._toastTimer);
+    this._toastTimer = setTimeout(() => this.setState({ toast: '' }), 2200);
+  };
+
+  shareVisit = (v) => {
+    const text = `${v.restaurantName} — visited ${v.date}${v.rating ? `, ${v.rating}/5 ⭐` : ''}${v.notes ? `\n"${v.notes}"` : ''}\nShared from DineAround`;
+    if (navigator.share) {
+      navigator.share({ title: v.restaurantName, text }).catch(() => {});
+    } else if (navigator.clipboard) {
+      navigator.clipboard.writeText(text).then(() => this.showToast('Copied to clipboard!'));
+    } else {
+      this.showToast('Sharing not supported on this device');
+    }
+  };
+
+  toggleDarkMode = () => this.setState(s => ({ darkMode: !s.darkMode }));
+
+  requestLocation = () => {
+    if (this.state.useLocation) { this.setState({ useLocation: false }); return; }
+    this.setState({ locatingNow: true });
+    const done = () => this.setState({ useLocation: true, locatingNow: false });
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(done, done, { timeout: 4000 });
+    } else {
+      done();
+    }
+  };
+
+  login = (e) => { if (e) e.preventDefault(); this.setState({ user: { email: this.state.authEmail || 'guest@dinearound.app' } }); };
+  continueGuest = () => this.setState({ user: { email: 'guest@dinearound.app' } });
+  logout = () => this.setState({ user: null, tab: 'nearby', stack: [] });
+  setAuthMode = (m) => this.setState({ authMode: m });
+  setAuthEmail = (e) => this.setState({ authEmail: e.target.value });
+
+  goTab = (t) => this.setState({ tab: t, stack: [] });
+
+  openDetail = (id) => this.setState(s => ({ stack: [...s.stack, { type: 'detail', id }] }));
+  openMenuCapture = (id) => this.setState(s => ({ stack: [...s.stack, { type: 'menuCapture', id }] }));
+  back = () => this.setState(s => ({ stack: s.stack.slice(0, -1) }));
+
+  toggleWishlist = (id) => this.setState(s => ({
+    wishlist: s.wishlist.includes(id) ? s.wishlist.filter(x => x !== id) : [...s.wishlist, id],
+  }));
+
+  startLogVisit = (name) => this.setState({
+    tab: 'log', stack: [], showLogForm: true, logFormRestaurant: name,
+    logDate: new Date().toISOString().slice(0, 10), logRating: 0, logNotes: '', editingVisitId: null,
+  });
+
+  toggleLogForm = () => this.setState(s => (s.showLogForm
+    ? { showLogForm: false, editingVisitId: null }
+    : { showLogForm: true, editingVisitId: null, logFormRestaurant: '', logDate: new Date().toISOString().slice(0, 10), logRating: 0, logNotes: '' }));
+
+  setSearch = (e) => this.setState({ searchQuery: e.target.value });
+  setCuisine = (e) => this.setState({ cuisine: e.target.value });
+  setPrice = (e) => this.setState({ price: e.target.value });
+  resetFilters = () => this.setState({ cuisine: '', price: '' });
+
+  setLogRestaurant = (e) => this.setState({ logFormRestaurant: e.target.value });
+  setLogDate = (e) => this.setState({ logDate: e.target.value });
+  setLogNotes = (e) => this.setState({ logNotes: e.target.value });
+
+  submitVisit = (e) => {
+    if (e) e.preventDefault();
+    const s = this.state;
+    if (!s.logFormRestaurant.trim()) return;
+    if (s.editingVisitId) {
+      this.setState(st => ({
+        visits: st.visits.map(v => v.id === st.editingVisitId
+          ? { ...v, restaurantName: st.logFormRestaurant, date: st.logDate, rating: st.logRating, notes: st.logNotes }
+          : v),
+        showLogForm: false, editingVisitId: null,
+      }));
+    } else {
+      const visit = { id: 'v' + Date.now(), restaurantName: s.logFormRestaurant, date: s.logDate, rating: s.logRating, notes: s.logNotes };
+      this.setState(st => ({ visits: [visit, ...st.visits], showLogForm: false }));
+    }
+  };
+
+  editVisit = (id) => {
+    const v = this.state.visits.find(x => x.id === id);
+    if (!v) return;
+    this.setState({ editingVisitId: id, logFormRestaurant: v.restaurantName, logDate: v.date, logRating: v.rating || 0, logNotes: v.notes || '', showLogForm: true });
+  };
+  deleteVisit = (id) => this.setState(s => ({ visits: s.visits.filter(v => v.id !== id) }));
+  cancelLogForm = () => this.setState({ showLogForm: false, editingVisitId: null });
+
+  toggleWishlistAdd = () => this.setState(s => ({ showWishlistAdd: !s.showWishlistAdd }));
+
+  scanMenu = (id) => {
+    const seed = (window.DINEAROUND_MENU_SEEDS && window.DINEAROUND_MENU_SEEDS[id]) || [];
+    this.setState(s => ({ menus: { ...s.menus, [id]: seed.length ? seed.map(x => ({ ...x })) : [{ category: 'Mains', name: '', price: '' }] } }));
+  };
+  updateMenuItem = (id, idx, field, val) => {
+    this.setState(s => {
+      const items = (s.menus[id] || []).slice();
+      items[idx] = { ...items[idx], [field]: val };
+      return { menus: { ...s.menus, [id]: items } };
+    });
+  };
+  addMenuItem = (id) => this.setState(s => ({ menus: { ...s.menus, [id]: [...(s.menus[id] || []), { category: '', name: '', price: '' }] } }));
+  removeMenuItem = (id, idx) => this.setState(s => ({ menus: { ...s.menus, [id]: (s.menus[id] || []).filter((_, i) => i !== idx) } }));
+
+  renderVals() {
+    const s = this.state;
+    const all = window.DINEAROUND_RESTAURANTS || [];
+    const q = s.searchQuery.trim().toLowerCase();
+
+    const withHandlers = (r) => ({
+      ...r,
+      priceStr: '$'.repeat(r.price_level),
+      inWishlist: s.wishlist.includes(r.id),
+      wishlistBtnStyle: s.wishlist.includes(r.id)
+        ? 'border:2px solid #E8A33D;background:#E8A33D;color:#fff;border-radius:14px;padding:11px 14px;cursor:pointer;font-size:14px'
+        : 'border:2px solid #E8A33D;background:#FFFFFF;color:#C97F0F;border-radius:14px;padding:11px 14px;cursor:pointer;font-size:14px',
+      toggleWishlistFn: () => this.toggleWishlist(r.id),
+      openDetailFn: () => this.openDetail(r.id),
+      logVisitFn: () => this.startLogVisit(r.name),
+      addFn: () => this.toggleWishlist(r.id),
+      removeFn: () => this.toggleWishlist(r.id),
+    });
+
+    let restaurants = all.filter(r => {
+      if (q && !r.name.toLowerCase().includes(q) && !r.cuisine.toLowerCase().includes(q)) return false;
+      if (s.cuisine && r.cuisine !== s.cuisine) return false;
+      if (s.price && r.price_level !== Number(s.price)) return false;
+      return true;
+    });
+    if (s.useLocation) restaurants = restaurants.slice().sort((a, b) => a.distanceKm - b.distanceKm);
+    restaurants = restaurants.map(withHandlers).map(r => ({ ...r, distanceLabel: r.distanceKm + ' km away' }));
+
+    const top = s.stack[s.stack.length - 1] || null;
+    const detailR = top ? all.find(r => r.id === top.id) : null;
+    const detailMenuItemsRaw = detailR ? (s.menus[detailR.id] || []) : [];
+    const detailMenuItems = detailMenuItemsRaw.map((it, idx) => ({
+      ...it,
+      updateCategory: (e) => this.updateMenuItem(detailR.id, idx, 'category', e.target.value),
+      updateName: (e) => this.updateMenuItem(detailR.id, idx, 'name', e.target.value),
+      updatePrice: (e) => this.updateMenuItem(detailR.id, idx, 'price', e.target.value),
+      removeItem: () => this.removeMenuItem(detailR.id, idx),
+    }));
+
+    const detail = detailR ? (() => {
+      const h = withHandlers(detailR);
+      const hasMenu = detailMenuItemsRaw.length > 0;
+      return {
+        ...h,
+        hasMenu, noMenu: !hasMenu,
+        wishlistLabel: h.inWishlist ? '★ In Wishlist' : '☆ Add to Wishlist',
+        menuBtnLabel: hasMenu ? 'Edit Menu' : 'Capture Menu',
+        openMenuFn: () => this.openMenuCapture(detailR.id),
+      };
+    })() : null;
+
+    const wishlistRestaurants = all.filter(r => s.wishlist.includes(r.id)).map(withHandlers);
+    const wishlistCandidates = all.filter(r => !s.wishlist.includes(r.id)).map(withHandlers);
+
+    const ratingStars = [1, 2, 3, 4, 5].map(n => ({
+      n, color: n <= s.logRating ? '#E8A33D' : '#DCE8DF',
+      select: () => this.setState({ logRating: n }),
+    }));
+
+    const sortedVisits = s.visits.slice().sort((a, b) => (a.date < b.date ? 1 : -1)).map(v => ({
+      ...v,
+      dateDisplay: new Date(v.date + 'T00:00:00').toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' }),
+      hasRating: !!v.rating,
+      starsDisplay: '★'.repeat(v.rating || 0) + ' ' + (v.rating || 0) + '/5',
+      editFn: () => this.editVisit(v.id),
+      deleteFn: () => this.deleteVisit(v.id),
+      shareFn: () => this.shareVisit(v),
+    }));
+
+    const dm = s.darkMode;
+    const theme = {
+      bg: dm ? '#122019' : '#F5FAF6',
+      cardBg: dm ? '#1B2B22' : '#FFFFFF',
+      chipBg: dm ? '#16241C' : '#EFF7F1',
+      inputBg: dm ? '#16241C' : '#FFFFFF',
+      inputBorder: dm ? '#2E4536' : '#DCE8DF',
+      textPrimary: dm ? '#EAF5EE' : '#15241B',
+      textSecondary: dm ? '#8FAE9B' : '#5C7268',
+      borderSoft: dm ? 'rgba(63,110,80,0.4)' : 'rgba(47,158,82,0.16)',
+      borderSoft2: dm ? 'rgba(63,110,80,0.5)' : 'rgba(47,158,82,0.22)',
+      headerBg: dm ? 'rgba(18,32,25,0.92)' : 'rgba(245,250,246,0.92)',
+      bottomNavBg: dm ? 'rgba(18,32,25,0.96)' : 'rgba(245,250,246,0.96)',
+    };
+
+    return {
+      darkMode: dm, toggleDarkMode: this.toggleDarkMode, darkModeIcon: dm ? '☀️' : '🌙',
+      bg: theme.bg, cardBg: theme.cardBg, chipBg: theme.chipBg, inputBg: theme.inputBg, inputBorder: theme.inputBorder,
+      textPrimary: theme.textPrimary, textSecondary: theme.textSecondary,
+      borderSoft: theme.borderSoft, borderSoft2: theme.borderSoft2, headerBg: theme.headerBg, bottomNavBg: theme.bottomNavBg,
+      user: s.user, authEmail: s.authEmail,
+      loginTabStyle: s.authMode === 'login' ? 'flex:1;border:none;border-radius:12px;padding:10px;font-size:13px;font-weight:800;background:#fff;color:#15241B;cursor:pointer' : 'flex:1;border:none;border-radius:12px;padding:10px;font-size:13px;font-weight:800;background:none;color:#15241B;cursor:pointer;opacity:0.7',
+      signupTabStyle: s.authMode === 'signup' ? 'flex:1;border:none;border-radius:12px;padding:10px;font-size:13px;font-weight:800;background:#fff;color:#15241B;cursor:pointer' : 'flex:1;border:none;border-radius:12px;padding:10px;font-size:13px;font-weight:800;background:none;color:#15241B;cursor:pointer;opacity:0.7',
+      setAuthModeLogin: () => this.setAuthMode('login'), setAuthModeSignup: () => this.setAuthMode('signup'),
+      authSubmitLabel: s.authMode === 'login' ? 'Log in' : 'Create account',
+      setAuthEmail: this.setAuthEmail, login: this.login, continueGuest: this.continueGuest, logout: this.logout,
+
+      showSubScreen: s.stack.length > 0, showTabs: s.stack.length === 0,
+      showDetail: !!(top && top.type === 'detail'),
+      showMenuCapture: !!(top && top.type === 'menuCapture'),
+      detail, detailMenuItems, back: this.back,
+      menuPhotoId: detailR ? ('menu-photo-' + detailR.id) : 'menu-photo-none',
+      scanMenuFn: detailR ? (() => this.scanMenu(detailR.id)) : (() => {}),
+      addItemFn: detailR ? (() => this.addMenuItem(detailR.id)) : (() => {}),
+      foodPhotoSlots: detailR ? [1, 2, 3].map(n => ({ id: 'food-photo-' + detailR.id + '-' + n })) : [],
+      printRestaurantName: detailR ? detailR.name : '',
+      printMenuItems: detailMenuItemsRaw,
+      exportMenuPdf: () => window.print(),
+
+      isNearby: s.tab === 'nearby', isLog: s.tab === 'log', isWishlist: s.tab === 'wishlist',
+      goNearby: () => this.goTab('nearby'), goLog: () => this.goTab('log'), goWishlist: () => this.goTab('wishlist'),
+      nearbyTabColor: s.tab === 'nearby' ? '#2F9E52' : theme.textSecondary,
+      logTabColor: s.tab === 'log' ? '#2F9E52' : theme.textSecondary,
+      wishlistTabColor: s.tab === 'wishlist' ? '#2F9E52' : theme.textSecondary,
+
+      restaurants, hasResults: restaurants.length > 0, noResults: restaurants.length === 0,
+      useLocation: s.useLocation,
+      locationBtnLabel: s.locatingNow ? '📍 Locating…' : (s.useLocation ? '📍 Showing nearby · sorted by distance' : '📍 Use my location'),
+      locationBtnStyle: s.useLocation
+        ? 'width:100%;white-space:nowrap;border:2px solid #2F9E52;background:#2F9E52;color:#fff;font-size:13px;font-weight:800;padding:12px;border-radius:16px;cursor:pointer;margin-bottom:16px'
+        : 'width:100%;white-space:nowrap;border:2px solid rgba(47,158,82,0.4);background:rgba(47,158,82,0.08);color:#2F9E52;font-size:13px;font-weight:800;padding:12px;border-radius:16px;cursor:pointer;margin-bottom:16px',
+      requestLocation: this.requestLocation,
+      searchQuery: s.searchQuery, setSearch: this.setSearch,
+      cuisines: window.DINEAROUND_CUISINES || [], cuisine: s.cuisine, setCuisine: this.setCuisine,
+      price: s.price, setPrice: this.setPrice, hasFilters: !!(s.cuisine || s.price), resetFilters: this.resetFilters,
+
+      showLogForm: s.showLogForm, isEditingVisit: !!s.editingVisitId,
+      logFormToggleLabel: s.showLogForm ? 'Cancel' : '+ Log Visit',
+      toggleLogFormFn: this.toggleLogForm,
+      logFormRestaurant: s.logFormRestaurant, logDate: s.logDate, logNotes: s.logNotes,
+      setLogRestaurant: this.setLogRestaurant, setLogDate: this.setLogDate, setLogNotes: this.setLogNotes,
+      ratingStars, submitLabel: s.editingVisitId ? 'Update Visit' : 'Save Visit',
+      submitVisit: this.submitVisit, cancelLogForm: this.cancelLogForm,
+      visits: sortedVisits, noVisits: sortedVisits.length === 0,
+
+      wishlistRestaurants, noWishlist: wishlistRestaurants.length === 0,
+      showWishlistAdd: s.showWishlistAdd, toggleWishlistAdd: this.toggleWishlistAdd,
+      wishlistAddToggleLabel: s.showWishlistAdd ? 'Cancel' : '+ Add Restaurant',
+      wishlistCandidates, noCandidates: wishlistCandidates.length === 0,
+      toast: s.toast, hasToast: !!s.toast,
+    };
+  }
+}
+
+</script>
+</body>
+</html>

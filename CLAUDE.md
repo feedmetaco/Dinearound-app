@@ -4,12 +4,24 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-DineAround is a restaurant tracking and discovery app. The project is transitioning from an iOS-first approach to a **web-first strategy** with eventual iOS development. The web application will be built with Next.js 14 and deployed to production first, with the iOS app reusing the web backend and database schema later.
+DineAround is a restaurant tracking and discovery app with **parallel tracks**:
+
+1. **Web (production)** — Next.js 14 + Supabase + Vercel, live at https://dinearound-feedmetaco.vercel.app
+2. **iOS (in progress)** — Native SwiftUI rebuild from Jul 2026 design handoff in `design-handoff/`
+
+**Canonical local path:** `~/Documents/claude-projects/dinearound-app/`
 
 ### Current State
-- **iOS**: Basic SwiftUI skeleton with 3 tabs (Nearby, Log, Wishlist) exists in `ios/Dinearound-app/`
-- **Web**: Not yet implemented, but comprehensive planning documents exist in `docs/`
-- **Production Target**: Web application (Next.js 14 + Supabase + Vercel)
+- **Web**: Production app in `web/` — Supabase auth, Google Places, Nearby/Log/Wishlist tabs
+- **iOS**: Basic SwiftUI skeleton in `ios/Dinearound-app/`; full UI spec in `design-handoff/README.md`
+- **Design handoff**: `design-handoff/` — tokens (`#2F9E52`), prototype HTML, seed data, screenshots
+- **Legacy plans**: `docs/archive/v0.001/` and `docs/archive/planning/` (superseded)
+- **Tasks**: `tasks/todo.md` — parallel web + iOS checklists
+
+### Track Decisions (locked)
+- iOS uses handoff `#2F9E52` tokens; web keeps `SOFT_SOOTHING` palette unless unified later
+- Menu OCR/PDF: full spec in design handoff (iOS); web backlog item
+- Do not use stale iCloud/Desktop clones — see `tasks/todo.md` deprecated list
 
 ## Architecture
 

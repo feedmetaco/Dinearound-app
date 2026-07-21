@@ -1,10 +1,12 @@
 # DineAround App
 
-Restaurant tracking and discovery app with web-first strategy.
+Restaurant tracking and discovery app with **parallel tracks**: live web (Vercel/Supabase) + native iOS SwiftUI (Jul 2026 design handoff).
+
+**Canonical local path:** `~/Documents/claude-projects/dinearound-app/`
 
 ## 🌐 Web Application (Next.js 14)
 
-**Status:** Production-ready web app
+**Status:** Production — live at https://dinearound-feedmetaco.vercel.app
 **Tech Stack:** Next.js 14 + Supabase + Vercel + Tailwind CSS
 **Live URL:** https://dinearound-feedmetaco.vercel.app
 
@@ -61,27 +63,29 @@ npm run type-check   # Run TypeScript compiler
 
 ## 📱 iOS Application (SwiftUI)
 
-**Status:** Basic skeleton (3 tabs)
+**Status:** Rebuild from Jul 2026 design handoff (skeleton exists; full UI spec in `design-handoff/`)
 **Location:** `ios/Dinearound-app/`
+**Design tokens:** `#2F9E52` green palette (see `design-handoff/README.md` — distinct from web palette)
 
 ### Setup
-- Xcode on macOS
+- Xcode on macOS (full Xcode, not CLT only)
 - Apple ID signed into Xcode
 
 ### Build to iPhone
-See `docs/SETUP_IOS.md` for detailed instructions
-
-Open the Xcode project in `ios/` when ready.
+See `docs/SETUP_IOS.md` for detailed instructions. Open `ios/Dinearound-app/Dinearound-app.xcodeproj`.
 
 ## 📚 Documentation
-- **`CLAUDE.md`** - Instructions for Claude Code (AI assistant)
-- **`docs/WEB_STRATEGY.md`** - Web-first strategy, monetization, GTM plan
-- **`docs/WEB_TECH_STACK.md`** - Detailed tech stack decisions
-- **`docs/WEB_DEPLOYMENT_PLAN.md`** - Infrastructure, database schema, costs
-- **`docs/PLAN.md`** - V0.001 iOS plan
-- **`docs/FEATURES.md`** - Feature backlog
-- **`docs/SETUP_IOS.md`** - iOS build instructions
-- **`docs/MULTI_COMPUTER_GIT.md`** - Multi-Mac git workflow
+
+| File | Purpose |
+|------|---------|
+| **`design-handoff/README.md`** | iOS UI spec, tokens, prototype (primary iOS reference) |
+| **`tasks/todo.md`** | Open work — web + iOS checklists |
+| **`CLAUDE.md`** | Agent instructions |
+| **`developer.md`** | Developer onboarding |
+| **`docs/PLAN.md`** | Plan overview (V0.001 superseded; points to handoff) |
+| **`docs/WEB_STRATEGY.md`** | Web strategy, monetization |
+| **`docs/FEATURES.md`** | Feature backlog |
+| **`docs/archive/`** | Legacy V0.001 plans (historical) |
 
 ## Workflow
 - git pull --rebase before starting
