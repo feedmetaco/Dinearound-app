@@ -16,23 +16,23 @@ struct WishlistView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
                 HStack {
-                    SectionTitle(prefix: "Wish", accent: "list", accentColor: palette.accentGold)
+                    SectionTitle(prefix: "Wish", accent: "list", accentStyle: .gold)
                     Spacer()
-                    Button(appState.showWishlistAdd ? "Cancel" : "+ Add Restaurant") {
+                    Button {
                         appState.showWishlistAdd.toggle()
+                    } label: {
+                        HStack(spacing: 6) {
+                            Image(systemName: appState.showWishlistAdd ? "xmark" : "plus")
+                                .font(.system(size: 11, weight: .bold))
+                            Text(appState.showWishlistAdd ? "Cancel" : "Add Restaurant")
+                        }
+                        .font(.system(size: 13, weight: .heavy))
+                        .foregroundStyle(.white)
+                        .padding(.horizontal, 14)
+                        .padding(.vertical, 10)
+                        .background(DATheme.goldGradient)
+                        .clipShape(RoundedRectangle(cornerRadius: DATheme.radiusButton))
                     }
-                    .font(.system(size: 13, weight: .heavy))
-                    .foregroundStyle(.white)
-                    .padding(.horizontal, 14)
-                    .padding(.vertical, 10)
-                    .background(
-                        LinearGradient(
-                            colors: [palette.accentGold, palette.accentGoldDark],
-                            startPoint: .leading,
-                            endPoint: .trailing
-                        )
-                    )
-                    .clipShape(RoundedRectangle(cornerRadius: DATheme.radiusButton))
                     .buttonStyle(.plain)
                 }
 
@@ -42,7 +42,9 @@ struct WishlistView: View {
 
                 if wishlistRestaurants.isEmpty {
                     VStack(spacing: 8) {
-                        Text("⭐").font(.system(size: 44))
+                        Image(systemName: "star")
+                            .font(.system(size: 40))
+                            .foregroundStyle(palette.accentGold)
                         Text("Your wishlist is empty. Add restaurants you want to visit!")
                             .font(.system(size: 14, weight: .semibold))
                             .foregroundStyle(palette.textSecondary)
@@ -58,7 +60,7 @@ struct WishlistView: View {
             }
             .padding(.horizontal, 18)
             .padding(.vertical, 20)
-            .padding(.bottom, 80)
+            .padding(.bottom, 110)
         }
         .background(palette.background)
     }
@@ -75,22 +77,17 @@ struct WishlistView: View {
                         HStack {
                             Text("\(restaurant.emoji) \(restaurant.name)")
                                 .font(.system(size: 14, weight: .semibold))
+                                .foregroundStyle(palette.textPrimary)
                                 .lineLimit(1)
                             Spacer()
                             Button {
                                 appState.toggleWishlist(restaurant.id)
                             } label: {
-                                Text("+")
-                                    .font(.system(size: 18, weight: .black))
+                                Image(systemName: "plus")
+                                    .font(.system(size: 14, weight: .black))
                                     .foregroundStyle(.white)
                                     .frame(width: 32, height: 32)
-                                    .background(
-                                        LinearGradient(
-                                            colors: [palette.accentGold, palette.accentGoldDark],
-                                            startPoint: .leading,
-                                            endPoint: .trailing
-                                        )
-                                    )
+                                    .background(DATheme.goldGradient)
                                     .clipShape(Circle())
                             }
                             .buttonStyle(.plain)
@@ -129,8 +126,8 @@ struct WishlistView: View {
             Button {
                 appState.toggleWishlist(restaurant.id)
             } label: {
-                Text("×")
-                    .font(.system(size: 20, weight: .bold))
+                Image(systemName: "xmark")
+                    .font(.system(size: 14, weight: .bold))
                     .foregroundStyle(.white)
                     .frame(width: 32, height: 32)
                     .background(palette.destructive)
@@ -141,7 +138,8 @@ struct WishlistView: View {
         .padding(12)
         .background(palette.cardBackground)
         .clipShape(RoundedRectangle(cornerRadius: DATheme.radiusCard))
-        .overlay(RoundedRectangle(cornerRadius: DATheme.radiusCard).stroke(palette.borderSoft, lineWidth: 2))
+        .overlay(RoundedRectangle(cornerRadius: DATheme.radiusCard).stroke(palette.borderSoft, lineWidth: 1.5))
+        .shadow(color: .black.opacity(0.18), radius: 14, y: 6)
     }
 }
 

@@ -1,13 +1,55 @@
 # DineAround App
 
-Restaurant tracking and discovery app with **parallel tracks**: live web (Vercel/Supabase) + native iOS SwiftUI (Jul 2026 design handoff).
+Restaurant tracking and discovery app with **parallel tracks**: web (Next.js) + native iOS SwiftUI (Jul 2026 design handoff).
 
 **Canonical local path:** `~/Documents/claude-projects/dinearound-app/`
 
+## Backend — Cloudflare D1 + R2 (primary)
+
+Shared REST API in `cloudflare/` — **D1** for relational data, **R2** (`dinearound-media`) for photos/PDFs. Web and iOS sync via Worker JWT auth.
+
+| Doc | Purpose |
+|-----|---------|
+| `docs/API.md` | REST endpoint reference |
+| `docs/ARCHITECTURE.md` | System diagram + deploy steps |
+| `cloudflare/DEPLOY.md` | Wrangler quick start |
+
+**Deprecated:** Supabase PostgreSQL, Supabase Auth, Vercel serverless API routes. Web still hosts on Vercel; data layer is Cloudflare.
+
+### Deploy API
+
+```bash
+cd cloudflare
+npm install
+npx wrangler d1 create dinearound          # paste database_id into wrangler.toml
+npx wrangler r2 bucket create dinearound-media
+npm run db:migrate && npm run db:seed
+npx wrangler secret put AUTH_SECRET
+npm run deploy
+```
+
+### Client env
+
+```bash
+# web/.env.local
+NEXT_PUBLIC_API_URL=https://api.dinearound.salehinlabs.com
+
+# iOS — INFOPLIST_KEY_API_BASE_URL in Xcode (already set for production URL)
+```
+
+## 🎨 Design System — "Midnight Gourmet"
+
+Both platforms share one blended design system: **`design-system/dinearound/MASTER.md`**. It merges a
+dark-premium "logistics" shell with warm coral food-delivery accents — dark charcoal cards + coral CTAs
+in dark mode, warm peach canvas + the same coral CTAs in light mode, floating pill nav, and DineAround
+green retained as the secondary/trust accent. This **supersedes** the older green-only palette referenced
+in `design-handoff/README.md`. iOS tokens live in `DATheme` (`ios/.../Design/Theme.swift`); web tokens live
+in CSS variables (`web/app/globals.css`).
+
 ## 🌐 Web Application (Next.js 14)
 
-**Status:** Production — live at https://dinearound-app.vercel.app
-**Tech Stack:** Next.js 14 + Supabase + Vercel + Tailwind CSS
+**Status:** Production UI — **Cloudflare D1+R2** backend (Supabase deprecated)
+**Tech Stack:** Next.js 14 + Cloudflare Worker API + Vercel + Tailwind CSS
 **Live URL:** https://dinearound-app.vercel.app
 
 ### Cloud Development (Recommended)

@@ -1,4 +1,3 @@
-import PDFKit
 import PhotosUI
 import SwiftData
 import SwiftUI
@@ -9,12 +8,15 @@ struct MenuCaptureView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
     @Query private var menuItems: [StoredMenuItem]
+    @Query private var menuPDFs: [RestaurantMedia]
 
     let restaurantId: String
 
     @State private var draftItems: [EditableMenuItem] = []
     @State private var selectedPhoto: PhotosPickerItem?
+    @State private var menuPreview: UIImage?
     @State private var showShareSheet = false
+    @State private var showPDFPreview = false
     @State private var pdfURL: URL?
 
     struct EditableMenuItem: Identifiable {
@@ -28,6 +30,9 @@ struct MenuCaptureView: View {
         self.restaurantId = restaurantId
         let rid = restaurantId
         _menuItems = Query(filter: #Predicate<StoredMenuItem> { $0.restaurantId == rid })
+        _menuPDFs = Query(filter: #Predicate<RestaurantMedia> {
+            $0.restaurantId == rid && $0.kind == "menuPDF"
+        })
     }
 
     private var restaurant: Restaurant? {
@@ -37,13 +42,21 @@ struct MenuCaptureView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
-                Button("← Back") { dismiss() }
-                    .font(.system(size: 14, weight: .heavy))
-                    .foregroundStyle(palette.primaryGreen)
-                    .buttonStyle(.plain)
+                Button {
+                    dismiss()
+                } label: {
+                    HStack(spacing: 6) {
+                        Image(systemName: "chevron.left").font(.system(size: 13, weight: .bold))
+                        Text("Back")
+                    }
+                }
+                .font(.system(size: 14, weight: .heavy))
+                .foregroundStyle(palette.accentCoral)
+                .buttonStyle(.plain)
 
                 Text("Capture Menu")
                     .font(.system(size: 20, weight: .black))
+                    .foregroundStyle(palette.textPrimary)
                 if let restaurant {
                     Text(restaurant.name)
                         .font(.system(size: 13, weight: .semibold))
@@ -51,49 +64,52 @@ struct MenuCaptureView: View {
                 }
 
                 PhotosPicker(selection: $selectedPhoto, matching: .images) {
-                    RoundedRectangle(cornerRadius: 20)
-                        .fill(palette.chipFill)
-                        .frame(height: 150)
-                        .overlay(
+                    Group {
+                        if let menuPreview {
+                            Image(uiImage: menuPreview)
+                                .resizable()
+                                .scaledToFill()
+                        } else {
                             Text("Drop a photo of the menu")
                                 .font(.system(size: 14, weight: .semibold))
                                 .foregroundStyle(palette.textSecondary)
-                        )
+                        }
+                    }
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 150)
+                    .background(palette.chipFill)
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
                 }
                 .buttonStyle(.plain)
+                .onChange(of: selectedPhoto) { _, newItem in
+                    Task {
+                        guard let newItem,
+                              let data = try? await newItem.loadTransferable(type: Data.self),
+                              let image = UIImage(data: data) else { return }
+                        menuPreview = image
+                    }
+                }
 
-                Button {
+                DAGradientButton(title: "Digitize Menu", style: .green, icon: "sparkles") {
                     digitizeMenu()
-                } label: {
-                    Text("✨ Digitize Menu")
-                        .font(.system(size: 15, weight: .bold))
-                        .foregroundStyle(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 14)
-                        .background(
-                            LinearGradient(
-                                colors: [Color(hex: 0x3FAE68), Color(hex: 0x2E8A4F)],
-                                startPoint: .leading,
-                                endPoint: .trailing
-                            )
-                        )
-                        .clipShape(RoundedRectangle(cornerRadius: DATheme.radiusButton))
                 }
-                .buttonStyle(.plain)
 
                 ForEach($draftItems) { $item in
                     HStack(spacing: 8) {
                         TextField("Cat", text: $item.category)
+                            .foregroundStyle(palette.textPrimary)
                             .frame(width: 70)
                         TextField("Dish", text: $item.name)
+                            .foregroundStyle(palette.textPrimary)
                         TextField("$", text: $item.price)
+                            .foregroundStyle(palette.textPrimary)
                             .frame(width: 44)
                         Button {
                             draftItems.removeAll { $0.id == item.id }
                         } label: {
-                            Text("×")
+                            Image(systemName: "xmark.circle.fill")
                                 .foregroundStyle(palette.destructive)
-                                .font(.system(size: 18, weight: .bold))
+                                .font(.system(size: 16, weight: .bold))
                         }
                         .buttonStyle(.plain)
                     }
@@ -105,37 +121,51 @@ struct MenuCaptureView: View {
                 Button {
                     draftItems.append(EditableMenuItem(category: "Mains", name: "", price: ""))
                 } label: {
-                    Text("+ Add dish")
-                        .font(.system(size: 14, weight: .semibold))
-                        .foregroundStyle(palette.textSecondary)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 12)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: DATheme.radiusButton)
-                                .stroke(style: StrokeStyle(lineWidth: 2, dash: [6]))
-                                .foregroundStyle(palette.inputBorder)
-                        )
+                    HStack(spacing: 6) {
+                        Image(systemName: "plus").font(.system(size: 12, weight: .bold))
+                        Text("Add dish")
+                    }
+                    .font(.system(size: 14, weight: .semibold))
+                    .foregroundStyle(palette.textSecondary)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 12)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: DATheme.radiusButton)
+                            .stroke(style: StrokeStyle(lineWidth: 2, dash: [6]))
+                            .foregroundStyle(palette.inputBorder)
+                    )
                 }
                 .buttonStyle(.plain)
 
-                if !draftItems.isEmpty {
-                    DAGradientButton(title: "🖨️ Export Menu as PDF") {
-                        saveAndExportPDF()
+                if !draftItems.isEmpty || menuPreview != nil {
+                    DAGradientButton(title: "Save PDF to restaurant", style: .coral, icon: "printer") {
+                        saveAndAttachPDF(shareAfterSave: false)
+                    }
+                    if !menuPDFs.isEmpty {
+                        Button {
+                            openSavedPDF()
+                        } label: {
+                            HStack(spacing: 6) {
+                                Image(systemName: "doc.richtext").font(.system(size: 12, weight: .bold))
+                                Text("View saved menu PDF")
+                            }
+                        }
+                        .font(.system(size: 14, weight: .bold))
+                        .foregroundStyle(palette.accentCoral)
                     }
                 }
             }
             .padding(.horizontal, 20)
-            .padding(.bottom, 80)
+            .padding(.bottom, 110)
         }
         .background(palette.background)
         .navigationBarHidden(true)
-        .onAppear {
-            loadExistingItems()
-        }
+        .onAppear { loadExistingItems() }
         .sheet(isPresented: $showShareSheet) {
-            if let pdfURL {
-                ShareSheet(items: [pdfURL])
-            }
+            if let pdfURL { ShareSheet(items: [pdfURL]) }
+        }
+        .sheet(isPresented: $showPDFPreview) {
+            if let pdfURL { PDFPreviewSheet(url: pdfURL) }
         }
     }
 
@@ -155,10 +185,8 @@ struct MenuCaptureView: View {
         appState.showToast("Menu digitized")
     }
 
-    private func saveAndExportPDF() {
-        for existing in menuItems {
-            modelContext.delete(existing)
-        }
+    private func saveAndAttachPDF(shareAfterSave: Bool) {
+        for existing in menuItems { modelContext.delete(existing) }
         for item in draftItems where !item.name.trimmingCharacters(in: .whitespaces).isEmpty {
             modelContext.insert(
                 StoredMenuItem(
@@ -170,39 +198,43 @@ struct MenuCaptureView: View {
             )
         }
 
-        guard let restaurant else { return }
-        pdfURL = MenuPDFExporter.makePDF(restaurantName: restaurant.name, items: draftItems)
-        showShareSheet = true
-    }
-}
+        let lines = draftItems.map {
+            MenuPDFExporter.MenuLine(category: $0.category, name: $0.name, price: $0.price)
+        }
+        guard let restaurant,
+              let pdfData = MenuPDFExporter.makePDF(
+                restaurantName: restaurant.name,
+                items: lines,
+                menuImage: menuPreview
+              ) else { return }
 
-enum MenuPDFExporter {
-    static func makePDF(restaurantName: String, items: [MenuCaptureView.EditableMenuItem]) -> URL? {
-        let pdfMeta = [kCGPDFContextCreator: "DineAround"]
-        let format = UIGraphicsPDFRendererFormat()
-        format.documentInfo = pdfMeta as [String: Any]
-
-        let pageRect = CGRect(x: 0, y: 0, width: 612, height: 792)
-        let renderer = UIGraphicsPDFRenderer(bounds: pageRect, format: format)
-        let data = renderer.pdfData { context in
-            context.beginPage()
-            let title = "\(restaurantName)\nMenu"
-            title.draw(at: CGPoint(x: 40, y: 40), withAttributes: [
-                .font: UIFont.boldSystemFont(ofSize: 22)
-            ])
-            var y: CGFloat = 100
-            for item in items {
-                let line = "\(item.category) — \(item.name)  $\(item.price)"
-                line.draw(at: CGPoint(x: 40, y: y), withAttributes: [
-                    .font: UIFont.systemFont(ofSize: 14)
-                ])
-                y += 24
-            }
+        for old in menuPDFs {
+            MediaStorage.deleteFile(restaurantId: restaurantId, fileName: old.fileName)
+            modelContext.delete(old)
         }
 
-        let url = FileManager.default.temporaryDirectory.appendingPathComponent("menu-\(UUID().uuidString).pdf")
-        try? data.write(to: url)
-        return url
+        if let menuPreview,
+           let photoName = try? MediaStorage.saveImage(menuPreview, restaurantId: restaurantId, prefix: "menu-photo") {
+            modelContext.insert(
+                RestaurantMedia(restaurantId: restaurantId, kind: .menuPhoto, fileName: photoName)
+            )
+        }
+
+        if let pdfName = try? MediaStorage.savePDF(pdfData, restaurantId: restaurantId) {
+            modelContext.insert(
+                RestaurantMedia(restaurantId: restaurantId, kind: .menuPDF, fileName: pdfName)
+            )
+            pdfURL = MediaStorage.fileURL(restaurantId: restaurantId, fileName: pdfName)
+        }
+
+        appState.showToast("Menu PDF saved to restaurant")
+        if shareAfterSave { showShareSheet = true }
+    }
+
+    private func openSavedPDF() {
+        guard let latest = menuPDFs.sorted(by: { $0.createdAt > $1.createdAt }).first else { return }
+        pdfURL = MediaStorage.fileURL(restaurantId: restaurantId, fileName: latest.fileName)
+        showPDFPreview = true
     }
 }
 

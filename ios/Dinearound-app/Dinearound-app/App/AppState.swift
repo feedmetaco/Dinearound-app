@@ -89,9 +89,11 @@ final class AppState {
     }
 
     func signOut() {
+        APIClient.shared.logout()
         isAuthenticated = false
         isGuest = false
         userEmail = ""
+        wishlistIds = []
         navigationPath = NavigationPath()
         selectedTab = .nearby
     }
@@ -118,6 +120,7 @@ final class AppState {
             let matchesSearch = q.isEmpty
                 || restaurant.name.lowercased().contains(q)
                 || restaurant.cuisine.lowercased().contains(q)
+                || restaurant.address.lowercased().contains(q)
             let matchesCuisine = cuisineFilter == "All Cuisines" || restaurant.cuisine == cuisineFilter
             let matchesPrice = priceFilter.matches(restaurant.priceLevel)
             return matchesSearch && matchesCuisine && matchesPrice
@@ -133,10 +136,14 @@ final class AppState {
     }
 
     func toggleWishlist(_ id: String) {
-        if wishlistIds.contains(id) {
-            wishlistIds.remove(id)
-        } else {
+        let adding = !wishlistIds.contains(id)
+        if adding {
             wishlistIds.insert(id)
+        } else {
+            wishlistIds.remove(id)
+        }
+        if isAuthenticated && !isGuest {
+            Task { await SyncService.syncWishlist(restaurantId: id, adding: adding) }
         }
     }
 
@@ -160,6 +167,14 @@ final class AppState {
     func clearFilters() {
         cuisineFilter = "All Cuisines"
         priceFilter = .all
+    }
+
+    func clearSearch() {
+        searchQuery = ""
+    }
+
+    var hasActiveSearch: Bool {
+        !searchQuery.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
 
     func resetNavigationOnTabChange() {

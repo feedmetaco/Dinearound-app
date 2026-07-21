@@ -25,6 +25,10 @@ web/dist/
 web/.env*.local
 web/.vercel
 
+# Cloudflare Worker
+cloudflare/.wrangler/
+cloudflare/node_modules/
+
 # Dependencies
 node_modules/
 npm-debug.log*

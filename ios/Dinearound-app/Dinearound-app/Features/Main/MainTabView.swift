@@ -1,8 +1,10 @@
+import SwiftData
 import SwiftUI
 
 struct MainTabView: View {
     @Environment(AppState.self) private var appState
     @Environment(\.daPalette) private var palette
+    @Environment(\.modelContext) private var modelContext
 
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -21,17 +23,22 @@ struct MainTabView: View {
                         }
                 }
             }
+            .background(palette.background)
 
             if let toast = appState.toastMessage {
                 DAToast(message: toast)
-                    .padding(.bottom, 90)
-                    .transition(.opacity)
+                    .padding(.bottom, 108)
+                    .transition(.opacity.combined(with: .move(edge: .bottom)))
+                    .zIndex(1)
             }
 
-            tabBar
+            floatingPillNav
         }
         .background(palette.background)
         .animation(.easeInOut(duration: 0.2), value: appState.toastMessage)
+        .task {
+            await SyncService.syncFromServer(appState: appState, modelContext: modelContext)
+        }
     }
 
     @ViewBuilder
@@ -46,40 +53,53 @@ struct MainTabView: View {
         }
     }
 
-    private var tabBar: some View {
-        HStack {
+    /// Floating pill bottom nav — dark capsule shell in BOTH light and dark mode (Ref B),
+    /// active tab gets a solid coral pill highlight.
+    private var floatingPillNav: some View {
+        HStack(spacing: 4) {
             ForEach(AppTab.allCases, id: \.self) { tab in
+                let isActive = appState.selectedTab == tab
                 Button {
                     if appState.selectedTab != tab {
                         appState.resetNavigationOnTabChange()
                     }
                     appState.selectedTab = tab
                 } label: {
-                    VStack(spacing: 4) {
+                    HStack(spacing: 6) {
                         Image(systemName: tab.icon)
-                            .font(.system(size: 20))
-                        Text(tab.label)
-                            .font(.system(size: 11, weight: .heavy))
+                            .font(.system(size: 16, weight: .semibold))
+                        if isActive {
+                            Text(tab.label)
+                                .font(.system(size: 13, weight: .heavy))
+                                .lineLimit(1)
+                        }
                     }
-                    .frame(maxWidth: .infinity)
-                    .foregroundStyle(appState.selectedTab == tab ? palette.primaryGreen : palette.textSecondary)
+                    .foregroundStyle(isActive ? .white : .white.opacity(0.55))
+                    .padding(.horizontal, isActive ? 18 : 14)
+                    .padding(.vertical, 12)
+                    .background(
+                        Capsule()
+                            .fill(isActive ? palette.navActive : .clear)
+                    )
                 }
                 .buttonStyle(.plain)
+                .animation(.spring(response: 0.35, dampingFraction: 0.8), value: isActive)
             }
         }
-        .padding(.top, 10)
-        .padding(.bottom, 22)
-        .background(palette.headerBackground)
-        .overlay(alignment: .top) {
-            Rectangle()
-                .fill(palette.borderSoft)
-                .frame(height: 2)
-        }
+        .padding(6)
+        .background(
+            Capsule()
+                .fill(palette.navShell)
+                .background(.ultraThinMaterial.opacity(0.4), in: Capsule())
+        )
+        .shadow(color: .black.opacity(0.35), radius: 20, y: 10)
+        .padding(.horizontal, 20)
+        .padding(.bottom, 18)
     }
 }
 
 #Preview {
     MainTabView()
         .environment(AppState())
-        .modelContainer(for: [VisitRecord.self, StoredMenuItem.self], inMemory: true)
+        .modelContainer(for: [VisitRecord.self, StoredMenuItem.self, RestaurantMedia.self], inMemory: true)
 }

@@ -8,18 +8,16 @@ struct AppHeaderView: View {
         HStack {
             HStack(spacing: 10) {
                 Circle()
-                    .fill(
-                        LinearGradient(
-                            colors: [palette.greenTint, palette.primaryGreen],
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        )
-                    )
+                    .fill(DATheme.heroGradient)
                     .frame(width: 32, height: 32)
-                    .overlay(Text("🍽️").font(.caption))
+                    .overlay(
+                        Image(systemName: "fork.knife")
+                            .font(.system(size: 13, weight: .bold))
+                            .foregroundStyle(.white)
+                    )
                 Text("DineAround")
                     .font(.system(size: 18, weight: .black))
-                    .foregroundStyle(palette.primaryGreen)
+                    .foregroundStyle(palette.textPrimary)
             }
 
             Spacer()
@@ -27,20 +25,27 @@ struct AppHeaderView: View {
             Button {
                 appState.toggleDarkMode()
             } label: {
-                Text(appState.isDark ? "☀️" : "🌙")
-                    .font(.system(size: 18))
+                Image(systemName: appState.isDark ? "sun.max.fill" : "moon.fill")
+                    .font(.system(size: 15, weight: .semibold))
+                    .foregroundStyle(palette.textSecondary)
+                    .frame(width: 34, height: 34)
+                    .background(palette.chipFill)
+                    .clipShape(Circle())
             }
             .buttonStyle(.plain)
+            .padding(.trailing, 8)
 
-            Button("Sign out") {
+            Button {
                 appState.signOut()
+            } label: {
+                Text("Sign out")
+                    .font(.system(size: 12, weight: .heavy))
+                    .foregroundStyle(.white)
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 8)
+                    .background(DATheme.primaryGradient)
+                    .clipShape(Capsule())
             }
-            .font(.system(size: 12, weight: .heavy))
-            .foregroundStyle(.white)
-            .padding(.horizontal, 12)
-            .padding(.vertical, 8)
-            .background(DATheme.primaryGradient)
-            .clipShape(Capsule())
             .buttonStyle(.plain)
         }
         .padding(.horizontal, 18)
@@ -49,7 +54,7 @@ struct AppHeaderView: View {
         .overlay(alignment: .bottom) {
             Rectangle()
                 .fill(palette.borderSoft)
-                .frame(height: 2)
+                .frame(height: 1)
         }
     }
 }

@@ -1,51 +1,60 @@
 # DineAround — Task Checklist
 
 **Canonical repo:** `~/Documents/claude-projects/dinearound-app/`  
-**Tracks:** Parallel — live web (Vercel/Supabase) + iOS SwiftUI (Jul 2026 design handoff)
+**Tracks:** Web (Next.js on Vercel) + iOS SwiftUI — **shared Cloudflare D1 + R2 backend**  
+**Design:** Midnight Gourmet — `design-system/dinearound/MASTER.md`
 
 Plan before 3+ step tasks. Verify before marking done.
 
 ---
 
-## Track A — Web (Production)
+## Track A — Web
 
-- [x] Next.js 14 app in `web/` deployed to Vercel
-- [x] Supabase auth + database
-- [x] Google Places integration (Nearby)
-- [x] Log + Wishlist tabs
-- [ ] Review Vercel deploy after doc/consolidation push
-- [ ] Menu OCR/PDF — backlog (iOS has full spec in `design-handoff/`)
+- [x] Next.js 14 app in `web/` (Vercel host)
+- [x] Midnight Gourmet UI (dark default + warm peach light mode)
+- [x] Log + Wishlist + restaurant detail + media attachments (IndexedDB offline)
+- [x] Menu photo → PDF (client-side jsPDF)
+- [x] Worker API client + sync (`web/lib/api-client.ts`, `sync-service.ts`)
+- [x] Auth via Worker JWT (Supabase bypassed for sync)
+- [ ] **Deploy Cloudflare Worker** — see `cloudflare/DEPLOY.md` (D1 id + secrets)
+- [ ] Set `web/.env.local` → `NEXT_PUBLIC_API_URL`
+- [ ] Remove dead Supabase deps when confirmed unused
+- [ ] Google Places on web (existing) — keep; iOS still on seed data
 
-## Track B — iOS SwiftUI (Design Handoff)
+## Track B — iOS SwiftUI
 
-**Spec:** `design-handoff/README.md` · **Tokens:** `#2F9E52` green palette (not web SOFT_SOOTHING)
+**Spec:** `design-handoff/README.md` · **Tokens:** `design-system/dinearound/MASTER.md` (supersedes green-only handoff)
 
-- [x] Consolidate design handoff into `design-handoff/`
-- [x] Archive legacy V0.001 plans in `docs/archive/`
-- [x] Cherry-pick AppIcon from Desktop clone (`Icon-1024.png`)
-- [x] Implement design tokens from handoff in SwiftUI theme
-- [x] Auth screens (login / signup / guest) per handoff screenshots
-- [x] Nearby tab — filters, restaurant cards, location sort
-- [x] Restaurant detail screen
-- [x] Log tab — empty state, visit form, share sheet
-- [x] Wishlist tab
-- [x] Menu capture + seed OCR + PDF export (Vision OCR → future)
-- [x] Dark mode per handoff token set
-- [x] Seed data from `design-handoff/dinearound-data.js` for dev/testing
-- [ ] **Build in Xcode** — requires full Xcode.app (Gate 0); open `ios/Dinearound-app/Dinearound-app.xcodeproj`
-- [ ] Simulator/device test pass
+- [x] Midnight Gourmet theme + floating pill nav
+- [x] Auth (login / signup / guest) + Worker register/login + pull sync
+- [x] Nearby, Detail, Log, Wishlist, Menu capture
+- [x] Food photos + menu PDF (local + R2 upload when signed in)
+- [x] `APIClient.swift` + `SyncService.swift` (SwiftData offline cache)
+- [x] **xcodebuild** passes (iPhone 17 Pro Max sim)
+- [ ] Simulator/device test pass (user)
 - [ ] Menu Vision OCR (replace seed digitize stub)
+- [ ] Google Places integration (web has it; iOS deferred)
 
-## Consolidation (Done)
+## Track C — Cloudflare Backend (`cloudflare/`)
 
-- [x] Fresh clone from GitHub @ `b04d183+`
-- [x] Merge `design-handoff/`, `docs/archive/v0.001/`, `docs/archive/planning/`
-- [x] Update README, PLAN, CLAUDE.md
+- [x] D1 schema + seed (`schema.sql`, `seed.sql`)
+- [x] R2 binding (`dinearound-media`)
+- [x] REST API — auth, visits, wishlist, restaurants, menu-items, media
+- [x] `docs/API.md`, `docs/ARCHITECTURE.md`
+- [ ] `wrangler d1 create` → paste `database_id` in `wrangler.toml`
+- [ ] `wrangler secret put AUTH_SECRET` + deploy
+- [ ] Route `api.dinearound.salehinlabs.com`
 
-## Deprecated Local Copies (do not use)
+## Consolidation & Git
 
-| Location | Status |
-|----------|--------|
-| iCloud `GIT/Dinearound-app` | Stale — no `web/` |
-| Desktop `Sami_Cursor_MacMini/iOS_App/Dinearound-app` | Stale — AppIcon merged |
-| Desktop `Sami_Cursor_MacMini/Dinearound-app` | Very stale |
+- [x] Canonical repo at `~/Documents/claude-projects/dinearound-app/`
+- [ ] **Commit** ~56 uncommitted files (design + backend + media) — pending user approval
+- [ ] Push + Vercel redeploy after commit
+
+## Deprecated
+
+| Item | Status |
+|------|--------|
+| Supabase auth/DB for sync | Replaced by Cloudflare D1 |
+| Vercel serverless API | Replaced by Worker |
+| iCloud/Desktop stale clones | Do not use — see README |

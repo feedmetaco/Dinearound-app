@@ -4,6 +4,7 @@ import SwiftData
 @Model
 final class VisitRecord {
     var id: UUID
+    var remoteId: String?
     var restaurantName: String
     var restaurantId: String?
     var visitDate: Date
@@ -12,6 +13,7 @@ final class VisitRecord {
 
     init(
         id: UUID = UUID(),
+        remoteId: String? = nil,
         restaurantName: String,
         restaurantId: String? = nil,
         visitDate: Date = .now,
@@ -19,6 +21,7 @@ final class VisitRecord {
         notes: String = ""
     ) {
         self.id = id
+        self.remoteId = remoteId
         self.restaurantName = restaurantName
         self.restaurantId = restaurantId
         self.visitDate = visitDate

@@ -1,72 +1,212 @@
 @import "tailwindcss";
 
-:root {
-  /* Soft & Soothing Color Palette */
-  --background: #FAF8F5;
-  --foreground: #3D3935;
+/*
+ * "Midnight Gourmet" design system — see design-system/dinearound/MASTER.md
+ * Dark mode (default) = charcoal shell + coral food accent.
+ * Light mode = warm peach shell (same coral accent), toggled via .light class on <html>.
+ */
+:root,
+.dark {
+  --background: #14110e;
+  --foreground: #f7eee7;
 
-  /* Primary Colors - Soft Terra Cotta */
-  --primary: #D4A59A;        /* Soft Terra Cotta */
-  --primary-dark: #C08F84;
-  --primary-light: #E5C4BA;
+  --card: #1f1a16;
+  --surface-raised: #28211b;
+  --chip-fill: #241e19;
+  --border-soft: rgba(255, 214, 186, 0.1);
+  --input-border: #3a2f27;
 
-  --secondary: #F5E6D3;      /* Warm Cream */
-  --secondary-dark: #E8D5BC;
-  --secondary-light: #FFF5E9;
+  --accent-coral: #ff7a50;
+  --accent-coral-dark: #e4572e;
+  --accent-coral-glow: rgba(255, 122, 80, 0.35);
 
-  --accent: #A8C4A5;         /* Sage Green */
-  --accent-dark: #8FB08C;
-  --accent-light: #C8DCC5;
+  --brand-green: #2f9e52;
+  --brand-green-dark: #1f7a3d;
+  --green-tint: #274233;
 
-  --accent-2: #C5B8D8;       /* Soft Lavender */
-  --accent-2-dark: #AE9EC7;
-  --accent-2-light: #E0D9EB;
+  --accent-gold: #f0b429;
+  --accent-gold-dark: #c9860f;
 
-  /* Neutral Colors - Warm tones */
-  --neutral-50: #FAF8F5;
-  --neutral-100: #F2EFE9;
-  --neutral-200: #E6E1D8;
-  --neutral-300: #D4CFC4;
-  --neutral-400: #A39D93;
-  --neutral-500: #6E6962;
-  --neutral-600: #524D47;
-  --neutral-700: #3D3935;
-  --neutral-800: #2A2621;
-  --neutral-900: #1C1916;
+  --destructive: #ff5d5d;
 
-  /* Semantic Colors */
-  --success: #9DC49A;
-  --warning: #E8C988;
-  --error: #D69B9B;
-  --info: #A9C4D9;
+  --text-secondary: #9c8f84;
+  --header-bg: rgba(20, 17, 14, 0.94);
+  --toast-bg: #241e19;
+  --nav-shell: rgba(13, 11, 9, 0.92);
+  --nav-active: #ff7a50;
+
+  --shadow-card: 0 12px 28px rgba(0, 0, 0, 0.55);
+  --shadow-glow: 0 0 24px rgba(255, 122, 80, 0.35);
+}
+
+.light {
+  --background: #fdf5f0;
+  --foreground: #241a14;
+
+  --card: #ffffff;
+  --surface-raised: #ffffff;
+  --chip-fill: #fbe9df;
+  --border-soft: rgba(255, 122, 80, 0.14);
+  --input-border: #f0dccf;
+
+  --accent-coral: #ff6b3d;
+  --accent-coral-dark: #d6491e;
+  --accent-coral-glow: rgba(0, 0, 0, 0);
+
+  --brand-green: #2f9e52;
+  --brand-green-dark: #1f7a3d;
+  --green-tint: #dcf2e3;
+
+  --accent-gold: #e8a33d;
+  --accent-gold-dark: #c97f0f;
+
+  --destructive: #e1584a;
+
+  --text-secondary: #8a776b;
+  --header-bg: rgba(253, 245, 240, 0.96);
+  --toast-bg: #241a14;
+  --nav-shell: rgba(36, 26, 20, 0.92);
+  --nav-active: #ff6b3d;
+
+  --shadow-card: 0 10px 24px rgba(210, 150, 120, 0.18);
+  --shadow-glow: 0 0 0 rgba(0, 0, 0, 0);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-surface-raised: var(--surface-raised);
+  --color-chip-fill: var(--chip-fill);
+  --color-border-soft: var(--border-soft);
+  --color-input-border: var(--input-border);
+  --color-accent-coral: var(--accent-coral);
+  --color-accent-coral-dark: var(--accent-coral-dark);
+  --color-brand-green: var(--brand-green);
+  --color-brand-green-dark: var(--brand-green-dark);
+  --color-green-tint: var(--green-tint);
+  --color-accent-gold: var(--accent-gold);
+  --color-accent-gold-dark: var(--accent-gold-dark);
+  --color-destructive: var(--destructive);
+  --color-text-secondary: var(--text-secondary);
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-sora);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #2A2621;
-    --foreground: #F2EFE9;
-
-    /* Adjust soft colors for dark mode - maintain gentleness */
-    --primary: #D4A59A;
-    --secondary: #E8D5BC;
-    --accent: #A8C4A5;
-    --accent-2: #C5B8D8;
-  }
+html {
+  color-scheme: dark;
+}
+html.light {
+  color-scheme: light;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 200ms ease, color 200ms ease;
+}
+
+.font-display {
+  font-family: var(--font-sora), var(--font-inter), sans-serif;
+}
+
+/* Reusable component-level classes (see MASTER.md §7) */
+.card-surface {
+  background: var(--card);
+  border: 1.5px solid var(--border-soft);
+  border-radius: 26px;
+  box-shadow: var(--shadow-card);
+}
+
+.btn-primary {
+  background: linear-gradient(90deg, var(--accent-coral), var(--accent-coral-dark));
+  color: white;
+  border-radius: 18px;
+  font-weight: 700;
+  transition: transform 200ms ease, box-shadow 200ms ease, opacity 200ms ease;
+  box-shadow: var(--shadow-glow);
+  cursor: pointer;
+}
+.btn-primary:hover {
+  transform: translateY(-1px);
+  opacity: 0.95;
+}
+.btn-primary:active {
+  transform: scale(0.98);
+}
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-green {
+  background: linear-gradient(90deg, #3fae68, var(--brand-green-dark));
+  color: white;
+  border-radius: 18px;
+  font-weight: 700;
+  transition: transform 200ms ease, opacity 200ms ease;
+  cursor: pointer;
+}
+.btn-green:hover {
+  transform: translateY(-1px);
+  opacity: 0.95;
+}
+
+.btn-gold {
+  background: linear-gradient(90deg, var(--accent-gold), var(--accent-gold-dark));
+  color: white;
+  border-radius: 18px;
+  font-weight: 700;
+  transition: transform 200ms ease, opacity 200ms ease;
+  cursor: pointer;
+}
+.btn-gold:hover {
+  transform: translateY(-1px);
+  opacity: 0.95;
+}
+
+.btn-outline {
+  background: var(--chip-fill);
+  color: var(--accent-coral);
+  border: 2px solid color-mix(in srgb, var(--accent-coral) 40%, transparent);
+  border-radius: 18px;
+  font-weight: 700;
+  transition: transform 200ms ease, opacity 200ms ease;
+  cursor: pointer;
+}
+.btn-outline:hover {
+  transform: translateY(-1px);
+}
+
+.input-field {
+  border: 2px solid var(--input-border);
+  background: var(--chip-fill);
+  border-radius: 16px;
+  color: var(--foreground);
+  transition: border-color 200ms ease, box-shadow 200ms ease;
+}
+.input-field:focus {
+  outline: none;
+  border-color: var(--accent-coral);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent-coral) 18%, transparent);
+}
+
+.pill-nav {
+  background: var(--nav-shell);
+  backdrop-filter: blur(20px);
+  border-radius: 28px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 /* Custom scrollbar */
@@ -74,26 +214,13 @@ body {
   width: 8px;
   height: 8px;
 }
-
 ::-webkit-scrollbar-track {
   background: transparent;
 }
-
 ::-webkit-scrollbar-thumb {
-  background: #D4CFC4;
+  background: var(--input-border);
   border-radius: 4px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
-  background: #D4A59A;
-}
-
-@media (prefers-color-scheme: dark) {
-  ::-webkit-scrollbar-thumb {
-    background: #524D47;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: #6E6962;
-  }
+  background: var(--accent-coral);
 }

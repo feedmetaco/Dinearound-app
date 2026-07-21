@@ -15,6 +15,6 @@ struct Dinearound_appApp: App {
             RootView()
                 .environment(appState)
         }
-        .modelContainer(for: [VisitRecord.self, StoredMenuItem.self])
+        .modelContainer(for: [VisitRecord.self, StoredMenuItem.self, RestaurantMedia.self])
     }
 }

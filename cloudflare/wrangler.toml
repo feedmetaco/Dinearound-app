@@ -1,0 +1,26 @@
+name = "dinearound-api"
+main = "src/index.js"
+compatibility_date = "2024-01-01"
+workers_dev = true
+
+# After first deploy, attach custom domain in Cloudflare dashboard or uncomment:
+# routes = [
+#   { pattern = "api.dinearound.salehinlabs.com/*", zone_name = "salehinlabs.com" }
+# ]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "dinearound"
+# Create with: npx wrangler d1 create dinearound — then paste database_id here
+database_id = "00000000-0000-0000-0000-000000000000"
+
+[[r2_buckets]]
+binding = "MEDIA"
+bucket_name = "dinearound-media"
+
+# Secrets (set via wrangler secret put):
+# AUTH_SECRET       — JWT signing key (random 32+ chars)
+# ALLOWED_ORIGINS   — comma-separated CORS origins (optional; defaults to *)
+
+[vars]
+API_VERSION = "1"

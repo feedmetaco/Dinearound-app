@@ -1,0 +1,17 @@
+{
+  "name": "dinearound-api",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "deploy:dry-run": "wrangler deploy --dry-run",
+    "db:migrate": "wrangler d1 execute dinearound --file=schema.sql --remote",
+    "db:migrate:local": "wrangler d1 execute dinearound --file=schema.sql --local",
+    "db:seed": "wrangler d1 execute dinearound --file=seed.sql --remote",
+    "db:seed:local": "wrangler d1 execute dinearound --file=seed.sql --local"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  }
+}
