@@ -41,14 +41,14 @@ NEXT_PUBLIC_API_URL=https://dinearound-api.samisalehin.workers.dev
 
 Future custom route: `api.dinearound.salehinlabs.com` (update both clients when DNS is wired).
 
-## 🎨 Design System — "Midnight Gourmet"
+## 🎨 Design System
 
-Both platforms share one blended design system: **`design-system/dinearound/MASTER.md`**. It merges a
-dark-premium "logistics" shell with warm coral food-delivery accents — dark charcoal cards + coral CTAs
-in dark mode, warm peach canvas + the same coral CTAs in light mode, floating pill nav, and DineAround
-green retained as the secondary/trust accent. This **supersedes** the older green-only palette referenced
-in `design-handoff/README.md`. iOS tokens live in `DATheme` (`ios/.../Design/Theme.swift`); web tokens live
-in CSS variables (`web/app/globals.css`).
+| Platform | Spec | Notes |
+|----------|------|--------|
+| **iOS** | `design-system/dinearound/MASTER.md` | Midnight Gourmet — dark default, coral + green accents |
+| **Web** | `design-system/dinearound/pages/web-light.md` | Marketplace Light — white/red DONESKI-inspired (`#FF4B5C`, Plus Jakarta Sans + DM Sans) |
+
+Web tokens live in `web/app/globals.css`. iOS tokens in `DATheme` (`ios/.../Design/Theme.swift`).
 
 ## 🌐 Web Application (Next.js 16)
 

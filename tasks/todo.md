@@ -2,7 +2,7 @@
 
 **Canonical repo:** `~/Documents/claude-projects/dinearound-app/`  
 **Tracks:** Web (Next.js on Cloudflare Workers) + iOS SwiftUI — **shared Cloudflare D1 + R2 backend**  
-**Design:** Midnight Gourmet — `design-system/dinearound/MASTER.md`
+**Design:** iOS = Midnight Gourmet (`design-system/dinearound/MASTER.md`) · Web = Marketplace Light (`design-system/dinearound/pages/web-light.md`)
 
 Plan before 3+ step tasks. Verify before marking done.
 
@@ -11,7 +11,7 @@ Plan before 3+ step tasks. Verify before marking done.
 ## Track A — Web
 
 - [x] Next.js 16 app in `web/` (Cloudflare Workers via OpenNext)
-- [x] Midnight Gourmet UI (dark default + warm peach light mode)
+- [x] **Marketplace Light UI** — DONESKI-inspired light shell (`web-light.md`), map-first Nearby, 5-tab nav + FAB
 - [x] Log + Wishlist + restaurant detail + media attachments (IndexedDB offline)
 - [x] Menu photo → PDF (client-side jsPDF)
 - [x] Worker API client + sync (`web/lib/api-client.ts`, `sync-service.ts`)
@@ -20,7 +20,7 @@ Plan before 3+ step tasks. Verify before marking done.
 - [x] **Deploy web to Cloudflare** — `https://dinearound-web.samisalehin.workers.dev` (`docs/PAGES_DEPLOY.md`)
 - [x] Set `web/.env.local` → `NEXT_PUBLIC_API_URL` (`https://dinearound-api.samisalehin.workers.dev`)
 - [ ] Remove dead Supabase deps when confirmed unused
-- [ ] Google Places on web (existing) — keep; iOS still on seed data
+- [ ] Real map embed on Nearby (Google Maps when lat/lng + API key wired)
 
 ## Track B — iOS SwiftUI
 
