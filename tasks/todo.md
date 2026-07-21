@@ -11,7 +11,7 @@ Plan before 3+ step tasks. Verify before marking done.
 ## Track A — Web
 
 - [x] Next.js 16 app in `web/` (Cloudflare Workers via OpenNext)
-- [x] **Marketplace Light UI** — DONESKI-inspired light shell (`web-light.md`), map-first Nearby, 5-tab nav + FAB
+- [x] **Marketplace Light v2** — light-only (`web-light.md`), 4-tab nav, simplified Nearby (`b37cec9`)
 - [x] Log + Wishlist + restaurant detail + media attachments (IndexedDB offline)
 - [x] Menu photo → PDF (client-side jsPDF)
 - [x] Worker API client + sync (`web/lib/api-client.ts`, `sync-service.ts`)
