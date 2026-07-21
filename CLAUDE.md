@@ -6,21 +6,25 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 DineAround is a restaurant tracking and discovery app with **parallel tracks**:
 
-1. **Web (production)** — Next.js 14 + Supabase + Vercel, live at https://dinearound-app.vercel.app
-2. **iOS (in progress)** — Native SwiftUI rebuild from Jul 2026 design handoff in `design-handoff/`
+1. **Web (production)** — Next.js 16 on Cloudflare Workers (OpenNext), live at https://dinearound-web.samisalehin.workers.dev
+2. **API** — Cloudflare Worker + D1 + R2 at https://dinearound-api.samisalehin.workers.dev
+3. **iOS** — Native SwiftUI; Midnight Gourmet design; syncs to same API
+
+**Deprecated:** Vercel (`dinearound-app.vercel.app`), Supabase for sync/auth.
 
 **Canonical local path:** `~/Documents/claude-projects/dinearound-app/`
 
 ### Current State
-- **Web**: Production app in `web/` — Supabase auth, Google Places, Nearby/Log/Wishlist tabs
-- **iOS**: Basic SwiftUI skeleton in `ios/Dinearound-app/`; full UI spec in `design-handoff/README.md`
-- **Design handoff**: `design-handoff/` — tokens (`#2F9E52`), prototype HTML, seed data, screenshots
-- **Legacy plans**: `docs/archive/v0.001/` and `docs/archive/planning/` (superseded)
-- **Tasks**: `tasks/todo.md` — parallel web + iOS checklists
+- **Web**: `web/` — Worker JWT auth, Google Places, Nearby/Log/Wishlist; deploy via `npm run pages:deploy` (see `docs/PAGES_DEPLOY.md`)
+- **API**: `cloudflare/` — D1 + R2 REST API (see `docs/API.md`)
+- **iOS**: SwiftUI in `ios/Dinearound-app/`; `APIClient` + `SyncService` → API Worker
+- **Design**: Midnight Gourmet — `design-system/dinearound/MASTER.md` (supersedes green-only handoff)
+- **Tasks**: `tasks/todo.md`
 
 ### Track Decisions (locked)
-- iOS uses handoff `#2F9E52` tokens; web keeps `SOFT_SOOTHING` palette unless unified later
-- Menu OCR/PDF: full spec in design handoff (iOS); web backlog item
+- Midnight Gourmet tokens on both platforms (`design-system/dinearound/MASTER.md`)
+- Menu OCR/PDF: seed digitize on both; Vision OCR future
+- Full stack on Cloudflare: web Worker + API Worker + D1 + R2
 - Do not use stale iCloud/Desktop clones — see `tasks/todo.md` deprecated list
 
 ## Architecture
