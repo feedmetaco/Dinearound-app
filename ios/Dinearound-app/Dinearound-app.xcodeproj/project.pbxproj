@@ -397,7 +397,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_API_BASE_URL = "https://api.dinearound.salehinlabs.com";
+				INFOPLIST_KEY_API_BASE_URL = "https://dinearound-api.samisalehin.workers.dev";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Show restaurants sorted by distance from you.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Attach food and menu photos to your visits.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -427,7 +427,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_API_BASE_URL = "https://api.dinearound.salehinlabs.com";
+				INFOPLIST_KEY_API_BASE_URL = "https://dinearound-api.samisalehin.workers.dev";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Show restaurants sorted by distance from you.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Attach food and menu photos to your visits.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

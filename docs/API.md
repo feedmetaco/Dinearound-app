@@ -1,6 +1,6 @@
 # DineAround REST API
 
-Base URL: `https://api.dinearound.salehinlabs.com` (or `NEXT_PUBLIC_API_URL` / iOS `API_BASE_URL`)
+Base URL: `https://dinearound-api.samisalehin.workers.dev` (or `NEXT_PUBLIC_API_URL` / iOS `API_BASE_URL`)
 
 All authenticated endpoints require `Authorization: Bearer <JWT>` (or `da_session` cookie for same-origin web).
 
@@ -80,7 +80,7 @@ R2 keys: `{restaurant_id}/{uuid}.{ext}`
 
 | Platform | Variable | Example |
 |----------|----------|---------|
-| Web | `NEXT_PUBLIC_API_URL` | `https://api.dinearound.salehinlabs.com` |
+| Web | `NEXT_PUBLIC_API_URL` | `https://dinearound-api.samisalehin.workers.dev` |
 | iOS | `API_BASE_URL` (Info.plist) | same |
 | Worker | `AUTH_SECRET` (secret) | `openssl rand -base64 32` |
 | Worker | `ALLOWED_ORIGINS` (optional) | Vercel + localhost origins |

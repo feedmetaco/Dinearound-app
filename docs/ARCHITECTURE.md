@@ -106,7 +106,7 @@ Attach custom route: `api.dinearound.salehinlabs.com/*`
 **Web** (`web/.env.local`):
 
 ```bash
-NEXT_PUBLIC_API_URL=https://api.dinearound.salehinlabs.com
+NEXT_PUBLIC_API_URL=https://dinearound-api.samisalehin.workers.dev
 ```
 
 **iOS** — set `API_BASE_URL` in Xcode build settings or Info.plist (Debug: `http://localhost:8787` for `wrangler dev`).

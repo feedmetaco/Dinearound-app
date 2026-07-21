@@ -30,12 +30,16 @@ npm run deploy
 
 ### Client env
 
-```bash
-# web/.env.local
-NEXT_PUBLIC_API_URL=https://api.dinearound.salehinlabs.com
+**Live API:** `https://dinearound-api.samisalehin.workers.dev`
 
-# iOS — INFOPLIST_KEY_API_BASE_URL in Xcode (already set for production URL)
+```bash
+# web/.env.local (and Vercel project env for production)
+NEXT_PUBLIC_API_URL=https://dinearound-api.samisalehin.workers.dev
+
+# iOS — INFOPLIST_KEY_API_BASE_URL in Xcode (Debug/Release)
 ```
+
+Future custom route: `api.dinearound.salehinlabs.com` (update both clients when DNS is wired).
 
 ## 🎨 Design System — "Midnight Gourmet"
 
