@@ -16,8 +16,8 @@ Plan before 3+ step tasks. Verify before marking done.
 - [x] Menu photo → PDF (client-side jsPDF)
 - [x] Worker API client + sync (`web/lib/api-client.ts`, `sync-service.ts`)
 - [x] Auth via Worker JWT (Supabase bypassed for sync)
-- [ ] **Deploy Cloudflare Worker** — see `cloudflare/DEPLOY.md` (D1 id + secrets)
-- [ ] Set `web/.env.local` → `NEXT_PUBLIC_API_URL`
+- [ ] **Deploy Cloudflare Worker** — blocked: run `wrangler login` or set `CLOUDFLARE_API_TOKEN` (see handoff)
+- [x] Set `web/.env.local` → `NEXT_PUBLIC_API_URL` (`https://api.dinearound.salehinlabs.com`; update to workers.dev if no custom route yet)
 - [ ] Remove dead Supabase deps when confirmed unused
 - [ ] Google Places on web (existing) — keep; iOS still on seed data
 
@@ -48,8 +48,8 @@ Plan before 3+ step tasks. Verify before marking done.
 ## Consolidation & Git
 
 - [x] Canonical repo at `~/Documents/claude-projects/dinearound-app/`
-- [ ] **Commit** ~56 uncommitted files (design + backend + media) — pending user approval
-- [ ] Push + Vercel redeploy after commit
+- [x] **Commit** Midnight Gourmet + Cloudflare backend (`2610ba9`)
+- [ ] Push + Vercel redeploy after Worker deploy succeeds
 
 ## Deprecated
 
