@@ -24,7 +24,7 @@ Plan before 3+ step tasks. Verify before marking done.
 
 ## Track B — iOS SwiftUI
 
-**Spec:** `design-handoff/README.md` · **Tokens:** `design-system/dinearound/MASTER.md` (supersedes green-only handoff)
+**Spec:** `design-system/dinearound/MASTER.md` · **Device install:** `docs/SETUP_IOS.md`
 
 - [x] Midnight Gourmet theme + floating pill nav
 - [x] Auth (login / signup / guest) + Worker register/login + pull sync
@@ -32,6 +32,7 @@ Plan before 3+ step tasks. Verify before marking done.
 - [x] Food photos + menu PDF (local + R2 upload when signed in)
 - [x] `APIClient.swift` + `SyncService.swift` (SwiftData offline cache)
 - [x] **xcodebuild** passes (iPhone 17 Pro Max sim)
+- [ ] **Set Xcode Team** + install on physical iPhone (`docs/SETUP_IOS.md`) — only blocker for sideload
 - [ ] Simulator/device test pass (user)
 - [ ] Menu Vision OCR (replace seed digitize stub)
 - [ ] Google Places integration (web has it; iOS deferred)

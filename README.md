@@ -111,16 +111,16 @@ npm run lint         # Run ESLint
 
 ## 📱 iOS Application (SwiftUI)
 
-**Status:** Rebuild from Jul 2026 design handoff (skeleton exists; full UI spec in `design-handoff/`)
-**Location:** `ios/Dinearound-app/`
-**Design tokens:** `#2F9E52` green palette (see `design-handoff/README.md` — distinct from web palette)
+**Status:** MVP on device — Midnight Gourmet UI, Cloudflare sync, photos/PDF  
+**Location:** `ios/Dinearound-app/`  
+**Design:** `design-system/dinearound/MASTER.md`
 
 ### Setup
-- Xcode on macOS (full Xcode, not CLT only)
-- Apple ID signed into Xcode
+- Full Xcode on macOS (see `_shared/SETUP.md` Gate 0)
+- Apple ID in Xcode → pick **Team** under Signing & Capabilities
 
 ### Build to iPhone
-See `docs/SETUP_IOS.md` for detailed instructions. Open `ios/Dinearound-app/Dinearound-app.xcodeproj`.
+See **`docs/SETUP_IOS.md`**. Open `ios/Dinearound-app/Dinearound-app.xcodeproj`, select your phone, **⌘R**.
 
 ## 📚 Documentation
 
